@@ -51,6 +51,7 @@ nnoremap <Leader>h :set hlsearch!<CR>
 nnoremap <Leader>d "_dd
 nnoremap <Leader>y "+yy
 nnoremap <Leader>p o<esc>"+p
+nnoremap <Leader>c "+y
 nnoremap <Leader>v "+p
 
 " visual mode
@@ -60,7 +61,7 @@ vnoremap = =gv
 
 vnoremap <Leader>c "+y
 
-" i suck at spelling
+" i suck at spelling lol
 iabbrev adn and
 iabbrev teh the
 iabbrev waht what
@@ -119,7 +120,7 @@ highlight IncSearch guifg=#27d796
 highlight MoreMsg guifg=#27d796
 highlight Error guifg=#232530 guibg=#d4516f
 highlight ErrorMsg guifg=#d4516f guibg=#232530
-highlight WarningMsg guifg=#27d796
+highlight WarningMsg guifg=#d4516f
 highlight WildMenu guifg=#232530 guibg=#d4516f
 highlight Question guifg=#27d796
 highlight SpellBad guifg=#232530 guibg=#d4516f
