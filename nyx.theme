@@ -1,9 +1,12 @@
 ===== nyx =====
-dark:   #232530
-light:  #f9cec3
-red:    #d4516f
-blue:   #1d8991
-orange: #f09383
-green:  #27d796
-purple: #b877db
-grey:   #6c6f93
+bg:     #232530
+fg:     #F9CEC3
+===============
+black:  #0F161A
+white:  #F9CEC3
+blue:   #15A6B1
+red:    #D65C78
+orange: #D78374
+green:  #50C08E
+purple: #B08CCC
+grey:   #63798F
