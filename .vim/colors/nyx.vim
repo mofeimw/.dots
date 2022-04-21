@@ -98,6 +98,7 @@ exe "hi shQuote guifg=" s:purple
 exe "hi shDerefVarArray guifg=" s:purple
 exe "hi shDerefSimple guifg=" s:purple
 exe "hi shDerefVar guifg=" s:white
+exe "hi shDerefWordError guifg=" s:orange
 
 " html
 exe "hi htmlTitle guifg=" s:white

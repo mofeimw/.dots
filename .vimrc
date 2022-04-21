@@ -59,9 +59,9 @@ nnoremap <Leader>n :set number!<CR>
 nnoremap <Leader>h :set hlsearch!<CR>
 
 " visual mode
-vnoremap < <gv
-vnoremap > >gv
-vnoremap = =gv
+vnoremap < <gv$
+vnoremap > >gv$
+vnoremap = =gv$
 
 vnoremap <Leader>c "+y
 
