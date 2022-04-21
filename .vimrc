@@ -89,6 +89,8 @@ Plug 'reedes/vim-pencil'
 Plug 'panozzaj/vim-autocorrect'
 call plug#end()
 
+autocmd! User GoyoLeave nested set bg=dark | colorscheme nyx
+
 let g:limelight_conceal_guifg = '#63798F'
 let g:pencil#wrapModeDefault = 'soft'
 
