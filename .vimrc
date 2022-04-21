@@ -50,13 +50,13 @@ nnoremap V V$
 nnoremap x "_x
 nnoremap _d "_dd
 
-nnoremap <Leader>n :set nu!<CR>
-nnoremap <Leader>h :set hlsearch!<CR>
-
 nnoremap <Leader>y "+yy
 nnoremap <Leader>p o<esc>"+p
 nnoremap <Leader>c "+y
 nnoremap <Leader>v "+p
+
+nnoremap <Leader>n :set number!<CR>
+nnoremap <Leader>h :set hlsearch!<CR>
 
 " visual mode
 vnoremap < <gv
@@ -80,21 +80,14 @@ nnoremap <Leader>s :call SynGroup()<CR>
 
 " =============== plugins ===============
 call plug#begin('~/.vim/plugged')
-Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'reedes/vim-wordy'
-Plug 'mbbill/undotree'
-Plug 'reedes/vim-pencil'
-Plug 'panozzaj/vim-autocorrect'
+Plug 'mhinz/vim-startify'
 call plug#end()
 
 autocmd! User GoyoLeave nested set bg=dark | colorscheme nyx
 
 let g:limelight_conceal_guifg = '#63798F'
-let g:pencil#wrapModeDefault = 'soft'
 
-nnoremap <Leader>u :UndotreeToggle<CR>
 nnoremap <Leader>g :Goyo<CR>
 nnoremap <Leader>l :Limelight!!<CR>
-nnoremap <Leader>w :TogglePencil<CR>:set nobreakindent<CR>
