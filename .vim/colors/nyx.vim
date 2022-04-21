@@ -49,7 +49,7 @@ exe "hi Label guifg=" s:red
 exe "hi LineNr guifg=" s:grey
 exe "hi Macro guifg=" s:green
 exe "hi MatchParen guifg=" s:green " guibg=NONE"
-exe "hi MoreMsg guifg=" s:green
+exe "hi MoreMsg guifg=" s:purple
 exe "hi Noise guifg=" s:grey
 exe "hi NonText guifg=" s:grey " guibg=NONE"
 exe "hi Number guifg=" s:purple
@@ -80,7 +80,7 @@ exe "hi TabLine guifg=" s:blue " guibg=" s:bg
 exe "hi TabLineFill guibg=" s:bg
 exe "hi Tag guifg=" s:grey
 exe "hi Title guifg=" s:purple
-exe "hi Todo guifg=" s:green
+exe "hi Todo guifg=" s:bg " guibg=" s:purple
 exe "hi Type guifg=" s:orange
 exe "hi Underlined guifg=" s:red
 exe "hi VertSplit guifg=" s:bg " guibg=" s:red
