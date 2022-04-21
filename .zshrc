@@ -66,17 +66,9 @@ transparent() {
 
 # aliases
 alias :q="exit"
-alias notes="vim ~/.notes"
-alias dots="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
-
-alias guitar="open /Users/mofei/music/guitar; exit"
-alias tv="open /Users/mofei/.ogygia/tv; exit"
-alias mans="open /Users/mofei/documents/man; exit"
-
-alias t="translate $(pbpaste)"
-alias ts="translate -speak $(pbpaste) &> /dev/null"
-
-alias email="echo mwang02@bluevalleyk12.net | pbcopy; exit"
 
 # path
 export PATH="/usr/local/bin:$HOME/.circus:$PATH"
+
+# load local config
+source .zsh_local
