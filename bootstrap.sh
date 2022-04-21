@@ -3,6 +3,10 @@
 main() {
     trap "stty icanon; exit" EXIT INT
 
+    if [ ! -d "$HOME/.zsh" ]; then mkdir "$HOME/.zsh"; fi
+    if [ ! -d "$HOME/.vim" ]; then mkdir "$HOME/.vim"; fi
+    if [ ! -d "$HOME/.vim/colors" ]; then mkdir "$HOME/.vim/colors"; fi
+
     install .zshrc
     install .vimrc
     install .vim/colors/nyx.vim
@@ -39,7 +43,6 @@ circus() {
 }
 
 typewritten() {
-    if [ ! -d "$HOME/.zsh" ]; then mkdir "$HOME/.zsh"; fi
     if [ ! -d "$HOME/.zsh/typewritten" ]; then
         git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten"
     fi
