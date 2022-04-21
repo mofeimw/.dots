@@ -7,7 +7,7 @@ autoload -U promptinit; promptinit
 prompt typewritten
 
 # config
-source ~/z.sh
+source $HOME/.circus/z
 
 export EDITOR=vim
 export VISUAL=vim
@@ -20,7 +20,7 @@ precmd() {
     eval "precmd() { echo }"
 }
 
-# dev time savers
+# uh i'm lazy
 run() {
     name=${PWD##*/}
     [ -f main.sh ] && { ./main.sh "$@"; return 0 }
@@ -42,21 +42,21 @@ edit() {
 # ship 'em off
 :w() {
     name=${PWD##*/}
-    [ -x main.sh ] && cp main.sh ~/circus/$name || [ -x main ] && cp main ~/circus/$name || [ -x ${name}.sh ] && cp ${name}.sh ~/circus/$name || [ -x ${name} ] && cp ${name} ~/circus/$name
+    [ -x main.sh ] && cp main.sh ~/.circus/$name || [ -x main ] && cp main ~/.circus/$name || [ -x ${name}.sh ] && cp ${name}.sh ~/.circus/$name || [ -x ${name} ] && cp ${name} ~/.circus/$name
 }
 
 # color theme
 colors() {
     clear
     for i in {0..7}; do
-        printf '\033[4'$i'm    '
+        printf '\033[4%sm    ' $i
     done
     echo
 }
 
 # invisible cat!
 transparent() {
-    conf='/Users/mofei/.config/kitty/transparent.conf'
+    conf="$HOME/.config/kitty/transparent.conf"
     [ -s "$conf" ] && : > $conf || {
         echo "background_opacity 0" > $conf
         echo "window_margin_width 0" >> $conf
@@ -79,4 +79,4 @@ alias ts="translate -speak $(pbpaste) &> /dev/null"
 alias email="echo mwang02@bluevalleyk12.net | pbcopy; exit"
 
 # path
-export PATH="/usr/local/bin:$PATH:/Users/mofei/circus"
+export PATH="/usr/local/bin:$HOME/.circus:$PATH"
