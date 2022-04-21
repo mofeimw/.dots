@@ -86,6 +86,7 @@ exe "hi Underlined guifg=" s:red
 exe "hi VertSplit guifg=" s:bg " guibg=" s:red
 exe "hi Visual gui=bold guifg=" s:bg " guibg=" s:blue
 exe "hi WarningMsg guifg=" s:red
+exe "hi WildMenu guifg=" s:bg " guibg=" s:red
 
 " shell
 exe "hi shFunctionone guifg=" s:green
