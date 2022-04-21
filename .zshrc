@@ -7,7 +7,7 @@ autoload -U promptinit; promptinit
 prompt typewritten
 
 # config
-source $HOME/.circus/z
+source ~/.circus/z
 
 export EDITOR=vim
 export VISUAL=vim
