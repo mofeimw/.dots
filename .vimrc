@@ -10,6 +10,10 @@ set undofile
 set history=1000
 set undodir=~/.vim/undodir
 set virtualedit=onemore
+set mouse=a
+set wildmenu
+set ttimeout
+set ttimeoutlen=50
 set wrap
 set linebreak
 set shiftwidth=4
@@ -21,14 +25,12 @@ set autoindent
 set shiftround
 set ignorecase
 set smartcase
+set incsearch
 set hlsearch
 set backspace=indent,eol,start
 set list
 set listchars=tab:▶\ ,trail:•
 set showbreak=↪
-set mouse=a
-set wildmenu
-set incsearch
 
 " status line
 set laststatus=2
