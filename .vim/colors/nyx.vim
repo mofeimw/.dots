@@ -25,6 +25,9 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
+exe "au InsertEnter * hi StatusLine guifg=" s:red
+exe "au InsertLeave * hi StatusLine guifg=" s:blue
+
 exe "hi ColorColumn guibg=" s:grey
 exe "hi Comment guifg=" s:grey "gui=italic"
 exe "hi Conditional guifg=" s:blue
