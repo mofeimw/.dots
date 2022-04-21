@@ -54,16 +54,6 @@ colors() {
     echo
 }
 
-# invisible cat!
-transparent() {
-    conf="$HOME/.config/kitty/transparent.conf"
-    [ -s "$conf" ] && : > $conf || {
-        echo "background_opacity 0" > $conf
-        echo "window_margin_width 0" >> $conf
-        echo "window_padding_width 0" >> $conf
-    }
-}
-
 # aliases
 alias :q="exit"
 
