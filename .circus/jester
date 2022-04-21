@@ -1,0 +1,101 @@
+#!/bin/sh
+
+main() { 
+    set -- $(stty size)
+    LINES=$1
+    COLUMNS=$2
+
+    z=0
+
+    draw
+    status "$PWD/$cursor"
+
+    trap 'set -- $(stty size); LINES=$1; COLUMNS=$2' WINCH
+    trap "stty icanon echo; printf '\033[?25h\033[2J\033[H'" EXIT INT
+
+    stty -icanon -echo
+    while key=$(dd ibs=1 count=1 2>/dev/null); do
+        keystroke
+        draw
+        status "${stat:-$PWD/$cursor}"
+    done
+}
+
+draw() {
+    printf '\033[2J\033[H\033[?25l'
+
+    set -- *
+
+    [ $z -gt $# ] && z=$((z % $# - 1))
+    [ $z -eq $# ] && z=0
+
+    [ $z -gt 0 ] && shift $z
+    [ $z -lt 0 ] && {
+        z=$((z + $#))
+        shift $z
+    }
+
+    cursor="$1"
+
+    set -- *
+
+    for item do
+        [ "$cursor" = "$item" ] && {
+            [ -d "$item" ] && { printf '\033[1m\033[44m\033[30m%s\033[m\n' "$item"; color=0; } || { printf '\033[1m\033[41m\033[30m%s\033[m\n' "$item"; color=1; }
+            continue
+        } || [ -d "$item" ] && printf '\033[1m\033[34m%s\033[m\n' "$item" || printf '%s\n' "$item"
+    done
+}
+
+status() {
+    formated="$1"
+    i=0
+    while [ $i -lt $((COLUMNS - ${#1})) ]; do
+        formated="${formated} "
+        i=$((i + 1))
+    done
+    [ $color -eq 0 ] && printf '\033[1m\033[%s;0H\033[44m\033[30m%s\033[m' $LINES "$formated" || printf '\033[1m\033[%s;0H\033[41m\033[30m%s\033[m' $LINES "$formated"
+}
+
+keystroke() {
+    case $key in
+        k)
+            z=$((z-1))
+        ;;
+
+        j)
+            z=$((z+1))
+        ;;
+
+        l)
+            [ -d "$cursor" ] && { cd "$cursor"; z=0; } || {
+                status "open $cursor in vim?"
+                key=$(dd ibs=1 count=1 2>/dev/null)
+                [ $key = l ] && vim "$cursor" || [ $key = h ] && : || keystroke
+            }
+        ;;
+        
+        h)
+            cd ..
+            z=0
+        ;;
+
+        /)
+            status "search: "
+            read cmd
+            stat="searching for $cmd"
+        ;;
+
+        ':')
+            status ":"
+            read cmd
+            stat="!$cmd"
+        ;;
+
+        q)
+            exit 0
+        ;;
+    esac
+}
+
+main "$@"

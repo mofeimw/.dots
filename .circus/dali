@@ -1,0 +1,586 @@
+#!/usr/bin/env bash
+
+# clear screen and render each element
+render() {
+    # escape code to clear screen
+    printf '\033[2J\033[H\033[?25l'
+
+    # render header
+    header "dali resolve"
+    
+    # render body content
+    [ ${#body} -ne 0 ] && body
+
+    # loop through <select>able elements and print
+    for option in "${selectable[@]}"; do
+        # test if the option has been selected by user
+        if [[ "${selected[@]}" =~ "${option}" ]]; then
+            [ "${selectable[$cursor]}" == "$option" ] && printf '\033[1m\033[41m\033[30m%s\033[m\n' "> $option" || printf '\033[1m\033[41m\033[30m%s\033[m\n' "$option"
+        else
+            [ "${selectable[$cursor]}" == "$option" ] && printf '\033[1m\033[31m%s\033[m\n' "> $option" || printf '\033[1m\033[34m%s\033[m\n' "$option"
+        fi
+    done
+
+    [ -z "$slabel" ] && slabel="done"
+
+    # render submit button based on state
+    [ "$submit" == "visible" ] && {
+        for ((i=0; i<COLUMNS; i++)); { echo -n " "; }
+        printf '\033[1m\033[46m\033[30m%s\033[m\n' "$slabel"
+    }
+
+    [ "$submit" == "selected" ] && {
+        for ((i=0; i<COLUMNS; i++)); { echo -n " "; }
+        printf '\033[1m\033[41m\033[30m%s\033[m\n' "$slabel"
+    }
+}
+
+# recalculate window size and rerender
+refresh() {
+    # get dimensions
+    read -r LINES COLUMNS < <(stty size)
+
+    # rerender
+    render
+}
+
+# hard reset
+reset() {
+    body=()
+    selectable=()
+    selected=()
+    submit=""
+    slabel=""
+    cursor=0
+
+    refresh
+}
+
+# print header
+header() {
+    # find z value with respect to the center point
+    ((z = (COLUMNS - "${#1}") / 2 ))
+
+    # fill output variable with appropriate amount of spaces to create banner
+    out=""
+    for ((i=0; i<z; i++)); { out+=" "; }
+    out+="$1"
+    for ((i=0; i<z; i++)); { out+=" "; }
+
+    # add space to compensate for odd number of columns
+    [ ! $(((COLUMNS - ${#1}) % 2)) -eq 0 ] && out+=" "
+
+    # write to stdout, with top and bottom padding
+    printf '\033[1m\033[44m\033[30m%s\033[m' "$out"
+    for ((i=0; i<COLUMNS; i++)); { echo -n " "; }
+}
+
+# render all in <body>
+body() {
+    for p in "${body[@]}"; do
+        printf '\033[1m\033[34m%s\033[m' "$p"
+        for ((i=0; i<COLUMNS-${#p}; i++)); { echo -n " "; }
+    done
+    for ((i=0; i<COLUMNS; i++)); { echo -n " "; }
+}
+
+# construct a <select>
+choice() {
+    # loop through arguments and add to (selectable) array
+    for option in "$@"; do
+        selectable+=("$option")
+    done
+    render
+}
+
+# file browser
+browser() {
+    msg="select a file ("
+    for e in "${exts[@]}"; do msg+=".$e, "; done
+    body+=("${msg%??})")
+    queue "$1"
+
+    # init/reset variables
+    opts=""
+    cursor=0
+
+    # construct a <select> with all the files in the current directory
+    for file in *; do
+        [ ${#exts} -ne 0 ] && {
+            for e in "${exts[@]}"; do
+                if [[ "$file" =~ .*\.$e ]] && [[ ! " ${opts[*]} " =~ " $file " ]]; then
+                    opts+="$file "
+                fi
+            done
+        } || opts+="$file "
+    done
+    choice $opts
+
+    # set the type to filesystem mode
+    submit="fs"
+}
+
+# allow chainable function calls
+next() {
+    # set the next function
+    next=${queue[1]}
+
+    # pop the previous call from queue
+    remove "${queue[0]}"
+
+    # run ffmpeg command if queue is empty
+    [ ${#queue[@]} -eq 0 ] && {
+        complete=true
+    } || $next
+}
+
+# remove the first (current) index in queue
+remove() {
+    for q in "${queue[@]}"; do
+        [ "$1" == "$q" ] && {
+            new=()
+            for y in "${queue[@]}"; do
+                [ ! "$y" == "$1" ] && new+=("$y")
+            done
+            queue=("${new[@]}")
+            unset new
+            break
+        }
+    done
+}
+
+# add to up next queue
+queue() { queue=("${queue[@]:0:1}" "$1" "${queue[@]:1}"); }
+
+# submit button
+submit() {
+    # on_submit handler in file browser mode
+    [ "$submit" == "fs" ] && {
+        # reset and forward to next function in queue
+        reset
+        next
+        return 0
+    }
+
+    # on submit handler when <select> was not in file browser mode
+    # pop queue
+    if [[ ${#selected[@]} -eq 0 ]] && [[ ${#queue} -ne 0 ]] && [[ ! -z "$filters" ]]; then
+        remove image
+        next
+        return 0
+    fi
+
+    # make sure there is at least one selection
+    [ ${#selected[@]} -eq 0 ] && return 1
+
+    # grab submitted form data
+    data=("${selected[@]}") 
+    
+    reset
+
+    # reorganizes selection and adds to queue in the correct order
+    for ((i=0; i<=${#order[@]}; i++)); do
+        if [[ " ${data[*]} " =~ " ${order[$i]} " ]]; then
+            queue+=("${order[$i]}")
+        fi
+    done
+
+    next
+}
+
+# "click" event handler
+click() {
+    # call submit() to send data
+    [ "$submit" == "selected" ] && { submit; return 0; }
+
+    # in file browser mode immediately submit after one selection, saving the selected file
+    [ "$submit" == "fs" ] && {
+        file="${selectable[$cursor]}"
+        submit
+        return 0
+    }
+    
+    # if no other selections have been made add the selected into the array
+    [ ${#selected[@]} -eq 0 ] && {
+        selected=("${selectable[$cursor]}")
+        render
+        return 0
+    }
+
+    # loop through each selected item
+    for item in "${selected[@]}"; do
+        # deselect item if it was already within the selected array
+        [ "${selectable[$cursor]}" == "$item" ] && {
+            # create new array and repopulate without the deselected option - to avoid leaving a gap in the indices
+            new=()
+
+            for value in "${selected[@]}"; do
+                [ ! "$value" == "$item" ] && new+=("$value")
+            done
+
+            selected=("${new[@]}")
+            unset new
+
+            render
+            return 0
+        }
+    done
+
+    # select the item the cursor is on
+    selected+=("${selectable[$cursor]}")
+    render
+}
+
+# cursor logic
+curse() {
+    # move selection away from submit button if it was already selected
+    [ $submit == selected ] && {
+        cursor=0
+        submit="visible"
+    }
+
+    # test submit button state
+    [ $submit == visible ] && {
+        [ $cursor -eq ${#selectable[@]} ] && submit="selected"
+    } || {
+        [ $cursor -eq ${#selectable[@]} ] && cursor=0
+    }
+    [ $cursor -eq -1 ] && ((cursor = ${#selectable[@]} - 1))
+
+    render
+}
+
+# event handlers
+# adjusts the cursor position and adjusts snapback to prevent array index out of bounds
+up() {
+    ((cursor--))
+    curse
+}
+
+down() {
+    ((cursor++))
+    curse
+}
+
+# map keys
+keystroke() {
+    # map escape codes
+    [ -n $escape ] && {
+        case $key in
+            A)
+                up
+            ;;
+
+            B)
+                down
+            ;;
+        esac
+
+        unset escape
+    }
+
+    # set flag because escape keys send two seperate triggers
+    [ "$key" == "[" ] && escape=true
+
+    # map regular keys (vim-like keybinds yay)
+    case $key in
+        k)
+            up
+        ;;
+
+        j)
+            down
+        ;;
+
+        " "|"")
+            click
+        ;;
+
+        q)
+            exit 0
+        ;;
+    esac
+}
+
+# video editing
+# proxy function to image overlay
+image() {
+    # create a file picker and forward to overlay()
+    reset
+    body=("image overlay")
+    exts=("png" "jpg" "jpeg")
+    browser overlay
+}
+
+# proxy <select> to image overlay
+img() {
+    # create <select> to get user's next operation
+    reset
+    body=("select <image> to continue overlaying or <next> to move on to next operation")
+    choice "image"
+    submit="visible"
+    slabel="next"
+    render
+}
+
+# create ffmpeg filtergraph chain to overlay
+overlay() {
+    # reset terminal and turn on icanon and echo mode
+    reset
+    stty icanon echo
+    
+    printf '\033[1m\033[34m%s\033[m\n' "<$file>"
+    echo
+
+    # get start time
+    printf '\033[1m\033[34m%s\033[m\n' 'start time (hh:mm:ss/mm:ss, blank for full video): '
+    read start
+
+    # if it is not blank (full video) convert to seconds
+    [ ! -z "$start" ] && {
+        start=$(seconds $start)
+        [ $? -eq 1 ] && {
+            reset
+            body=("invalid time")
+            render
+            exit 1
+        }
+    }
+
+    # get end time if full video overlay is not desired and convert to seconds
+    [ ! -z "$start" ] && {
+        printf '\n\033[1m\033[34m%s\033[m\n' 'end time (hh:mm:ss/mm:ss): '
+        read end
+        end=$(seconds $end)
+        [ $? -eq 1 ] && {
+            reset
+            body=("invalid time")
+            render
+            exit 1
+        }
+
+        # create filtergraph parameter
+        between=":enable='between(t,${start},${end})'"
+    } || between=""
+
+    # change number of pads and add a semicolon on the second passthrough (when n=1)
+    [ $n -eq 1 ] && {
+        filters+=";"
+        pads=[0][1]
+    }
+
+    # create temp variable z to set the correct pad #
+    ((z = n + 1))
+
+    # set the filtergraph chain depending on the n value
+    [ $n -eq 0 ] && filters="${filters}overlay=x=0:y=0${between}[out]" || filters="${filters}[out][$z]overlay=x=0:y=0${between}[out];"
+
+    # increment n - next passthrough on overlay
+    ((n++))
+
+    # turn icanon and echo back off, tui mode
+    stty -icanon -echo
+
+    # add input and flags into input chain
+    inputs+=" -i $file"
+
+    # go to next section
+    queue image
+    queue img
+    next
+}
+
+# proxy function for subtitle file picker
+subtitle() {
+    reset
+    body=("subtitle")
+
+    exts=("ass")
+    browser sub
+}
+
+# adds on to filtergraph chain with the selected subtitle file
+sub() {
+    reset
+
+    # remove the [out] or [out]; from the end of the chain to allow adding on the chain
+    [ "$n" -eq 1 ] && rgx='^(.+)\[out\]$' || rgx='^(.+)\[out\];$'
+    if [[ "$filters" =~ $rgx ]]; then
+        filters="${BASH_REMATCH[1]}"
+    fi
+
+    # append to chain
+    [ ! -z "$filters" ] && filters+=",ass=$file[out]" || filters+="ass=$file[out]"
+
+    next
+}
+
+# optimize/reencode withe video in h.264 to reduce file size
+optimize() {
+    reset
+    body=("h.264 encoding" "1-50 value, lower for higher resolution")
+    render
+    stty icanon echo
+
+    # ask for crf value
+    printf '\033[1m\033[34m%s\033[m\n' 'crf: '
+    read crf
+
+    # default to 23 if it is not an integer value or too high
+    if [[ -z "$crf" ]] || [[ ! "$crf" =~ [0-9]+ ]]; then
+        crf=23
+    elif [[ $crf -gt 50 ]]; then
+        crf=23
+    fi
+
+    # set variable with contents
+    optimize=" -vcodec libx264 -crf $crf"
+
+    stty -icanon -echo
+    next
+}
+
+# <select> for video operations
+ops() {
+    # set the video variable to the video file selected in previous stage
+    video="$file"
+
+    # set the inputs flag, will be added on to later
+    inputs=" -i $file"
+
+    # set up the tui
+    reset
+    body=("select (an) operation(s)")
+    choice "image" "subtitle" "optimize"
+    submit="visible"
+    render
+}
+
+# convert to seconds from hh:mm:ss or mm:ss
+seconds() {
+    # use first argument
+    time=$1
+
+    # if format is in hh:mm:ss, extract hours, minutes, and seconds using substrings
+    if [[ $time =~ [0-9]+:[0-9]+:[0-9]+ ]]; then
+        hours=${time:0:2}
+        mins=${time:3:2}
+        secs=${time#*:*:}
+    # if format is in mm:ss, set hours to zero and extract minutes and seconds using substrings
+    elif [[ $time =~ [0-9]+:[0-9]+ ]]; then
+        hours=0
+        mins=${time:0:2}
+        secs=${time#*:}
+    else
+        # invalid formula, return exit code 1
+        exit 1
+    fi
+
+    # strip leading zeros
+    hours=${hours/#0/}
+    mins=${mins/#0/}
+    secs=${secs/#0/}
+
+    # multiply out to get seconds
+    seconds=$((hours * 60 * 60 + mins * 60))
+    seconds=$(echo "$seconds + $secs" | bc)
+
+    # exit on fail (invalid format)
+    [ -z $seconds ] && {
+        exit 1
+    }
+
+    # return value
+    echo $seconds
+}
+
+# run the ffmpeg command
+run() {
+    # reset and display the ffmpeg command
+    reset
+    [ -z "$filters" ] && log="ffmpeg -y$inputs$optimize $video" || log="ffmpeg -y$inputs -filter_complex $pads$filters -map [out] -map 0:a?$optimize $video"
+    body=("$log")
+    render
+
+    # record ffmpeg cmd
+    echo "$log" > log.txt
+
+    # remove the trailing semicolon
+    rgx='^(.+);$'
+    if [[ "$filters" =~ $rgx ]]; then
+        filters="${BASH_REMATCH[1]}"
+    fi
+
+    # run ffmpeg command, outputting log to log.txt
+    [ -z "$filters" ] && ffmpeg -y$inputs$optimize ".dali_$video" 2>> log.txt || ffmpeg -y$inputs -filter_complex "$pads$filters" -map [out] -map 0:a?$optimize ".dali_$video" 2>> log.txt
+
+    # move files into place
+    mv "$video" ".dali/$video"
+    mv ".dali_$video" "$video"
+
+    # display completion message
+    reset
+    body+=("done!")
+    render
+
+    # wait for keypress and exit
+    key=$(dd ibs=1 count=1 2>/dev/null)
+}
+
+# main() function
+main() {
+    # create .dali directory if it doesn't already exist
+    [ ! -d ".dali" ] && mkdir ".dali"
+
+    # get terminal dimensions
+    read -r LINES COLUMNS < <(stty size)
+
+    # hide input and read keys one at a time
+    stty -icanon -echo
+
+    # catch window resizes and exits
+    trap 'refresh' WINCH
+    trap "stty icanon echo; printf '\033[?25h\033[2J\033[H'; exit 1" EXIT INT
+
+    # init tui variables
+    selectable=()
+    selected=()
+    queue=("home")
+    order=("image" "subtitle" "optimize")
+    cursor=0
+    file=""
+    video=""
+    exts=()
+
+    # init ffmpeg variables
+    n=0
+    inputs=""
+    pads="[0]"
+    filters=""
+    optimize=""
+
+    # push <p> to the <body>
+    body=("welcome to dali resolve")
+    
+    # make a file browser to select video file to work with
+    exts=("mp4" "mkv" "mov")
+    browser ops
+    
+    # render to terminal!
+    render
+
+    # forever loop reading keys
+    while key=$(dd ibs=1 count=1 2>/dev/null); do
+        keystroke
+        [ "$complete" == true ] && {
+            break
+        }
+    done
+
+    # run ffmpeg command once the loop is broken
+    [ "$complete" == true ] && {
+        run
+    }
+}
+
+main "$@"

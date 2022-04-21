@@ -1,0 +1,431 @@
+#!/bin/bash
+
+# main function
+main() {
+    # init project
+    echo "project:"
+    read name
+    echo
+
+    # make sure input is not null
+    [ -z $name ] && {
+        echo "please enter a project"
+        exit 1
+    }
+
+    # create required directories
+    [ ! -d "$name" ] && {
+        echo "invalid project"
+        exit 1
+    }
+    [ ! -d "$name/staging" ] && mkdir "$name/staging"
+
+    # deal with arguments if passed
+    [ ! -z $1 ] && cmd=$1 || {
+        echo "operation [c̶u̶t̶|subtitle|image|intro|optimize|export]:"
+        read cmd
+        echo
+    }
+    
+    # switch of options
+    case $cmd in
+        "cut"|"chop")
+            cut
+            ;;
+
+        "logo"|"img"|"image"|"overlay")
+            image
+            ;;
+
+        "intro"|"banner"|"slide"|"slides")
+            slide
+            ;;
+
+        "export"|"pack")
+            pack
+            ;;
+
+        "sub"|"subtitle"|"subtitles")
+            subtitle
+            ;;
+
+        "opt"|"optimize")
+            optimize
+            ;;
+
+        *)
+            echo "unknown option"
+            exit 1
+            ;;
+        esac
+}
+
+# cuts video into seperate videos - DEPRECATED
+cut() {
+    # read target video
+    echo "target video file: [video.mp4]:"
+    read target
+    echo
+
+    [ -z $target ] && target="video.mp4"
+
+    [ ! -d "$name/staging" ] && {
+        mkdir "$name/staging"
+        [ -f "$name/${target}" ] && cp "$name/${target}" "$name/staging/video.mp4" || {
+            echo "target not found"
+            exit 1
+        }
+    }
+
+    # start time
+    echo "video start [00:00]:"
+    read prev
+    [ -z $prev ] && {
+        prev=00:00:00
+        offset=0
+    } || {
+        offset=$(seconds $prev)
+        prev=$(format $offset)
+    }
+    echo
+
+    # number of cuts
+    echo "number of cuts [1]:"
+    read cuts
+    [ -z $cuts ] && cuts=1
+    echo
+
+    # duration of video/end time
+    fin=$(exiftool -T -Duration $name/staging/video.mp4)
+    
+    # loop for each cut
+    i=0
+    while true; do
+        [ $i -eq $cuts ] && {
+            ffmpeg -ss $prev -i "$name/staging/video.mp4" -to $fin -vcodec copy -acodec copy "$name/staging/video_$((i + 1)).mp4"
+            break
+        }
+
+        echo "cut:"
+        read cut
+
+        if [ ${#cut} -eq 8 ] || [ ${#cut} -eq  5 ]; then
+            seconds=$(seconds $cut)
+        else
+            echo "please format as hh:mm:ss or mm:ss"
+            echo
+            continue
+        fi
+
+        seconds=$((seconds - offset))
+        cut=$(format $seconds)
+
+        ffmpeg -ss $prev -i "$name/staging/video.mp4" -to $cut -vcodec copy -acodec copy "$name/staging/video_$((i + 1)).mp4"
+
+        prev=$cut
+        $((i++))
+    done
+}
+
+# static png image on frames
+image() {
+    # read target video
+    echo "target video file (staging directory):"
+    read target
+    echo
+
+    # make sure target exists
+    [ ! -f "$name/staging/$target" ] && {
+        echo "target not found"
+        exit 1
+    }
+
+    # read number of times to overlay
+    echo "number of times (default 1):"
+    read times
+    echo
+    # default to 1
+    [ -z $times ] && times=1
+
+    # loop to generate ffmpeg arguments
+    i=0
+    inputs=""
+    over=""
+    # make sure it is a number
+    if [[ $times =~ ^[0-9]+$ ]]; then
+        while [ $i -lt $times ]; do
+            # read image to overlay
+            echo "image file:"
+            read path
+            echo
+
+            # make sure image exists
+            [ ! -f "$name/$path" ] && {
+                echo "overlay target not found"
+                exit 1
+            }
+
+            # read x and y coordinates - usually use (0, 0) because photoshop is used to create a transparent png mask of the desired resolution
+            # echo "x:"
+            # read x
+            # echo
+
+            # echo "y:"
+            # read y
+            # echo
+
+            # [ -z $x ] && x=0
+            # [ -z $y ] && y=0
+
+            # (540, -12) top center logo
+
+            # autoset x and y because of new masking procedure
+            x=0
+            y=0
+
+            # read start time
+            echo "start time [hh:mm:ss|mm:ss, blank for full video]:"
+            read startd
+            echo
+
+            [ -n "$startd" ] && {
+                # read end time
+                echo "end time [hh:mm:ss|mm:ss]:"
+                read endd
+                echo
+
+                # convert times to seconds, exiting on fail
+                startd=$(seconds $startd)
+                [ $? -eq 1 ] && {
+                    echo "invalid time"
+                    exit 1
+                }
+
+                endd=$(seconds $endd)
+                [ $? -eq 1 ] && {
+                    echo "invalid time"
+                    exit 1
+                }
+
+                # format ffmpeg filter arguments
+                between=":enable='between(t,${startd},${endd})'"
+            } || {
+                between=""
+            }
+            
+            inputs="${inputs} -i $name/$path"
+
+            # format ffmpeg filter arguments based on the amount of overlays
+            [ $times -eq 1 ] && {
+                over="[0]overlay=x=${x}:y=${y}${between}[out]"
+                break
+            }
+
+            if [ $times -ne 1 ] && [ $i -eq 0 ]; then
+                over="[0][1]overlay=x=${x}:y=${y}${between}[out];"
+            else
+                z=$((i + 1))
+                over="${over}[out][$z]overlay=x=${x}:y=${y}${between}[out];"
+            fi
+
+            ((i++))
+        done
+
+        [ $times -ne 1 ] && over=${over%?}
+    else
+        echo "non integer value"
+        exit 1
+    fi
+
+    # input from staging area, adding on the input flags dynamically and passing in the filter flags generated, auto map audio channel and export to staging/overlayed
+    ffmpeg -i "$name"/staging/${target}${inputs} -filter_complex "$over" -map "[out]" -map 0:a? "$name/staging/overlayed_${target}"
+
+    # set up archives
+    [ ! -d "$name/staging/archives" ] && mkdir "$name/staging/archives"
+
+    # organize folder structure
+    mv "$name/staging/$target" "$name/staging/archives"
+    mv "$name/staging/overlayed_${target}" "$name/staging/$target"
+
+}
+
+# creates slide at the start of video
+slide() {
+    # read target video
+    echo "target video (.png of same resolution and name required in base directory as well):"
+    read target
+    echo
+
+    # make sure it exists
+    [ ! -f "$name/staging/$target" ] && {
+        echo "target not found"
+        exit 1
+    }
+
+    # strip file extension
+    tname="${target%.*}"
+
+    # make sure png slide counterpart exists as well
+    [ ! -f "$name/${tname}.png" ] && {
+        echo "make sure there is a corresponding .png in base directory!"
+        exit 1
+    }
+
+    # set up archives
+    [ ! -d "$name/staging/archives" ] && mkdir "$name/staging/archives"
+
+    # generate silent audio for png slide and convert to a video
+    ffmpeg -y -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -loop 1 -i "$name/${tname}.png" -pix_fmt yuv420p -t 4 "$name/staging/archives/slide_${tname}.mp4"
+    
+    # ? move slide image into archives
+    # mv "$name/staging/${tname}.png" "$name/staging/archives"
+
+    # concatenate
+    ffmpeg -i "$name/staging/archives/slide_${tname}.mp4" -i "$name/staging/$target" -filter_complex "[0:v:0][0:a:0][1:v:0][1:a:0]concat=n=2:v=1:a=1[outv][outa]" -map "[outv]" -map "[outa]" "$name/staging/tmp_${target}"
+
+    # organize folder structure
+    mv "$name/staging/$target" "$name/staging/archives"
+    mv "$name/staging/tmp_${target}" "$name/staging/$target"
+
+    # ask if user would like to export
+    echo "export?"
+    read exp
+    echo
+
+    # call pack()
+    [ $exp == "yes" ] && pack
+}
+
+pack() {
+    # check if export directory already exists and is not empty; create if it doesn't exist
+    if [ -d "$name/export" ] && [ ! -z "$(ls -A $name/export)" ]; then
+        [ ! "$(ls -A $name/export)" == ".DS_Store" ] && {
+            # ask for confirmation
+            echo "export directory already exists"
+            echo "overwrite?"
+            read choice
+            echo
+
+            [ $choice == "yes" ] && rm -rf "$name/export" || exit 1
+            mkdir "$name/export"
+        }
+    elif [ ! -d "$name/export" ]; then
+        mkdir "$name/export"
+    fi
+
+    # move staging area videos into export directory, with a neat name
+    for video in $name/staging/*.mp4; do
+        # strip parent directories
+        vid=${video#*/*/}
+
+        # confirm and then export - confirmation not really needed, old artifact but why not
+        [ ! -f "$name/export/$vid" ] && mv "$video" "$name/export" || echo "duplicate video id, transfer of $vid not complete"
+    done
+}
+
+# adds subtitles to video
+subtitle() {
+    # read target video
+    echo "target video file (staging directory):"
+    read target
+    echo
+
+    # make sure target exists
+    [ ! -f "$name/staging/$target" ] && {
+        echo "target not found"
+        exit 1
+    }
+
+    # read subtitle file
+    echo "subtitle file (.srt):"
+    read sub
+    echo
+
+    # make sure target exists
+    [ ! -f "$name/$sub" ] && {
+        echo "subtitle file not found"
+        exit 1
+    }
+    
+    # burn in subtitles
+    ffmpeg -i "$name/staging/$target" -vf subtitles="$name/$sub" "$name/staging/subbed_${target}"
+
+    # set up archives
+    [ ! -d "$name/staging/archives" ] && mkdir "$name/staging/archives"
+
+    # organize folder structure
+    mv "$name/staging/$target" "$name/staging/archives"
+    mv "$name/staging/subbed_${target}" "$name/staging/$target"
+}
+
+# optimize function - simple utility tool
+optimize() {
+    # read target video
+    echo "video to optimize:"
+    read target
+    echo
+
+    # make sure target exists
+    [ ! -f "$name/$target" ] && {
+        echo "video not found"
+        exit 1
+    }
+
+    # read crf value
+    echo "crf value (default 23):"
+    read crf
+    echo
+
+    # default to 23
+    [ -z $crf ] && crf=23
+
+    # reencode with h.265 and compress
+    ffmpeg -i "$name/${target}" -vcodec libx264 -crf $crf "$name/optimized_${target}"
+}
+
+# converts to seconds from input
+seconds() {
+    # use first argument
+    time=$1
+
+    # if format is in hh:mm:ss, extract hours, minutes, and seconds using substrings
+    if [[ $time =~ [0-9]+:[0-9]+:[0-9]+ ]]; then
+        hours=${time:0:2}
+        mins=${time:3:2}
+        secs=${time#*:*:}
+    # if format is in mm:ss, set hours to zero and extract minutes and seconds using substrings
+    elif [[ $time =~ [0-9]+:[0-9]+ ]]; then
+        hours=0
+        mins=${time:0:2}
+        secs=${time#*:}
+    else
+        # invalid formula, return exit code 1
+        exit 1
+    fi
+
+    # strip leading zeros
+    hours=${hours/#0/}
+    mins=${mins/#0/}
+    secs=${secs/#0/}
+
+    # multiply out to get seconds
+    seconds=$((hours * 60 * 60 + mins * 60))
+    seconds=$(echo "$seconds + $secs" | bc)
+
+    # exit on fail (invalid format)
+    [ -z $seconds ] && {
+        exit 1
+    }
+
+    # return value
+    echo $seconds
+}
+
+# formats to hh:mm from integer seconds value
+format() {
+    secs=$1
+    printf '%02d:%02d:%02d\n' $((secs/3600)) $((secs%3600/60)) $((secs%60))
+}
+
+# call main
+main "$@"

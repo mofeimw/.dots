@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+main() {
+    # needs argument
+    [ -z "$1" ] && exit 1
+    [ ! -f "$1" ] && exit 1
+
+    # get window dimensions
+    read -r LINES COLUMNS < <(stty size)
+
+    # set up terminal
+    tput civis
+    stty -icanon -echo
+    trap "stty icanon echo; tput cnorm; clear" EXIT
+
+    # read script into array
+    script=()
+    while read -r line; do
+        [ -n "$line" ] && script+=("$line")
+    done < "$1"
+        
+    # first cue
+    clear
+    [ ${#script[0]} -lt $COLUMNS ] && cprint "${script[0]}" || oprint "${script[0]}"
+
+    # scroll through the rest on keypress
+    z=1
+    while key=$(dd ibs=1 count=1 2>/dev/null); do
+        [ "$key" == q ] && exit
+        clear
+        [ ${#script[$z]} -lt $COLUMNS ] && cprint "${script[$z]}" || oprint "${script[$z]}"
+        (( z++ ))
+        [ $z -eq ${#script[@]} ] && z=0
+    done
+}
+
+# formatted print functions
+print() {
+    [ -n "$2" ] && s="$2" || s=""
+    printf "$s\e[1m\e[48;2;0;0;0m\e[38;2;255;255;255m$1\e[m$s"
+}
+
+cprint() {
+    pad=""
+    for ((i=0; i < ($COLUMNS - ${#1}) / 2; i++)); do
+        pad+=" "
+    done
+    print "$1" "$pad"
+}
+
+oprint() {
+    (( n = COLUMNS - 2 ))
+    string=${1:0:$n}
+    overflow=${1:$n}
+
+    print "$string" " "
+    cprint "$overflow"
+}
+
+main "$@"

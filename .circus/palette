@@ -1,0 +1,51 @@
+#!/bin/sh
+
+_0="#0F161A"    # black
+_1="#F9CEC3"    # white
+_2="#15A6B1"    # blue
+_3="#D65C78"    # red
+_4="#D78374"    # orange
+_5="#50C08E"    # green
+_6="#B08CCC"    # purple
+_7="#63798F"    # grey
+
+main() {
+    stty -icanon -echo
+    printf "\033[2J\033[H\033[?25l"
+    trap "stty icanon echo; printf '\033[?25h\033[2J\033[H'" EXIT INT
+
+    layer
+    layer
+    layer
+
+    dd ibs=1 count=1 2>/dev/null
+}
+
+block() {
+    set -- ${1#\#}
+
+    red=${1%[[:xdigit:]][[:xdigit:]][[:xdigit:]][[:xdigit:]]}
+    green=${1%[[:xdigit:]][[:xdigit:]]}; green=${green#[[:xdigit:]][[:xdigit:]]}
+    blue=${1#[[:xdigit:]][[:xdigit:]][[:xdigit:]][[:xdigit:]]}
+
+    red=`printf '%d' 0x${red}`
+    green=`printf '%d' 0x${green}`
+    blue=`printf '%d' 0x${blue}`
+
+    printf '\033[48;2;%s;%s;%sm       \033[m   ' $red $green $blue
+}
+
+layer() {
+    block $_0
+    block $_1
+    block $_2
+    block $_3
+    block $_4
+    block $_5
+    block $_6
+    block $_7
+
+    printf '\n'
+}
+
+main "$@"
