@@ -46,7 +46,7 @@ exe "hi Label guifg=" s:red
 exe "hi LineNr guifg=" s:purple
 exe "hi Macro guifg=" s:green
 exe "hi MatchParen guifg=" s:green " guibg=NONE"
-exe "hi MoreMsg guifg=" s:orange
+exe "hi MoreMsg guifg=" s:fg
 exe "hi Noise guifg=" s:grey
 exe "hi NonText guifg=" s:grey " guibg=NONE"
 exe "hi Number guifg=" s:purple
@@ -58,7 +58,7 @@ exe "hi PreProc guifg=" s:blue
 exe "hi Question guifg=" s:purple
 exe "hi Quote guifg=" s:purple
 exe "hi Repeat guifg=" s:green
-exe "hi Search guibg=" s:orange " guifg=" s:bg
+exe "hi Search guibg=" s:purple " guifg=" s:bg
 exe "hi SignColumn guibg=" s:grey
 exe "hi Special guifg=" s:orange
 exe "hi SpecialComment guifg=" s:grey " guibg=NONE"
