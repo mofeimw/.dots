@@ -95,6 +95,10 @@ set statusline+=%=
 
 set statusline+=%#Time#\ %{strftime('%r')}\ 
 
+" ================================== autocommands =====================================
+
+autocmd BufReadPre,FileReadPre * :source $MYVIMRC
+
 " =================================== functions =======================================
 
 " show color group
@@ -107,9 +111,9 @@ nnoremap <Leader>s :call SynGroup()<CR>
 " ==================================== plugins ========================================
 
 call plug#begin('~/.vim/plugged')
+Plug 'mofeimw/vim-cirque'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'mhinz/vim-startify'
 call plug#end()
 
 autocmd! User GoyoLeave nested source $MYVIMRC
@@ -118,3 +122,12 @@ let g:limelight_conceal_guifg = '#63798F'
 
 nnoremap <Leader>g :Goyo<CR>
 nnoremap <Leader>l :Limelight!!<CR>
+
+hi CirqueHeader guifg=#D65C78 cterm=bold
+hi CirqueBracket guifg=#B08CCC
+hi CirqueNumber guifg=#B08CCC
+hi CirqueSection guifg=#15A6B1 cterm=bold
+hi CirqueSpecial guifg=#50C08E
+hi CirquePath guifg=#63798F
+hi CirqueSlash guifg=#63798F
+hi CirqueFile guifg=#15A6B1
