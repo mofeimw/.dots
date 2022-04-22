@@ -72,7 +72,7 @@ hi Time guibg=#15A6B1 guifg=#232530 cterm=bold
 
 function! CheckMod(mod)
     if a:mod == 1
-        hi Mod guibg=#15A6B1 guifg=#232530 cterm=bold
+        hi Mod guibg=#D65C78 guifg=#232530 cterm=bold
         return expand('%:t')
     else
         hi Mod guibg=#50C08E guifg=#232530 cterm=bold
@@ -80,7 +80,7 @@ function! CheckMod(mod)
     endif
 endfunction
 
-au InsertEnter * hi Lines guibg=#B08CCC guifg=#232530 cterm=bold
+au InsertEnter * hi Lines guibg=#F9CEC3 guifg=#232530 cterm=bold
 au InsertLeave * hi Lines guibg=#63798F guifg=#232530 cterm=bold
 
 set laststatus=2
