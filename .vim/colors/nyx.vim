@@ -81,7 +81,7 @@ exe "hi Todo guifg=" s:bg " guibg=" s:purple
 exe "hi Type guifg=" s:orange
 exe "hi Underlined guifg=" s:red
 exe "hi VertSplit guifg=" s:bg " guibg=" s:red
-exe "hi Visual gui=bold guifg=" s:bg " guibg=" s:blue
+exe "hi Visual guifg=" s:bg " guibg=" s:purple
 exe "hi WarningMsg guifg=" s:red
 exe "hi WildMenu guifg=" s:bg " guibg=" s:red
 
