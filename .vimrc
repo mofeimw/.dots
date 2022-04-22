@@ -1,47 +1,40 @@
-" =======================================
-"              mofei's vimrc
-" =======================================
+" =====================================================================================
+"                                   mofei's vimrc
+" =====================================================================================
 
-" ============== settings ===============
+" ==================================== settings =======================================
+
 colorscheme nyx
 
 set confirm
-set undofile
-set history=1000
-set undodir=~/.vim/undodir
-set virtualedit=onemore
 set mouse=a
 set wildmenu
-set ttimeout
-set ttimeoutlen=50
 set wrap
 set linebreak
+set autoindent
+set shiftround
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set expandtab
 set smarttab
-set autoindent
-set shiftround
 set ignorecase
 set smartcase
 set incsearch
 set hlsearch
-set backspace=indent,eol,start
 set list
 set listchars=tab:▶\ ,trail:•
 set showbreak=↪
+set backspace=indent,eol,start
+set ttimeout
+set ttimeoutlen=50
+set undofile
+set history=1000
+set undodir=~/.vim/undodir
+set virtualedit=onemore
 
-" status line
-set laststatus=2
-set statusline=
-set statusline+=%f
-set statusline+=%m\ 
-set statusline+=<%l/%L,%c>\ 
-set statusline+=%=
-set statusline+=[%{strftime('%r')}]
+" ====================================== maps =========================================
 
-" ================ maps ================
 let mapleader = "\<Space>"
 
 " normal mode
@@ -64,13 +57,45 @@ vnoremap > >gv$
 vnoremap = =gv$
 
 vnoremap <Leader>c "+y
+vnoremap <Leader>y "+y
 
 " i suck at spelling lol
 iabbrev adn and
 iabbrev teh the
 iabbrev waht what
 
-" ============== functions ==============
+" =================================== status bar ======================================
+
+hi Background guibg=#232530 guifg=#232530
+hi Lines guibg=#63798F guifg=#232530 cterm=bold
+hi Time guibg=#B08CCC guifg=#232530 cterm=bold
+
+function! CheckMod(mod)
+    if a:mod == 1
+        hi Mod guibg=#D65C78 guifg=#232530 cterm=bold
+        return expand('%:t')
+    else
+        hi Mod guibg=#15A6B1 guifg=#232530 cterm=bold
+        return expand('%:t')
+    endif
+endfunction
+
+au InsertEnter * hi Lines guibg=#50C08E guifg=#232530 cterm=bold
+au InsertLeave * hi Lines guibg=#63798F guifg=#232530 cterm=bold
+
+set laststatus=2
+set statusline=
+
+set statusline+=%#Mod#\ %{CheckMod(&modified)}\ 
+
+set statusline+=%#Background#
+set statusline+=%=
+
+set statusline+=%#Lines#\ %l/%L,%c\ 
+set statusline+=%#Time#\ %{strftime('%r')}\ 
+
+" =================================== functions =======================================
+
 " show color group
 function! SynGroup()
     let l:s = synID(line('.'), col('.'), 1)
@@ -78,14 +103,16 @@ function! SynGroup()
 endfun
 nnoremap <Leader>s :call SynGroup()<CR>
 
-" =============== plugins ===============
+" ==================================== plugins ========================================
+
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'mhinz/vim-startify'
 call plug#end()
 
-autocmd! User GoyoLeave nested set bg=dark | colorscheme nyx
+" autocmd! User GoyoLeave nested set bg=dark | colorscheme nyx
+autocmd! User GoyoLeave nested source $MYVIMRC
 
 let g:limelight_conceal_guifg = '#63798F'
 

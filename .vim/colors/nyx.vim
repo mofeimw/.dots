@@ -25,11 +25,8 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-exe "au InsertEnter * hi StatusLine guifg=" s:red
-exe "au InsertLeave * hi StatusLine guifg=" s:blue
-
 exe "hi ColorColumn guibg=" s:grey
-exe "hi Comment guifg=" s:grey "gui=italic"
+exe "hi Comment guifg=" s:grey
 exe "hi Conditional guifg=" s:blue
 exe "hi Constant guifg=" s:purple
 exe "hi Debug guifg=" s:green
@@ -46,7 +43,7 @@ exe "hi Include guifg=" s:purple
 exe "hi IncSearch guibg=" s:bg " guifg=" s:green
 exe "hi Keyword guifg=" s:red
 exe "hi Label guifg=" s:red
-exe "hi LineNr guifg=" s:grey
+exe "hi LineNr guifg=" s:purple
 exe "hi Macro guifg=" s:green
 exe "hi MatchParen guifg=" s:green " guibg=NONE"
 exe "hi MoreMsg guifg=" s:purple
@@ -64,7 +61,7 @@ exe "hi Repeat guifg=" s:green
 exe "hi Search guibg=" s:orange " guifg=" s:bg
 exe "hi SignColumn guibg=" s:grey
 exe "hi Special guifg=" s:orange
-exe "hi SpecialComment guifg=" s:grey "gui=italic guibg=NONE "
+exe "hi SpecialComment guifg=" s:grey " guibg=NONE"
 exe "hi SpecialChar guifg=" s:orange
 exe "hi SpecialKey guifg=" s:grey
 exe "hi SpellBad guifg=" s:bg " guibg=" s:red
@@ -89,12 +86,12 @@ exe "hi WarningMsg guifg=" s:red
 exe "hi WildMenu guifg=" s:bg " guibg=" s:red
 
 " shell
+exe "hi shQuote guifg=" s:purple
 exe "hi shFunctionone guifg=" s:green
 exe "hi shLoop guifg=" s:orange
 exe "hi shConditional guifg=" s:red
 exe "hi shRange guifg=" s:green
 exe "hi shTestOpr guifg=" s:green
-exe "hi shQuote guifg=" s:purple
 exe "hi shDerefVarArray guifg=" s:purple
 exe "hi shDerefSimple guifg=" s:purple
 exe "hi shDerefVar guifg=" s:white
@@ -107,9 +104,9 @@ exe "hi htmlEndTag guifg=" s:blue
 exe "hi htmlSpecialTagName guifg=" s:red
 
 " css
-exe "hi cssBraces guifg=" s:grey
-exe "hi cssTagName guifg=" s:blue
 exe "hi cssProp guifg=" s:red
+exe "hi cssTagName guifg=" s:blue
+exe "hi cssBraces guifg=" s:grey
 exe "hi cssPseudoClass guifg=" s:green
 exe "hi cssPseudoClassfn guifg=" s:green
 exe "hi csSAtKeyword guifg=" s:green
