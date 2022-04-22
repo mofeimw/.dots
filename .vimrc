@@ -111,7 +111,6 @@ Plug 'junegunn/limelight.vim'
 Plug 'mhinz/vim-startify'
 call plug#end()
 
-" autocmd! User GoyoLeave nested set bg=dark | colorscheme nyx
 autocmd! User GoyoLeave nested source $MYVIMRC
 
 let g:limelight_conceal_guifg = '#63798F'
