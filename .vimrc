@@ -38,7 +38,7 @@ set virtualedit=onemore
 let mapleader = "\<Space>"
 
 " normal mode
-nnoremap <Backspace> xh
+nnoremap <Backspace> hx
 nnoremap $ $l
 nnoremap V V$
 nnoremap x "_x
