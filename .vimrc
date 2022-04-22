@@ -66,32 +66,32 @@ iabbrev waht what
 
 " =================================== status bar ======================================
 
-hi Background guibg=#232530 guifg=#232530
 hi Lines guibg=#63798F guifg=#232530 cterm=bold
-hi Time guibg=#B08CCC guifg=#232530 cterm=bold
+hi Background guibg=#232530 guifg=#232530
+hi Time guibg=#15A6B1 guifg=#232530 cterm=bold
 
 function! CheckMod(mod)
     if a:mod == 1
-        hi Mod guibg=#D65C78 guifg=#232530 cterm=bold
+        hi Mod guibg=#15A6B1 guifg=#232530 cterm=bold
         return expand('%:t')
     else
-        hi Mod guibg=#15A6B1 guifg=#232530 cterm=bold
+        hi Mod guibg=#50C08E guifg=#232530 cterm=bold
         return expand('%:t')
     endif
 endfunction
 
-au InsertEnter * hi Lines guibg=#50C08E guifg=#232530 cterm=bold
+au InsertEnter * hi Lines guibg=#B08CCC guifg=#232530 cterm=bold
 au InsertLeave * hi Lines guibg=#63798F guifg=#232530 cterm=bold
 
 set laststatus=2
 set statusline=
 
 set statusline+=%#Mod#\ %{CheckMod(&modified)}\ 
+set statusline+=%#Lines#\ %l:%c\ 
 
 set statusline+=%#Background#
 set statusline+=%=
 
-set statusline+=%#Lines#\ %l/%L,%c\ 
 set statusline+=%#Time#\ %{strftime('%r')}\ 
 
 " =================================== functions =======================================
