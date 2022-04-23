@@ -2,6 +2,7 @@
 fn - z : open /Applications/kitty.app
 fn - x : open /Applications/Spotify.app
 fn - c : open /Applications/Firefox.app
+fn - v : open /Applications/Skype.app
 fn - n : open /System/Applications/Notes.app
 fn - b : open /System/Applications/Books.app
 fn - f : open /System/Library/CoreServices/Finder.app
