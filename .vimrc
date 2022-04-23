@@ -126,7 +126,7 @@ nnoremap <Leader>l :Limelight!!<CR>
 hi CirqueHeader guifg=#D65C78 cterm=bold
 hi CirqueBracket guifg=#B08CCC
 hi CirqueNumber guifg=#B08CCC
-hi CirqueSection guifg=#15A6B1 cterm=bold
+hi CirqueSection guifg=#D65C78 cterm=bold
 hi CirqueSpecial guifg=#50C08E
 hi CirquePath guifg=#63798F
 hi CirqueSlash guifg=#63798F
