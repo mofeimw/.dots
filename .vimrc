@@ -49,8 +49,8 @@ nnoremap <Leader>p o<esc>"+p
 nnoremap <Leader>c "+y
 nnoremap <Leader>v "+p
 
-nnoremap <Leader>n :set number!<CR>
-nnoremap <Leader>h :set hlsearch!<CR>
+nnoremap <silent> <Leader>n :set number!<CR>
+nnoremap <silent> <Leader>h :set hlsearch!<CR>
 
 " visual mode
 vnoremap < <gv$
@@ -60,10 +60,14 @@ vnoremap = =gv$
 vnoremap <Leader>c "+y
 vnoremap <Leader>y "+y
 
-" i suck at spelling lol
+" insert mode
 iabbrev adn and
 iabbrev teh the
 iabbrev waht what
+
+" plugins
+nnoremap <silent> <Leader>g :Goyo<CR>
+nnoremap <silent> <Leader>l :Limelight!!<CR>
 
 " =================================== status bar ======================================
 
@@ -97,7 +101,8 @@ set statusline+=%#Time#\ %{strftime('%r')}\
 
 " ================================== autocommands =====================================
 
-autocmd BufReadPre,FileReadPre * :source $MYVIMRC
+autocmd! BufReadPre,FileReadPre * source $MYVIMRC
+autocmd! User GoyoLeave nested source $MYVIMRC
 
 " =================================== functions =======================================
 
@@ -116,12 +121,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 call plug#end()
 
-autocmd! User GoyoLeave nested source $MYVIMRC
-
 let g:limelight_conceal_guifg = '#63798F'
-
-nnoremap <Leader>g :Goyo<CR>
-nnoremap <Leader>l :Limelight!!<CR>
 
 hi CirqueHeader guifg=#D65C78 cterm=bold
 hi CirqueBracket guifg=#B08CCC
