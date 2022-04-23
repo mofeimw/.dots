@@ -46,7 +46,7 @@ exe "hi Label guifg=" s:red
 exe "hi LineNr guifg=" s:purple
 exe "hi Macro guifg=" s:green
 exe "hi MatchParen guifg=" s:green " guibg=NONE"
-exe "hi MoreMsg guifg=" s:fg
+exe "hi MoreMsg guifg=" s:green
 exe "hi Noise guifg=" s:grey
 exe "hi NonText guifg=" s:grey " guibg=NONE"
 exe "hi Number guifg=" s:purple
