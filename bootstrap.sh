@@ -3,8 +3,11 @@
 main() {
     trap "stty icanon; exit" EXIT INT
 
+    if [ ! -d "$HOME/.circus" ]; then git clone https://github.com/mofeimw/bin "$HOME/.circus"; fi
+
     if [ ! -d "$HOME/.zsh" ]; then mkdir "$HOME/.zsh"; fi
-    if [ ! -d "$HOME/.circus" ]; then git clone https://github.com/mofeimw/bin .circus; fi
+    if [ ! -d "$HOME/.zsh/typewritten" ]; then git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten"; fi
+
     if [ ! -d "$HOME/.vim" ]; then mkdir "$HOME/.vim"; fi
     if [ ! -d "$HOME/.vim/colors" ]; then mkdir "$HOME/.vim/colors"; fi
 
@@ -15,9 +18,6 @@ main() {
     install .yabairc
     install .skhdrc
     install nyx.theme
-
-    circus
-    typewritten
 
     echo "\ninstall complete."
 }
@@ -37,16 +37,6 @@ overwrite() {
     stty icanon
 
     printf "\n"
-}
-
-circus() {
-    if [ ! -d "$HOME/.circus" ]; then cp -R .circus "$HOME"; fi
-}
-
-typewritten() {
-    if [ ! -d "$HOME/.zsh/typewritten" ]; then
-        git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten"
-    fi
 }
 
 main "$@"
