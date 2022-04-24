@@ -33,6 +33,8 @@ set history=1000
 set undodir=~/.vim/undodir
 set virtualedit=onemore
 
+let g:is_posix = 1
+
 " ====================================== maps =========================================
 
 let mapleader = "\<Space>"

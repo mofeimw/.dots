@@ -3,13 +3,13 @@
 main() {
     trap "stty icanon; exit" EXIT INT
 
-    if [ ! -d "$HOME/.circus" ]; then git clone https://github.com/mofeimw/bin "$HOME/.circus"; fi
+    [ ! -d "$HOME/.circus" ] && git clone https://github.com/mofeimw/bin "$HOME/.circus"
 
-    if [ ! -d "$HOME/.zsh" ]; then mkdir "$HOME/.zsh"; fi
-    if [ ! -d "$HOME/.zsh/typewritten" ]; then git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten"; fi
+    [ ! -d "$HOME/.zsh" ] && mkdir "$HOME/.zsh"
+    [ ! -d "$HOME/.zsh/typewritten" ] && git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten"
 
-    if [ ! -d "$HOME/.vim" ]; then mkdir "$HOME/.vim"; fi
-    if [ ! -d "$HOME/.vim/colors" ]; then mkdir "$HOME/.vim/colors"; fi
+    [ ! -d "$HOME/.vim" ] && mkdir "$HOME/.vim"
+    [ ! -d "$HOME/.vim/colors" ] && mkdir "$HOME/.vim/colors"
 
     install .zshrc
     install .vimrc
@@ -24,8 +24,10 @@ main() {
 
 install() {
     if cmp --silent -- "$1" "$HOME/$1"; then return; fi
-    if [ -f "$HOME/$1" ]; then overwrite "$1"; fi
-    if [ "$overwrite" = n ]; then return; fi
+
+    [ -f "$HOME/$1" ] && overwrite "$1"
+    [ "$overwrite" = n ] && return
+
     cp "$1" "$HOME/$1"
 }
 
@@ -33,7 +35,7 @@ overwrite() {
     printf "overwrite ${1}? y/n: "
 
     stty -icanon
-    overwrite=`dd ibs=1 count=1 2>/dev/null`
+    overwrite=$(dd ibs=1 count=1 2>/dev/null)
     stty icanon
 
     printf "\n"
