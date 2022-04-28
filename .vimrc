@@ -10,6 +10,7 @@ set confirm
 set mouse=a
 set wildmenu
 set wrap
+set spellcapcheck=
 set linebreak
 set autoindent
 set shiftround
@@ -53,6 +54,7 @@ nnoremap <Leader>v "+p
 
 nnoremap <silent> <Leader>n :set number!<CR>
 nnoremap <silent> <Leader>h :set hlsearch!<CR>
+nnoremap <silent> <Leader>sp :set spell!<CR>
 
 " visual mode
 vnoremap < <gv$
