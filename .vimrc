@@ -70,7 +70,7 @@ iabbrev teh the
 iabbrev waht what
 
 " plugins
-nnoremap <silent> <Leader>g :Goyo<CR>
+nnoremap <silent> <Leader>g :PencilToggle<CR><Bar>:Goyo<CR>
 nnoremap <silent> <Leader>l :Limelight!!<CR>
 
 " =================================== status bar ======================================
@@ -121,8 +121,11 @@ nnoremap <Leader>s :call SynGroup()<CR>
 
 call plug#begin('~/.vim/plugged')
 Plug 'mofeimw/vim-cirque'
+
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+
+Plug 'preservim/vim-pencil'
 call plug#end()
 
 let g:limelight_conceal_guifg = '#63798F'

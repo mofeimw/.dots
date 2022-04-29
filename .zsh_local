@@ -1,5 +1,10 @@
 # functions
 
+# markdown to pdf
+pdf() {
+    pandoc $1 --pdf-engine=xelatex -o ${1%%\.md}.pdf
+}
+
 # invisible cat!
 transparent() {
     conf="$HOME/.config/kitty/transparent.conf"

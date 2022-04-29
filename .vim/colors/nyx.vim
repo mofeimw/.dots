@@ -97,6 +97,12 @@ exe "hi shDerefSimple guifg=" s:purple
 exe "hi shDerefVar guifg=" s:white
 exe "hi shDerefWordError guifg=" s:orange
 
+" markdown
+exe "hi markdownH1 guifg=" s:blue
+exe "hi markdownH2 guifg=" s:orange
+exe "hi markdownH3 guifg=" s:purple
+exe "hi markdownHeadingRule guifg=" s:grey
+
 " html
 exe "hi htmlTitle guifg=" s:white
 exe "hi htmlTag guifg=" s:blue

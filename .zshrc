@@ -61,4 +61,4 @@ alias :q="exit"
 export PATH="/usr/local/bin:$HOME/.circus:$PATH"
 
 # load local config
-source .zsh_local
+source ~/.zsh_local
