@@ -129,6 +129,7 @@ Plug 'preservim/vim-pencil'
 call plug#end()
 
 let g:limelight_conceal_guifg = '#63798F'
+let g:pencil#wrapModeDefault = 'soft'
 
 hi CirqueHeader guifg=#D65C78 cterm=bold
 hi CirqueBracket guifg=#B08CCC
