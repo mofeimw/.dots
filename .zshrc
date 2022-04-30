@@ -56,6 +56,7 @@ colors() {
 
 # aliases
 alias :q="exit"
+alias q="exit"
 
 # path
 export PATH="/usr/local/bin:$HOME/.circus:$PATH"

@@ -1,8 +1,11 @@
-# functions
-
-# markdown to pdf
-pdf() {
-    pandoc $1 --pdf-engine=xelatex -o ${1%%\.md}.pdf
+# markdown to pdf on change
+mark() {
+    [ "${1##*\.}" = "md" ] && {
+        [ -f $1 ] && {
+            echo "[${1}] converting to pdf upon changes..."
+            echo $1 | entr pandoc $1 --pdf-engine=xelatex -o ${1%%\.md}.pdf
+        } || echo "file not found."
+    } || echo "not a markdown file."
 }
 
 # invisible cat!
@@ -15,7 +18,6 @@ transparent() {
     }
 }
 
-# aliases
 alias notes="vim ~/.notes"
 alias dots="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
 
