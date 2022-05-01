@@ -3,7 +3,7 @@ mark() {
     [ "${1##*\.}" = "md" ] && {
         [ -f $1 ] && {
             echo "[${1}] converting to pdf upon changes..."
-            echo $1 | entr pandoc $1 --pdf-engine=xelatex -o ${1%%\.md}.pdf
+            echo $1 | entr pandoc $1 --pdf-engine=xelatex -V geometry:margin=1in -o ${1%%\.md}.pdf
         } || echo "file not found."
     } || echo "not a markdown file."
 }
