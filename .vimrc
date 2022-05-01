@@ -99,8 +99,8 @@ endfunction
 au InsertEnter * hi Lines guibg=#F9CEC3 guifg=#232530 cterm=bold
 au InsertLeave * hi Lines guibg=#63798F guifg=#232530 cterm=bold
 
-au FocusGained * hi Time guibg=#15A6B1 guifg=#232530 cterm=bold | let focus = 1
-au FocusLost * hi Time guibg=#63798F guifg=#232530 cterm=bold | let focus = 0
+au FocusGained * hi Time guibg=#15A6B1 guifg=#232530 cterm=bold | hi Lines guibg=#63798F guifg=#232530 cterm=bold | let focus = 1
+au FocusLost * hi Time guibg=#63798F guifg=#232530 cterm=bold | hi Lines guibg=#232530 guifg=#232530 cterm=bold | let focus = 0
 
 set laststatus=2
 set statusline=
