@@ -65,10 +65,14 @@ vnoremap <Leader>c "+y
 vnoremap <Leader>y "+y
 
 " insert mode
-inoremap <C-i> <C-O>g^
+inoremap <C-r> <C-O>g^
 inoremap <C-e> <C-O>g$<C-O>a 
+
 inoremap <C-b> <C-O>b
 inoremap <C-f> <C-O>w
+
+inoremap <C-j> <C-O>j
+inoremap <C-k> <C-O>k
 
 iabbrev adn and
 iabbrev teh the
