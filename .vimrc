@@ -47,9 +47,8 @@ nnoremap V V$
 nnoremap x "_x
 nnoremap _d "_dd
 
-nnoremap <Leader>y "+yy
+nnoremap <Leader>y 0"+yg_
 nnoremap <Leader>p o<esc>"+p
-nnoremap <Leader>c "+y
 nnoremap <Leader>v "+p
 
 nnoremap <silent> <Leader>n :set number!<CR>
@@ -130,8 +129,8 @@ set fillchars+=vert:\
 
 hi EndOfBuffer guifg=bg
 
-hi VertSplit guibg=#63798F cterm=bold
-hi StatusLineNC guifg=#63798F
+hi VertSplit guibg=bg
+hi StatusLineNC guifg=bg
 
 hi CirqueHeader guifg=#D65C78 cterm=bold
 hi CirqueBracket guifg=#B08CCC
@@ -159,10 +158,10 @@ nnoremap <Leader>s :call SynGroup()<CR>
 " ==================================== plugins ========================================
 
 call plug#begin('~/.vim/plugged')
-Plug 'mofeimw/vim-cirque'
+Plug 'mofeimw/cirque.vim'
+Plug 'mofeimw/peek.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/vim-pencil'
 call plug#end()
 
