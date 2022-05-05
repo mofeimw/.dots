@@ -124,6 +124,24 @@ set statusline+=%=
 
 set statusline+=%#Time#\ %{strftime('%r')}\ 
 
+" ======================================== ui =========================================
+
+set fillchars+=vert:\ 
+
+hi EndOfBuffer guifg=bg
+
+hi VertSplit guibg=#63798F cterm=bold
+hi StatusLineNC guifg=#63798F
+
+hi CirqueHeader guifg=#D65C78 cterm=bold
+hi CirqueBracket guifg=#B08CCC
+hi CirqueNumber guifg=#B08CCC
+hi CirqueSection guifg=#D65C78 cterm=bold
+hi CirqueSpecial guifg=#50C08E
+hi CirquePath guifg=#63798F
+hi CirqueSlash guifg=#63798F
+hi CirqueFile guifg=#15A6B1
+
 " ================================== autocommands =====================================
 
 autocmd! BufReadPre,FileReadPre * source $MYVIMRC
@@ -142,11 +160,9 @@ nnoremap <Leader>s :call SynGroup()<CR>
 
 call plug#begin('~/.vim/plugged')
 Plug 'mofeimw/vim-cirque'
-
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
-
 Plug 'preservim/vim-pencil'
 call plug#end()
 
@@ -154,12 +170,3 @@ let g:limelight_conceal_guifg = '#63798F'
 let g:peekaboo_compact = 1
 let g:peekaboo_ins_prefix = "<C-z>"
 let g:pencil#wrapModeDefault = 'soft'
-
-hi CirqueHeader guifg=#D65C78 cterm=bold
-hi CirqueBracket guifg=#B08CCC
-hi CirqueNumber guifg=#B08CCC
-hi CirqueSection guifg=#D65C78 cterm=bold
-hi CirqueSpecial guifg=#50C08E
-hi CirquePath guifg=#63798F
-hi CirqueSlash guifg=#63798F
-hi CirqueFile guifg=#15A6B1
