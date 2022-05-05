@@ -64,6 +64,8 @@ vnoremap = =gv$
 vnoremap <Leader>c "+y
 vnoremap <Leader>y "+y
 
+vnoremap _d "_d
+
 " insert mode
 inoremap <C-r> <C-O>g^
 inoremap <C-e> <C-O>g$<C-O>a 
@@ -143,11 +145,14 @@ Plug 'mofeimw/vim-cirque'
 
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-peekaboo'
 
 Plug 'preservim/vim-pencil'
 call plug#end()
 
 let g:limelight_conceal_guifg = '#63798F'
+let g:peekaboo_compact = 1
+let g:peekaboo_ins_prefix = "<C-z>"
 let g:pencil#wrapModeDefault = 'soft'
 
 hi CirqueHeader guifg=#D65C78 cterm=bold
