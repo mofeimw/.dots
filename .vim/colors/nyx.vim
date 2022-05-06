@@ -43,7 +43,7 @@ exe "hi Include guifg=" s:purple
 exe "hi IncSearch guibg=" s:bg " guifg=" s:green
 exe "hi Keyword guifg=" s:red
 exe "hi Label guifg=" s:red
-exe "hi LineNr guifg=" s:purple
+exe "hi LineNr guifg=" s:grey
 exe "hi Macro guifg=" s:green
 exe "hi MatchParen guifg=" s:green " guibg=NONE"
 exe "hi MoreMsg guifg=" s:green
