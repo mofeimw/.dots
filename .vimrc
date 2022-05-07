@@ -7,6 +7,7 @@
 colorscheme nyx
 
 set confirm
+set noshowmode
 set mouse=a
 set wildmenu
 set wrap
@@ -49,6 +50,7 @@ nnoremap _d "_dd
 
 nnoremap <Leader>y 0"+yg_
 nnoremap <Leader>p o<esc>"+p
+nnoremap <Leader>c "+y
 nnoremap <Leader>v "+p
 
 nnoremap <silent> <Leader>n :set number!<CR>
@@ -91,23 +93,35 @@ hi Time guibg=#15A6B1 guifg=#232530 cterm=bold
 
 let focus = 1
 
-function! CheckMod(mod, focus)
+function! FileModified(modified, focus)
     if a:focus == 1
-        if a:mod == 1
+        if a:modified == 1
             hi Mod guibg=#D65C78 guifg=#232530 cterm=bold
-            return expand('%:t')
         else
             hi Mod guibg=#50C08E guifg=#232530 cterm=bold
-            return expand('%:t')
         endif
     else
         hi Mod guibg=#63798F guifg=#232530 cterm=bold
-        return expand('%:t')
     endif
+
+    return expand('%:t')
 endfunction
 
-au InsertEnter * hi Lines guibg=#F9CEC3 guifg=#232530 cterm=bold
-au InsertLeave * hi Lines guibg=#63798F guifg=#232530 cterm=bold
+function! LinesMode(focus)
+    hi Line guibg=#63798F guifg=#232530 cterm=bold
+
+    if a:focus == 1
+        if mode() == 'n'
+            hi Lines guibg=#63798F guifg=#232530 cterm=bold
+        elseif mode() == 'i'
+            hi Lines guibg=#F9CEC3 guifg=#232530 cterm=bold
+        elseif mode() =~ '\v(v|V)' || mode() == "\<C-V>"
+            return line('v') . "-" . line('.')
+        endif
+    endif
+
+    return line('.') . ":" . col('.')
+endfunction
 
 au FocusGained * hi Time guibg=#15A6B1 guifg=#232530 cterm=bold | hi Lines guibg=#63798F guifg=#232530 cterm=bold | let focus = 1
 au FocusLost * hi Time guibg=#63798F guifg=#232530 cterm=bold | hi Lines guibg=#232530 guifg=#232530 cterm=bold | let focus = 0
@@ -115,8 +129,8 @@ au FocusLost * hi Time guibg=#63798F guifg=#232530 cterm=bold | hi Lines guibg=#
 set laststatus=2
 set statusline=
 
-set statusline+=%#Mod#\ %{CheckMod(&modified,\ focus)}\ 
-set statusline+=%#Lines#\ %l:%c\ 
+set statusline+=%#Mod#\ %{FileModified(&modified,\ focus)}\ 
+set statusline+=%#Lines#\ %{LinesMode(focus)}\ 
 
 set statusline+=%#Background#
 set statusline+=%=
