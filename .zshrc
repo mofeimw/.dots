@@ -39,12 +39,6 @@ edit() {
     }
 }
 
-# ship 'em off
-:w() {
-    name=${PWD##*/}
-    [ -x main.sh ] && cp main.sh ~/.circus/$name || [ -x main ] && cp main ~/.circus/$name || [ -x ${name}.sh ] && cp ${name}.sh ~/.circus/$name || [ -x ${name} ] && cp ${name} ~/.circus/$name
-}
-
 # color theme
 colors() {
     clear
