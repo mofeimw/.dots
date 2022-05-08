@@ -1,3 +1,9 @@
+# the circus arrives without warning.
+export CIRCUS=$HOME/.circus
+
+# path
+export PATH="/usr/local/bin:$HOME/.circus:$PATH"
+
 # prompt
 TYPEWRITTEN_DISABLE_RETURN_CODE="true"
 TYPEWRITTEN_SYMBOL="$"
@@ -51,9 +57,7 @@ colors() {
 # aliases
 alias :q="exit"
 alias q="exit"
-
-# path
-export PATH="/usr/local/bin:$HOME/.circus:$PATH"
+alias circus="cd $CIRCUS"
 
 # load local config
 source ~/.zsh_local

@@ -1,6 +1,3 @@
-# The circus arrives without warning.
-export CIRCUS=$HOME/.circus
-
 # zo
 zz() {
     z $1
