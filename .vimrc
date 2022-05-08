@@ -25,7 +25,7 @@ set smartcase
 set incsearch
 set hlsearch
 set list
-set listchars=tab:▶\ ,trail:•
+set listchars=tab:»\ ,trail:•
 set showbreak=↪
 set backspace=indent,eol,start
 set ttimeout
