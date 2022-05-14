@@ -11,6 +11,8 @@ main() {
     [ ! -d "$HOME/.vim" ] && mkdir "$HOME/.vim"
     [ ! -d "$HOME/.vim/colors" ] && mkdir "$HOME/.vim/colors"
 
+    [ ! -d "$HOME/wallpaper" ] && cp -r ./wallpaper "$HOME"
+
     install .zshrc
     install .vimrc
     install .vim/colors/nyx.vim
