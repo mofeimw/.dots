@@ -1,54 +1,54 @@
 !! ------ nyx ------ !!
-*.foreground: #F9CeC3
-*.background: #232530
-*.cursorColor: #D65C78
+*foreground: #F9CeC3
+*background: #232530
+*cursorColor: #D65C78
 
 ! black
-*.color0: #0F161A
+*color0: #0F161A
 
 ! red
-*.color1: #D65C78
+*color1: #D65C78
 
 ! green
-*.color2: #50C08E
+*color2: #50C08E
 
 ! yellow (orange)
-*.color3: #D78374
+*color3: #D78374
 
 ! blue
-*.color4: #15A6B1
+*color4: #15A6B1
 
 ! magenta (purple)
-*.color5: #B08CCC
+*color5: #B08CCC
 
 ! cyan (grey)
-*.color6: #63798F
+*color6: #63798F
 
 ! white
-*.color7: #F9CEC3
+*color7: #F9CEC3
 
 !! ------ terminal ------ !!
 !! font
-*.font: xft:FiraCode:medium:size=12:antialiasing=true
-*.boldFont: xft:FiraCode:medium:size=12:antialiasing=true:style=bold
-*.italicFont: xft:FiraCode:medium:size=12:antialiasing=true
-*.letterSpace: 0
-*.lineSpace: 0
+*font: xft:FiraCode:medium:size=12:antialiasing=true
+*boldFont: xft:FiraCode:medium:size=12:antialiasing=true:style=bold
+*italicFont: xft:FiraCode:medium:size=12:antialiasing=true
+*letterSpace: 0
+*lineSpace: 0
 
 !! appearance
-*.internalBorder: 100
-*.cursorBlink: true
-*.cursorUnderline: true
-*.scrollBar: false
+*internalBorder: 100
+*cursorBlink: true
+*cursorUnderline: true
+*scrollBar: false
 
 !! utilities
-*.underlineURLs: true
-*.urlLauncher: firefox
+*underlineURLs: true
+*urlLauncher: firefox
 
 !! escape codes
-*.keysym.Shift-Up: command:\033]720;1\007
-*.keysym.Shift-Down: command:\033]721;1\007
-*.keysym.Control-Up: \033[1;5A
-*.keysym.Control-Down: \033[1;5B
-*.keysym.Control-Right: \033[1;5C
-*.keysym.Control-Left: \033[1;5D
+*keysym.Shift-Up: command:\033]720;1\007
+*keysym.Shift-Down: command:\033]721;1\007
+*keysym.Control-Up: \033[1;5A
+*keysym.Control-Down: \033[1;5B
+*keysym.Control-Right: \033[1;5C
+*keysym.Control-Left: \033[1;5D
