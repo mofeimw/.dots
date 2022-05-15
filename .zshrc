@@ -60,4 +60,6 @@ alias q="exit"
 alias circus="cd $CIRCUS"
 
 # load local config
-source ~/.zsh_local
+if [ -f ~/.zsh_local ]; then
+    source ~/.zsh_local
+fi
