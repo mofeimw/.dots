@@ -10,16 +10,27 @@ main() {
 
     [ ! -d "$HOME/.vim" ] && mkdir "$HOME/.vim"
     [ ! -d "$HOME/.vim/colors" ] && mkdir "$HOME/.vim/colors"
+    [ ! -d "$HOME/.vim/undodir" ] && mkdir "$HOME/.vim/undodir"
+    [ ! -d "$HOME/.vim/autoload/plug.vim" ] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-    [ ! -d "$HOME/wallpaper" ] && cp -r ./wallpaper "$HOME"
+    [ ! -d "$HOME/Pictures/wallpaper" ] && cp -r ./Pictures/wallpaper "$HOME/Pictures"
 
+    install nyx.theme
     install .zshrc
+
     install .vimrc
     install .vim/colors/nyx.vim
-    install .config/kitty/kitty.conf
+
+    install .xinitrc
+    install .xsessionrc
+    install .Xmodmap
+    install .Xresources
+    install .evrouterrc
+
     install .yabairc
     install .skhdrc
-    install nyx.theme
+
+    install .config/kitty/kitty.conf
 
     echo "\ninstall complete."
 }
