@@ -58,6 +58,7 @@ colors() {
 alias :q="exit"
 alias q="exit"
 alias circus="cd $CIRCUS"
+alias dots="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
 
 # load local config
 if [ -f ~/.zsh_local ]; then

@@ -33,8 +33,6 @@ transparent() {
     }
 }
 
-alias dots="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
-
 alias notes="vim ~/.notes"
 alias tv="open /Users/mofei/.ogygia/tv; exit"
 
