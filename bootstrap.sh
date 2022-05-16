@@ -11,7 +11,7 @@ main() {
     [ ! -d "$HOME/.vim" ] && mkdir "$HOME/.vim"
     [ ! -d "$HOME/.vim/colors" ] && mkdir "$HOME/.vim/colors"
     [ ! -d "$HOME/.vim/undodir" ] && mkdir "$HOME/.vim/undodir"
-    [ ! -d "$HOME/.vim/autoload/plug.vim" ] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    [ ! -d "$HOME/.vim/autoload" ] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     [ ! -d "$HOME/Pictures/wallpaper" ] && cp -r ./Pictures/wallpaper "$HOME/Pictures"
 
