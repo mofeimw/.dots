@@ -1,8 +1,8 @@
 # start xmodmap
 xmodmap $HOME/.Xmodmap
 
-# escape on control+z/fn+z
-escape C-z
+# escape on option-z/fn-z
+escape M-z
 
 # greet
 startup_message off
