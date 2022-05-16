@@ -3,4 +3,19 @@ if [ -f /tmp/.evrouter:1 ]; then rm /tmp/.evrouter:1; fi
 evrouter /dev/input/event8
 
 # start xmodmap
-(sleep 8 && xmodmap $HOME/.Xmodmap) &
+(sleep 6 && xmodmap $HOME/.Xmodmap) &
+
+# force boot into ratpoison
+# exec /usr/bin/ratpoison
+#
+# # # # # # # # # # # # # # # # # # # # # # # #
+#
+# # /usr/share/xsessions/ratpoison.desktop # #
+# [Desktop Entry]
+# Name=Ratpoison
+# Comment=Switch to Ratpoison WM
+# Exec=/usr/bin/ratpoison
+# TryExec=/usr/bin/ratpoison
+# Icon=
+# Type=Application
+# X-Ubuntu-Gettext-Domain=ratpoison-session

@@ -1,3 +1,6 @@
+# start xmodmap
+xmodmap $HOME/.Xmodmap
+
 # escape on control+z/fn+z
 escape C-z
 
