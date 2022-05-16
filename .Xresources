@@ -1,5 +1,11 @@
 !! ------ X11 ------ !!
 Xft.dpi: 192
+Xft.antialias: 1
+Xft.hinting: 1
+Xft.autohint: 0
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
 
 !! ------ nyx ------ !!
 *foreground: #F9CeC3
@@ -30,7 +36,7 @@ Xft.dpi: 192
 ! white
 *color7: #F9CEC3
 
-!! ------ terminal ------ !!
+!! ------ urxvt ------ !!
 !! font
 *font: xft:FiraCode:medium:size=12:antialiasing=true
 *boldFont: xft:FiraCode:medium:size=12:antialiasing=true:style=bold
