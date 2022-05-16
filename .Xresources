@@ -1,3 +1,6 @@
+!! ------ X11 ------ !!
+Xft.dpi: 192
+
 !! ------ nyx ------ !!
 *foreground: #F9CeC3
 *background: #232530
