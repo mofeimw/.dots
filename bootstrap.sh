@@ -27,6 +27,8 @@ main() {
     install .Xresources
     install .evrouterrc
 
+    install .ratpoisonrc
+
     install .yabairc
     install .skhdrc
 
