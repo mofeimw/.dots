@@ -1,0 +1,15 @@
+# escape on control+z/fn+z
+escape C-z
+
+# greet
+startup_message off
+exec sleep 1; ratpoison -c "echo welcome, mofei"
+
+# ui
+set wingravity center
+set inputwidth 600
+set padding 0
+set border 20
+set barborder 18
+set bargravity center
+set barpadding 23 23
