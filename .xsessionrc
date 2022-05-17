@@ -12,6 +12,6 @@ evrouter /dev/input/event8
 # # /usr/share/xsessions/ratpoison.desktop # #
 # [Desktop Entry]
 # Name=ratpoison
-# Comment=run ratpoison wm
+# Comment=start ratpoison wm
 # Exec=/usr/bin/ratpoison
 # Type=Application
