@@ -2,8 +2,10 @@
 exec xsetroot -solid "#232530"
 exec xmodmap $HOME/.Xmodmap &
 
+exec $HOME/.circus/sloppy
+
 startup_message off
-exec ratpoison -c "echo welcome mofei"
+exec ratpoison -c "echo hola mofei"
 
 # ====== keybinds ======
 # escape on option-z/fn-z
@@ -12,7 +14,18 @@ escape M-z
 bind period restart
 bind space windows
 bind Escape exec echo
+bind greater exec
 
+bind z windows
+bind c hsplit
+bind v vsplit
+bind q only
+bind w delete
+
+bind x exec urxvt
+bind f exec firefox
+
+# non-release mirror
 bind M-z windows
 bind M-c hsplit
 bind M-v vsplit
@@ -21,8 +34,6 @@ bind M-w delete
 
 bind M-x exec urxvt
 bind M-f exec firefox
-
-bind z windows
 
 # ====== aliases ======
 alias kitty exec kitty
@@ -48,7 +59,7 @@ set transgravity center
 set maxsizegravity center
 
 # frame
-set framemsgwait 3
+set framemsgwait -1
 set framefmt focus
 
 # status bar

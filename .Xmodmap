@@ -19,3 +19,5 @@ add mod1 = Alt_L Alt_R Meta_L
 add mod2 = Num_Lock
 add mod4 = Super_L Super_R
 add mod5 = ISO_Level3_Shift Mode_switch
+
+pointer = 1 2 3 5 4
