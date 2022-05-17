@@ -1,18 +1,61 @@
-# start xmodmap
-xmodmap $HOME/.Xmodmap
+# ====== initialize ======
+exec xsetroot -solid "#232530"
+exec xmodmap $HOME/.Xmodmap &
 
+startup_message off
+exec ratpoison -c "echo welcome mofei"
+
+# ====== keybinds ======
 # escape on option-z/fn-z
 escape M-z
 
-# greet
-startup_message off
-exec sleep 1; ratpoison -c "echo welcome, mofei"
+bind period restart
+bind space windows
+bind Escape exec echo
 
-# ui
+bind M-z windows
+bind M-c hsplit
+bind M-v vsplit
+bind M-q only
+bind M-w delete
+
+bind M-x exec urxvt
+bind M-f exec firefox
+
+bind z windows
+
+# ====== aliases ======
+alias kitty exec kitty
+
+# ====== settings ======
+set font "Fira Code:size=12:style=medium"
+set warp 0
+set msgwait 5
+
+# border
+set border 10
+set fwcolor #15A6B1
+set bwcolor #232530
+set onlyborder 0
+set padding 0 0 0 0
+
+# window
+set winname class
+set winliststyle column
+set winfmt [%n] %c
 set wingravity center
+set transgravity center
+set maxsizegravity center
+
+# frame
+set framemsgwait 3
+set framefmt focus
+
+# status bar
+set fgcolor #D65C78
+set bgcolor #232530
+
 set inputwidth 600
-set padding 0
-set border 20
-set barborder 18
+set barborder 5
 set bargravity center
-set barpadding 23 23
+set barpadding 20 20
