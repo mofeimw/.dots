@@ -1,7 +1,7 @@
 # ====== initialize ======
-exec xsetroot -solid "#232530"
 exec xmodmap $HOME/.Xmodmap &
-
+# exec xsetroot -solid "#232530"
+exec feh --bg-fill $HOME/Pictures/wallpaper/black.png
 exec $HOME/.circus/sloppy
 
 startup_message off
@@ -67,6 +67,6 @@ set fgcolor #D65C78
 set bgcolor #232530
 
 set inputwidth 600
-set barborder 5
+set barborder 6
 set bargravity center
 set barpadding 20 20
