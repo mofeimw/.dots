@@ -37,27 +37,16 @@ Xft.lcdfilter: lcddefault
 *color7: #F9CEC3
 
 !! ------ urxvt ------ !!
-!! font
-*font: xft:FiraCode:medium:size=12:antialiasing=true
-*boldFont: xft:FiraCode:medium:size=12:antialiasing=true:style=bold
-*italicFont: xft:FiraCode:medium:size=12:antialiasing=true
-*letterSpace: 0
-*lineSpace: 0
+*font: xft:FiraCode:medium:size=10:antialiasing=true
+*boldFont: xft:FiraCode:medium:size=10:antialiasing=true:style=bold
+*italicFont: xft:FiraCode:medium:size=10:antialiasing=true
+*letterSpace: -1
+*lineSpace: 6
 
-!! appearance
-*internalBorder: 100
-*cursorBlink: true
-*cursorUnderline: true
-*scrollBar: false
+URxvt.internalBorder: 70
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: true
+URxvt.scrollBar: false
 
-!! utilities
-*underlineURLs: true
-*urlLauncher: firefox
-
-!! escape codes
-*keysym.Shift-Up: command:\033]720;1\007
-*keysym.Shift-Down: command:\033]721;1\007
-*keysym.Control-Up: \033[1;5A
-*keysym.Control-Down: \033[1;5B
-*keysym.Control-Right: \033[1;5C
-*keysym.Control-Left: \033[1;5D
+URxvt.underlineURLs: true
+URxvt.urlLauncher: firefox
