@@ -11,10 +11,7 @@ evrouter /dev/input/event8
 #
 # # /usr/share/xsessions/ratpoison.desktop # #
 # [Desktop Entry]
-# Name=Ratpoison
-# Comment=Switch to Ratpoison WM
+# Name=ratpoison
+# Comment=run ratpoison wm
 # Exec=/usr/bin/ratpoison
-# TryExec=/usr/bin/ratpoison
-# Icon=
 # Type=Application
-# X-Ubuntu-Gettext-Domain=ratpoison-session
