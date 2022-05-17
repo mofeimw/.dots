@@ -1,0 +1,16 @@
+# volume
+"pactl set-sink-volume @DEFAULT_SINK@ -1000"
+    XF86AudioLowerVolume
+
+"pactl set-sink-volume @DEFAULT_SINK@ +1000"
+    XF86AudioRaiseVolume
+
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    XF86AudioMute
+
+# brightness
+"$HOME/.circus/bright up"
+    XF86MonBrightnessUp
+
+"$HOME/.circus/bright down"
+    XF86MonBrightnessDown
