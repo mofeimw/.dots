@@ -1,3 +1,9 @@
 # https://ubuntuforums.org/showthread.php?t=2182054
+#
+# echo 'KERNEL=="event*", NAME="input/%k", GROUP="input" | sudo tee /etc/udev/rules.d/80-evrouter.rules
+# sudo addgroup input
+# sudo usermod -aG input ${USER}
+# evtest
+
 # fn key -> alt
 "Apple Inc. Apple Internal Keyboard / Trackpad" "/dev/input/event8" none key/464 "XKey/Alt_L"
