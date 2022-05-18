@@ -8,9 +8,19 @@
 "pactl set-sink-mute @DEFAULT_SINK@ toggle"
     XF86AudioMute
 
+# media
+"playerctl play-pause"
+    XF86AudioPlay
+
+"playerctl next"
+    XF8AudioNext
+
+"playerctl previous"
+    XF8AudioPrevious
+
 # brightness
 "$HOME/.circus/bright up"
     XF86MonBrightnessUp
 
 "$HOME/.circus/bright down"
-    XF86MonBrightnessDown
+    XF86MonBrightnessDown6AudioN

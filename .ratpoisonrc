@@ -1,5 +1,5 @@
 # ====== initialize ======
-exec xmodmap $HOME/.Xmodmap &
+exec xmodmap $HOME/.Xmodmap
 exec xbindkeys
 # exec xsetroot -solid "#232530"
 exec feh --bg-fill $HOME/Pictures/wallpaper/black.png
@@ -7,7 +7,7 @@ exec $HOME/.circus/sloppy
 exec git --git-dir=$HOME/.dots/ --work-tree=$HOME pull
 
 startup_message off
-exec ratpoison -c "echo hola mofei"
+exec ratpoison -c "echo $($HOME/.circus/quote)"
 
 # ====== keybinds ======
 # escape on option-z/fn-z
