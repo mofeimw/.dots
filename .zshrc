@@ -45,15 +45,6 @@ edit() {
     }
 }
 
-# color theme
-colors() {
-    clear
-    for i in {0..7}; do
-        printf '\033[4%sm    ' $i
-    done
-    echo
-}
-
 # aliases
 alias :q="exit"
 alias q="exit"
