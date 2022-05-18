@@ -1,13 +1,14 @@
 # ====== initialize ======
 exec xmodmap $HOME/.Xmodmap
 exec xbindkeys
-# exec xsetroot -solid "#232530"
-exec feh --bg-fill $HOME/Pictures/wallpaper/black.png
+exec feh --bg-fill $HOME/Pictures/wallpaper/grey.jpg
+exec picom &
 exec $HOME/.circus/sloppy
 exec git --git-dir=$HOME/.dots/ --work-tree=$HOME pull
 
 startup_message off
-exec $HOME/.circus/quote
+# exec $HOME/.circus/quote
+exec ratpoison -c "echo the inn at the edge of the world"
 
 # ====== keybinds ======
 escape M-z
@@ -98,3 +99,7 @@ set inputwidth 600
 set barborder 6
 set bargravity center
 set barpadding 20 20
+
+# "gaps"
+set border 60
+set barpadding 50 40
