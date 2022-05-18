@@ -4,6 +4,7 @@ exec xbindkeys
 exec feh --bg-fill $HOME/Pictures/wallpaper/grey.jpg
 exec picom &
 exec $HOME/.circus/sloppy
+exec rpws init 2 -k
 exec git --git-dir=$HOME/.dots/ --work-tree=$HOME pull
 
 startup_message off
@@ -15,8 +16,12 @@ escape M-z
 
 bind period restart
 bind space windows
-bind Escape exec echo
 bind greater exec
+bind Escape exec echo
+bind Right rpwsn
+bind Left rpwsp
+bind bracketright exec $HOME/.circus/border inc
+bind bracketleft exec $HOME/.circus/border dec
 
 bind z windows
 bind c hsplit
@@ -28,6 +33,8 @@ bind n next
 bind p prev
 bind u undo
 bind r redo
+bind i exec rpws 1
+bind o exec rpws 2
 bind h exec $HOME/.circus/rat move left
 bind l exec $HOME/.circus/rat move right
 bind k exec $HOME/.circus/rat move top
@@ -40,8 +47,12 @@ bind x exec urxvt
 # non-release mirror
 bind M-period restart
 bind M-space windows
-bind M-Escape exec echo
 bind M-greater exec
+bind M-Escape exec echo
+bind M-Right rpwsn
+bind M-Left rpwsp
+bind M-bracketright exec $HOME/.circus/border inc
+bind M-bracketleft exec $HOME/.circus/border dec
 
 bind M-z windows
 bind M-c hsplit
@@ -53,6 +64,8 @@ bind M-n next
 bind M-p prev
 bind M-u undo
 bind M-r redo
+bind M-i exec rpws 1
+bind M-o exec rpws 2
 bind M-h exec $HOME/.circus/rat move left
 bind M-l exec $HOME/.circus/rat move right
 bind M-k exec $HOME/.circus/rat move top
@@ -70,7 +83,7 @@ alias spotify exec spotify
 # ====== settings ======
 set font "Fira Code:size=12:style=medium"
 set warp 0
-set msgwait 2
+set msgwait 1
 
 # border
 set border 10
