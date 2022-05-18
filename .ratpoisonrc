@@ -1,10 +1,10 @@
 # ====== initialize ======
-exec xmodmap $HOME/.Xmodmap
-exec xbindkeys
+exec xmodmap $HOME/.Xmodmap &
 exec feh --bg-fill $HOME/Pictures/wallpaper/yellow.jpg
 exec picom &
-exec $HOME/.circus/sloppy
+exec sloppy
 exec rpws init 2 -k
+exec xbindkeys
 exec git --git-dir=$HOME/.dots/ --work-tree=$HOME pull
 
 startup_message off
