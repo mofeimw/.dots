@@ -1,6 +1,6 @@
 # ====== initialize ======
 exec xmodmap $HOME/.Xmodmap &
-exec feh --bg-fill $HOME/Pictures/wallpaper/yellow.jpg
+exec feh --randomize --bg-fill $HOME/Pictures/wallpaper/*
 exec picom &
 exec sloppy
 exec rpws init 2 -k
@@ -9,7 +9,7 @@ exec git --git-dir=$HOME/.dots/ --work-tree=$HOME pull
 
 startup_message off
 # exec $HOME/.circus/quote
-exec ratpoison -c "echo the inn at the edge of the world"
+# exec ratpoison -c "echo the inn at the edge of the world"
 
 # ====== keybinds ======
 escape M-z
@@ -20,8 +20,9 @@ bind greater exec
 bind Escape exec echo
 bind Right rpwsn
 bind Left rpwsp
-bind equal exec $HOME/.circus/border inc
-bind minus exec $HOME/.circus/border dec
+bind bracketleft exec $HOME/.circus/gaps inc
+bind bracketright exec $HOME/.circus/gaps dec
+bind backslash exec $HOME/.circus/gaps toggle
 
 bind z windows
 bind c hsplit
@@ -51,8 +52,9 @@ bind M-greater exec
 bind M-Escape exec echo
 bind M-Right rpwsn
 bind M-Left rpwsp
-bind M-equal exec $HOME/.circus/border inc
-bind M-minus exec $HOME/.circus/border dec
+bind M-bracketleft exec $HOME/.circus/gaps inc
+bind M-bracketright exec $HOME/.circus/gaps dec
+bind M-backslash exec $HOME/.circus/gaps toggle
 
 bind M-z windows
 bind M-c hsplit
@@ -95,7 +97,7 @@ set padding 0 0 0 0
 # window
 set winname class
 set winliststyle column
-set winfmt %n %t
+set winfmt [%n] %t
 set wingravity center
 set transgravity center
 set maxsizegravity center
@@ -114,5 +116,6 @@ set bargravity center
 set barpadding 20 20
 
 # "gaps"
-set border 60
+set border 40
+set padding 40 40 40 40
 set barpadding 50 40
