@@ -8,40 +8,40 @@ Xft.rgba: rgb
 Xft.lcdfilter: lcddefault
 
 !! ------ nyx ------ !!
-*foreground: #F9CeC3
-*background: #232530
-*cursorColor: #D65C78
+URxvt.foreground: #F9CeC3
+URxvt.background: #232530
+URxvt.cursorColor: #D65C78
 
 ! black
-*color0: #0F161A
+URxvt.color0: #0F161A
 
 ! red
-*color1: #D65C78
+URxvt.color1: #D65C78
 
 ! green
-*color2: #50C08E
+URxvt.color2: #50C08E
 
 ! yellow (orange)
-*color3: #D78374
+URxvt.color3: #D78374
 
 ! blue
-*color4: #15A6B1
+URxvt.color4: #15A6B1
 
 ! magenta (purple)
-*color5: #B08CCC
+URxvt.color5: #B08CCC
 
 ! cyan (grey)
-*color6: #63798F
+URxvt.color6: #63798F
 
 ! white
-*color7: #F9CEC3
+URxvt.color7: #F9CEC3
 
 !! ------ urxvt ------ !!
-*font: xft:FiraCode:medium:size=10:antialiasing=true
-*boldFont: xft:FiraCode:medium:size=10:antialiasing=true:style=bold
-*italicFont: xft:FiraCode:medium:size=10:antialiasing=true
-*letterSpace: -1
-*lineSpace: 6
+URxvt.font: xft:FiraCode:medium:size=10:antialiasing=true
+URxvt.boldFont: xft:FiraCode:medium:size=10:antialiasing=true:style=bold
+URxvt.italicFont: xft:FiraCode:medium:size=10:antialiasing=true
+URxvt.letterSpace: -1
+URxvt.lineSpace: 6
 
 URxvt.internalBorder: 80
 URxvt.cursorBlink: true
