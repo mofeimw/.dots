@@ -1,4 +1,4 @@
-!! ------ X11 ------ !!
+!! ====== display ======
 Xft.dpi: 192
 Xft.antialias: 1
 Xft.hinting: 1
@@ -7,7 +7,7 @@ Xft.hintstyle: hintslight
 Xft.rgba: rgb
 Xft.lcdfilter: lcddefault
 
-!! ------ nyx ------ !!
+!! ====== urxvt ======
 URxvt.foreground: #F9CeC3
 URxvt.background: #232530
 URxvt.cursorColor: #D65C78
@@ -36,7 +36,6 @@ URxvt.color6: #63798F
 ! white
 URxvt.color7: #F9CEC3
 
-!! ------ urxvt ------ !!
 URxvt.font: xft:FiraCode:medium:size=10:antialiasing=true
 URxvt.boldFont: xft:FiraCode:medium:size=10:antialiasing=true:style=bold
 URxvt.italicFont: xft:FiraCode:medium:size=10:antialiasing=true
