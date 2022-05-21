@@ -4,6 +4,8 @@
 # sudo addgroup input
 # sudo usermod -aG input ${USER}
 # evtest
+#
+# # # /dev/input/event path MAY VARY!! # # #
 
 # fn key -> alt
-"Apple Inc. Apple Internal Keyboard / Trackpad" "/dev/input/event8" none key/464 "XKey/Alt_L"
+"Apple Inc. Apple Internal Keyboard / Trackpad" "/dev/input/event7" none key/464 "XKey/Alt_L"
