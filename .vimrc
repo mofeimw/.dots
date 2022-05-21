@@ -48,6 +48,7 @@ nnoremap V V$
 nnoremap x "_x
 nnoremap _d "_dd
 
+nnoremap <Leader>u <C-R>
 nnoremap <Leader>y 0"+yg_
 nnoremap <Leader>p o<esc>"+p
 nnoremap <Leader>c "+y
