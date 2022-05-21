@@ -27,6 +27,7 @@ bind backslash exec $HOME/.circus/gaps toggle
 bind z windows
 bind c hsplit
 bind v vsplit
+bind b resize
 bind q only
 bind w delete
 bind d remove
@@ -43,7 +44,7 @@ bind j exec $HOME/.circus/rat move bottom
 bind f exec $HOME/.circus/rat exchange horizontal
 bind g exec $HOME/.circus/rat exchange vertical
 
-bind x exec urxvt
+bind x exec kitty
 
 # non-release mirror
 bind M-period restart
@@ -59,6 +60,7 @@ bind M-backslash exec $HOME/.circus/gaps toggle
 bind M-z windows
 bind M-c hsplit
 bind M-v vsplit
+bind M-b resize
 bind M-q only
 bind M-w delete
 bind M-d remove
@@ -75,7 +77,7 @@ bind M-j exec $HOME/.circus/rat move bottom
 bind M-f exec $HOME/.circus/rat exchange horizontal
 bind M-g exec $HOME/.circus/rat exchange vertical
 
-bind M-x exec urxvt
+bind M-x exec kitty
 
 # ====== aliases ======
 alias firefox exec firefox
@@ -105,6 +107,7 @@ set maxsizegravity center
 # frame
 set framemsgwait -1
 set framefmt focus
+set resizeunit 20
 
 # status bar
 set fgcolor #D65C78
