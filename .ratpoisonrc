@@ -5,6 +5,7 @@ exec picom &
 exec sloppy
 exec rpws init 2 -k
 exec xbindkeys
+exec xsetroot -cursor_name left_ptr
 exec git --git-dir=$HOME/.dots/ --work-tree=$HOME pull
 
 startup_message off
