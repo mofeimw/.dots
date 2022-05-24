@@ -106,8 +106,8 @@ set transgravity center
 set maxsizegravity center
 
 # frame
-set framemsgwait -1
-set framefmt focus
+set framemsgwait 1
+set framefmt current frame
 set resizeunit 20
 
 # status bar
@@ -122,4 +122,4 @@ set barpadding 20 20
 # "gaps"
 set border 40
 set padding 40 40 40 40
-set barpadding 50 40
+set barpadding 35 30
