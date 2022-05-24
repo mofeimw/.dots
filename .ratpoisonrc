@@ -16,6 +16,7 @@ startup_message off
 escape M-z
 
 bind period restart
+bind space windows
 bind greater exec
 bind Escape exec echo
 bind Right rpwsn
@@ -36,8 +37,9 @@ bind n next
 bind p prev
 bind u undo
 bind r redo
-bind i exec rpws 1
-bind o exec rpws 2
+bind i rpws1
+bind o rpws2
+bind m rpwsmn
 bind h exec $HOME/.circus/rat move left
 bind l exec $HOME/.circus/rat move right
 bind k exec $HOME/.circus/rat move top
@@ -68,8 +70,9 @@ bind M-n next
 bind M-p prev
 bind M-u undo
 bind M-r redo
-bind M-i exec rpws 1
-bind M-o exec rpws 2
+bind M-i rpws1
+bind M-o rpws2
+bind M-m rpwsmn
 bind M-h exec $HOME/.circus/rat move left
 bind M-l exec $HOME/.circus/rat move right
 bind M-k exec $HOME/.circus/rat move top
