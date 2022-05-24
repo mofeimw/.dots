@@ -16,7 +16,6 @@ startup_message off
 escape M-z
 
 bind period restart
-bind space windows
 bind greater exec
 bind Escape exec echo
 bind Right rpwsn
@@ -25,13 +24,14 @@ bind bracketleft exec $HOME/.circus/gaps inc
 bind bracketright exec $HOME/.circus/gaps dec
 bind backslash exec $HOME/.circus/gaps toggle
 
-bind z windows
+bind z exec kitty
 bind c hsplit
 bind v vsplit
 bind b resize
+bind e fselect
 bind q only
 bind w delete
-bind d remove
+bind x remove
 bind n next
 bind p prev
 bind u undo
@@ -45,8 +45,6 @@ bind j exec $HOME/.circus/rat move bottom
 bind f exec $HOME/.circus/rat exchange horizontal
 bind g exec $HOME/.circus/rat exchange vertical
 
-bind x exec kitty
-
 # non-release mirror
 bind M-period restart
 bind M-space windows
@@ -58,13 +56,14 @@ bind M-bracketleft exec $HOME/.circus/gaps inc
 bind M-bracketright exec $HOME/.circus/gaps dec
 bind M-backslash exec $HOME/.circus/gaps toggle
 
-bind M-z windows
+bind M-z exec kitty
 bind M-c hsplit
 bind M-v vsplit
 bind M-b resize
+bind M-e fselect
 bind M-q only
 bind M-w delete
-bind M-d remove
+bind M-x remove
 bind M-n next
 bind M-p prev
 bind M-u undo
@@ -77,8 +76,6 @@ bind M-k exec $HOME/.circus/rat move top
 bind M-j exec $HOME/.circus/rat move bottom
 bind M-f exec $HOME/.circus/rat exchange horizontal
 bind M-g exec $HOME/.circus/rat exchange vertical
-
-bind M-x exec kitty
 
 # ====== aliases ======
 alias firefox exec firefox
@@ -106,6 +103,7 @@ set transgravity center
 set maxsizegravity center
 
 # frame
+set framesels abcdefghijklmnopqrstuvwxyz
 set framemsgwait 1
 set framefmt current frame
 set resizeunit 20
