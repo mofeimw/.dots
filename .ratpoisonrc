@@ -1,6 +1,7 @@
 # ====== initialize ======
 exec xmodmap $HOME/.Xmodmap &
 exec feh --randomize --bg-fill $HOME/Pictures/wallpaper/*
+exec polybar bar
 exec picom &
 exec sloppy
 exec rpws init 2 -k
@@ -16,7 +17,8 @@ startup_message off
 escape M-z
 
 bind period restart
-bind space windows
+bind space exec $HOME/.circus/gaps bar
+bind Tab windows
 bind greater exec
 bind Escape exec echo
 bind Right rpwsn
@@ -49,7 +51,8 @@ bind g exec $HOME/.circus/rat exchange vertical
 
 # non-release mirror
 bind M-period restart
-bind M-space windows
+bind M-space exec $HOME/.circus/gaps bar
+bind M-Tab windows
 bind M-greater exec
 bind M-Escape exec echo
 bind M-Right rpwsn
@@ -122,5 +125,5 @@ set barpadding 20 20
 
 # "gaps"
 set border 40
-set padding 40 40 40 40
+set padding 40 100 40 40
 set barpadding 35 30
