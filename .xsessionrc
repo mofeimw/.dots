@@ -1,13 +1,6 @@
-# enable fn key
-if [ -f /tmp/.evrouter:1 ]; then rm /tmp/.evrouter:1; fi
-evrouter /dev/input/event7
-
-# start xmodmap
-(sleep 2 && xmodmap $HOME/.Xmodmap) &
-
 # exec /usr/bin/ratpoison
 #
-# # # # # # # # # # # # # # # # # # # # # # # #
+# | | | | | | | | | | | |
 #
 # # /usr/share/xsessions/ratpoison.desktop # #
 # [Desktop Entry]
@@ -15,3 +8,14 @@ evrouter /dev/input/event7
 # Comment=start ratpoison wm
 # Exec=/usr/bin/ratpoison
 # Type=Application
+
+# remove evrouter PID file
+if [ -f /tmp/.evrouter:1 ]; then rm /tmp/.evrouter:1; fi
+
+# start xmodmap
+# remap macbook keyboard
+(sleep 2 && xmodmap $HOME/.Xmodmap) &
+
+# start evrouter
+# enable macbook fn key -> ctrl
+(sleep 2 && evrouter /dev/input/event7) &
