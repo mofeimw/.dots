@@ -8,4 +8,4 @@
 # # # /dev/input/event path MAY VARY!! # # #
 
 # fn key -> alt
-"Apple Inc. Apple Internal Keyboard / Trackpad" "/dev/input/event7" none key/464 "XKey/Alt_L"
+"Apple Inc. Apple Internal Keyboard / Trackpad" "/dev/input/event7" none key/464 "XKey/Control_L"

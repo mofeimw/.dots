@@ -4,7 +4,7 @@ exec feh --randomize --bg-fill $HOME/Pictures/wallpaper/*
 exec polybar bar
 exec picom &
 exec sloppy
-exec rpws init 2 -k
+exec rpws init 3 -k
 exec xbindkeys
 exec xsetroot -cursor_name left_ptr
 exec git --git-dir=$HOME/.dots/ --work-tree=$HOME pull
@@ -14,8 +14,8 @@ startup_message off
 # exec ratpoison -c "echo the inn at the edge of the world"
 
 # ====== keybinds ======
-escape M-z
-
+escape C-z
+# ======================
 bind period restart
 bind space exec $HOME/.circus/gaps bar
 bind Tab windows
@@ -26,21 +26,22 @@ bind Left rpwsp
 bind bracketleft exec $HOME/.circus/gaps inc
 bind bracketright exec $HOME/.circus/gaps dec
 bind backslash exec $HOME/.circus/gaps toggle
-
+# -------------------------------------------
 bind z exec kitty
 bind c hsplit
 bind v vsplit
-bind b resize
+bind r resize
 bind e fselect
 bind q only
 bind w delete
 bind x remove
 bind n next
-bind p prev
+bind b prev
 bind u undo
-bind r redo
+bind y redo
 bind i rpws1
 bind o rpws2
+bind p rpws3
 bind m rpwsmn
 bind h exec $HOME/.circus/rat move left
 bind l exec $HOME/.circus/rat move right
@@ -48,40 +49,42 @@ bind k exec $HOME/.circus/rat move top
 bind j exec $HOME/.circus/rat move bottom
 bind f exec $HOME/.circus/rat exchange horizontal
 bind g exec $HOME/.circus/rat exchange vertical
-
-# non-release mirror
-bind M-period restart
-bind M-space exec $HOME/.circus/gaps bar
-bind M-Tab windows
-bind M-greater exec
-bind M-Escape exec echo
-bind M-Right rpwsn
-bind M-Left rpwsp
-bind M-bracketleft exec $HOME/.circus/gaps inc
-bind M-bracketright exec $HOME/.circus/gaps dec
-bind M-backslash exec $HOME/.circus/gaps toggle
-
-bind M-z exec kitty
-bind M-c hsplit
-bind M-v vsplit
-bind M-b resize
-bind M-e fselect
-bind M-q only
-bind M-w delete
-bind M-x remove
-bind M-n next
-bind M-p prev
-bind M-u undo
-bind M-r redo
-bind M-i rpws1
-bind M-o rpws2
-bind M-m rpwsmn
-bind M-h exec $HOME/.circus/rat move left
-bind M-l exec $HOME/.circus/rat move right
-bind M-k exec $HOME/.circus/rat move top
-bind M-j exec $HOME/.circus/rat move bottom
-bind M-f exec $HOME/.circus/rat exchange horizontal
-bind M-g exec $HOME/.circus/rat exchange vertical
+# ===============================================
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# ===============================================
+bind C-period restart
+bind C-space exec $HOME/.circus/gaps bar
+bind C-Tab windows
+bind C-greater exec
+bind C-Escape exec echo
+bind C-Right rpwsn
+bind C-Left rpwsp
+bind C-bracketleft exec $HOME/.circus/gaps inc
+bind C-bracketright exec $HOME/.circus/gaps dec
+bind C-backslash exec $HOME/.circus/gaps toggle
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bind C-z exec kitty
+bind C-c hsplit
+bind C-v vsplit
+bind C-r resize
+bind C-e fselect
+bind C-q only
+bind C-w delete
+bind C-x remove
+bind C-n next
+bind C-b prev
+bind C-u undo
+bind C-y redo
+bind C-i rpws1
+bind C-o rpws2
+bind C-p rpws3
+bind C-m rpwsmn
+bind C-h exec $HOME/.circus/rat move left
+bind C-l exec $HOME/.circus/rat move right
+bind C-k exec $HOME/.circus/rat move top
+bind C-j exec $HOME/.circus/rat move bottom
+bind C-f exec $HOME/.circus/rat exchange horizontal
+bind C-g exec $HOME/.circus/rat exchange vertical
 
 # ====== aliases ======
 alias firefox exec firefox
