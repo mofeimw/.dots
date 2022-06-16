@@ -1,9 +1,5 @@
 # ====== initialize ======
-exec (sleep 2 && xmodmap $HOME/.Xmodmap) &
-
-exec if [ -f /tmp/.evrouter:1 ]; then rm /tmp/.evrouter:1; fi
-exec if [ -f /tmp/.evrouter:1.0 ]; then rm /tmp/.evrouter:1.0; fi
-exec evrouter /dev/input/event7
+exec killall -q evrouter; evrouter /dev/input/event7
 
 exec xbindkeys
 exec xsetroot -cursor_name left_ptr
@@ -15,11 +11,7 @@ exec feh --randomize --bg-fill $HOME/Pictures/wallpaper/*
 exec polybar bar
 exec picom &
 
-exec git --git-dir=$HOME/.dots/ --work-tree=$HOME pull
-
-startup_message off
-# exec $HOME/.circus/rp_quote
-# exec ratpoison -c "echo the inn at the edge of the world"
+exec sleep 2 && xmodmap $HOME/.Xmodmap
 
 # ====== keybinds ======
 escape C-z
@@ -104,8 +96,9 @@ alias shutdown exec poweroff
 
 # ====== settings ======
 set font "Fira Code:size=12:style=medium"
-set warp 0
+startup_message off
 set msgwait 1
+set warp 0
 
 # border
 set border 10
