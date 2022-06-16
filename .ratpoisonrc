@@ -1,32 +1,40 @@
 # ====== initialize ======
-exec xmodmap $HOME/.Xmodmap &
+exec (sleep 2 && xmodmap $HOME/.Xmodmap) &
+
+exec if [ -f /tmp/.evrouter:1 ]; then rm /tmp/.evrouter:1; fi
+exec if [ -f /tmp/.evrouter:1.0 ]; then rm /tmp/.evrouter:1.0; fi
+exec evrouter /dev/input/event7
+
+exec xbindkeys
+exec xsetroot -cursor_name left_ptr
+
+exec sloppy
+exec rpws init 3 -k
+
 exec feh --randomize --bg-fill $HOME/Pictures/wallpaper/*
 exec polybar bar
 exec picom &
-exec sloppy
-exec rpws init 3 -k
-exec xbindkeys
-exec xsetroot -cursor_name left_ptr
+
 exec git --git-dir=$HOME/.dots/ --work-tree=$HOME pull
 
 startup_message off
-# exec $HOME/.circus/quote
+# exec $HOME/.circus/rp_quote
 # exec ratpoison -c "echo the inn at the edge of the world"
 
 # ====== keybinds ======
 escape C-z
 # ======================
 bind period restart
-bind space exec $HOME/.circus/gaps bar
+bind space exec $HOME/.circus/rp_gaps bar
 bind Tab windows
 bind greater exec
 bind Escape exec echo
 bind Right rpwsn
 bind Left rpwsp
-bind bracketleft exec $HOME/.circus/gaps inc
-bind bracketright exec $HOME/.circus/gaps dec
-bind backslash exec $HOME/.circus/gaps toggle
-# -------------------------------------------
+bind bracketleft exec $HOME/.circus/rp_gaps inc
+bind bracketright exec $HOME/.circus/rp_gaps dec
+bind backslash exec $HOME/.circus/rp_gaps toggle
+# ----------------------------------------------
 bind z exec kitty
 bind c hsplit
 bind v vsplit
@@ -43,26 +51,26 @@ bind i rpws1
 bind o rpws2
 bind p rpws3
 bind m rpwsmn
-bind h exec $HOME/.circus/rat move left
-bind l exec $HOME/.circus/rat move right
-bind k exec $HOME/.circus/rat move top
-bind j exec $HOME/.circus/rat move bottom
-bind f exec $HOME/.circus/rat exchange horizontal
-bind g exec $HOME/.circus/rat exchange vertical
-# ===============================================
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# ===============================================
+bind h exec $HOME/.circus/rp_rat move left
+bind l exec $HOME/.circus/rp_rat move right
+bind k exec $HOME/.circus/rp_rat move top
+bind j exec $HOME/.circus/rp_rat move bottom
+bind f exec $HOME/.circus/rp_rat exchange horizontal
+bind g exec $HOME/.circus/rp_rat exchange vertical
+# ==================================================
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# ==================================================
 bind C-period restart
-bind C-space exec $HOME/.circus/gaps bar
+bind C-space exec $HOME/.circus/rp_gaps bar
 bind C-Tab windows
 bind C-greater exec
 bind C-Escape exec echo
 bind C-Right rpwsn
 bind C-Left rpwsp
-bind C-bracketleft exec $HOME/.circus/gaps inc
-bind C-bracketright exec $HOME/.circus/gaps dec
-bind C-backslash exec $HOME/.circus/gaps toggle
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bind C-bracketleft exec $HOME/.circus/rp_gaps inc
+bind C-bracketright exec $HOME/.circus/rp_gaps dec
+bind C-backslash exec $HOME/.circus/rp_gaps toggle
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 bind C-z exec kitty
 bind C-c hsplit
 bind C-v vsplit
@@ -79,17 +87,20 @@ bind C-i rpws1
 bind C-o rpws2
 bind C-p rpws3
 bind C-m rpwsmn
-bind C-h exec $HOME/.circus/rat move left
-bind C-l exec $HOME/.circus/rat move right
-bind C-k exec $HOME/.circus/rat move top
-bind C-j exec $HOME/.circus/rat move bottom
-bind C-f exec $HOME/.circus/rat exchange horizontal
-bind C-g exec $HOME/.circus/rat exchange vertical
+bind C-h exec $HOME/.circus/rp_rat move left
+bind C-l exec $HOME/.circus/rp_rat move right
+bind C-k exec $HOME/.circus/rp_rat move top
+bind C-j exec $HOME/.circus/rp_rat move bottom
+bind C-f exec $HOME/.circus/rp_rat exchange horizontal
+bind C-g exec $HOME/.circus/rp_rat exchange vertical
 
 # ====== aliases ======
 alias firefox exec firefox
 alias skype exec skypeforlinux
 alias spotify exec spotify
+
+alias logout quit
+alias shutdown exec poweroff
 
 # ====== settings ======
 set font "Fira Code:size=12:style=medium"
