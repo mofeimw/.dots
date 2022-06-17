@@ -85,58 +85,6 @@ iabbrev waht what
 nnoremap <silent> <Leader>g :PencilToggle<CR><Bar>:Goyo<CR>
 nnoremap <silent> <Leader>l :Limelight!!<CR>
 
-" =================================== status bar ======================================
-
-hi Lines guibg=#63798F guifg=#232530 cterm=bold
-hi Background guibg=#232530 guifg=#232530
-hi Time guibg=#15A6B1 guifg=#232530 cterm=bold
-
-let focus = 1
-
-function! FileModified(modified, focus)
-    if a:focus == 1
-        if a:modified == 1
-            hi Mod guibg=#D65C78 guifg=#232530 cterm=bold
-        else
-            hi Mod guibg=#50C08E guifg=#232530 cterm=bold
-        endif
-    else
-        hi Mod guibg=#63798F guifg=#232530 cterm=bold
-    endif
-
-    return expand('%:t')
-endfunction
-
-function! LinesMode(focus)
-    hi Line guibg=#63798F guifg=#232530 cterm=bold
-
-    if a:focus == 1
-        if mode() == 'n'
-            hi Lines guibg=#63798F guifg=#232530 cterm=bold
-        elseif mode() == 'i'
-            hi Lines guibg=#F9CEC3 guifg=#232530 cterm=bold
-        elseif mode() =~ '\v(v|V)' || mode() == "\<C-V>"
-            return line('v') . "-" . line('.')
-        endif
-    endif
-
-    return line('.') . ":" . col('.')
-endfunction
-
-au FocusGained * hi Time guibg=#15A6B1 guifg=#232530 cterm=bold | hi Lines guibg=#63798F guifg=#232530 cterm=bold | let focus = 1
-au FocusLost * hi Time guibg=#63798F guifg=#232530 cterm=bold | hi Lines guibg=#232530 guifg=#232530 cterm=bold | let focus = 0
-
-set laststatus=2
-set statusline=
-
-set statusline+=%#Mod#\ %{FileModified(&modified,\ focus)}\ 
-set statusline+=%#Lines#\ %{LinesMode(focus)}\ 
-
-set statusline+=%#Background#
-set statusline+=%=
-
-set statusline+=%#Time#\ %{strftime('%r')}\ 
-
 " ==================================== appearance =====================================
 
 colorscheme nyx
@@ -156,6 +104,56 @@ hi CirqueSpecial guifg=#50C08E
 hi CirquePath guifg=#63798F
 hi CirqueSlash guifg=#63798F
 hi CirqueFile guifg=#15A6B1
+
+" =================================== status bar ======================================
+
+let focus = 1
+
+function! FileModified(modified, focus)
+    if a:focus == 1
+        if a:modified == 1
+            hi Mod guibg=#D65C78 guifg=#232530 cterm=bold
+        else
+            hi Mod guibg=#50C08E guifg=#232530 cterm=bold
+        endif
+    else
+        hi Mod guibg=#63798F guifg=#232530 cterm=bold
+    endif
+
+    return expand('%:t')
+endfunction
+
+function! LinesMode(focus)
+    if a:focus == 1
+        if mode() == 'n'
+            hi Lines guibg=#63798F guifg=#232530 cterm=bold
+        elseif mode() == 'i'
+            hi Lines guibg=#F9CEC3 guifg=#232530 cterm=bold
+        elseif mode() =~ '\v(v|V)' || mode() == "\<C-V>"
+            return line('v') . "-" . line('.')
+        endif
+    endif
+
+    return line('.') . ":" . col('.')
+endfunction
+
+set laststatus=2
+set statusline=
+
+set statusline+=%#Mod#\ %{FileModified(&modified,\ focus)}\ 
+set statusline+=%#Lines#\ %{LinesMode(focus)}\ 
+
+set statusline+=%#Background#
+set statusline+=%=
+
+set statusline+=%#Time#\ %{strftime('%r')}\ 
+
+hi Lines guibg=#63798F guifg=#232530 cterm=bold
+hi Background guibg=#232530 guifg=#232530
+hi Time guibg=#15A6B1 guifg=#232530 cterm=bold
+
+au FocusGained * hi Time guibg=#15A6B1 guifg=#232530 cterm=bold | hi Lines guibg=#63798F guifg=#232530 cterm=bold | let focus = 1
+au FocusLost * hi Time guibg=#63798F guifg=#232530 cterm=bold | hi Lines guibg=#232530 guifg=#232530 cterm=bold | let focus = 0
 
 " ================================== autocommands =====================================
 

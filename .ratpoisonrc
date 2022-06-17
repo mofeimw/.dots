@@ -47,9 +47,9 @@ bind k exec $HOME/.circus/rp_rat move top
 bind j exec $HOME/.circus/rp_rat move bottom
 bind f exec $HOME/.circus/rp_rat exchange horizontal
 bind g exec $HOME/.circus/rp_rat exchange vertical
+
 # ==================================================
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# ==================================================
+
 bind C-period restart
 bind C-Delete exec $HOME/.circus/rp_gaps bar
 bind C-Tab windows
@@ -60,7 +60,7 @@ bind C-Left rpwsp
 bind C-bracketleft exec $HOME/.circus/rp_gaps inc
 bind C-bracketright exec $HOME/.circus/rp_gaps dec
 bind C-backslash exec $HOME/.circus/rp_gaps toggle
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ------------------------------------------------
 bind C-z exec kitty
 bind C-c hsplit
 bind C-v vsplit
