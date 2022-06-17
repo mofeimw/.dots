@@ -13,7 +13,7 @@ exec xsetroot -cursor_name left_ptr
 
 # ====== keybinds ======
 escape C-z
-# ======================
+
 bind period restart
 bind BackSpace exec $HOME/.circus/rp_gaps bar
 bind Tab windows
@@ -24,7 +24,7 @@ bind Left rpwsp
 bind bracketleft exec $HOME/.circus/rp_gaps inc
 bind bracketright exec $HOME/.circus/rp_gaps dec
 bind backslash exec $HOME/.circus/rp_gaps toggle
-# ----------------------------------------------
+
 bind z exec kitty
 bind c hsplit
 bind v vsplit
@@ -60,7 +60,7 @@ bind C-Left rpwsp
 bind C-bracketleft exec $HOME/.circus/rp_gaps inc
 bind C-bracketright exec $HOME/.circus/rp_gaps dec
 bind C-backslash exec $HOME/.circus/rp_gaps toggle
-# ------------------------------------------------
+
 bind C-z exec kitty
 bind C-c hsplit
 bind C-v vsplit
@@ -93,8 +93,6 @@ definekey top C-D rpws3
 definekey top C-space colon
 definekey top C-Tab windows
 
-# ................................................................................
-
 definekey top XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -3000
 definekey top XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +3000
 definekey top XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -119,13 +117,6 @@ set font "Fira Code:size=12:style=medium"
 startup_message off
 set msgwait 1
 set warp 0
-
-# border
-set border 10
-set fwcolor #15A6B1
-set bwcolor #232530
-set onlyborder 0
-set padding 0 0 0 0
 
 # window
 set winname class
