@@ -4,18 +4,18 @@ exec rpws init 3 -k
 
 exec sleep 2 && xmodmap $HOME/.Xmodmap
 exec killall -q evrouter; evrouter /dev/input/event7
-exec xbindkeys
-exec xsetroot -cursor_name left_ptr
 
 exec wal -i $HOME/Pictures/wallpaper
 exec polybar bar
 exec picom &
 
+exec xsetroot -cursor_name left_ptr
+
 # ====== keybinds ======
 escape C-z
 # ======================
 bind period restart
-bind space exec $HOME/.circus/rp_gaps bar
+bind BackSpace exec $HOME/.circus/rp_gaps bar
 bind Tab windows
 bind greater exec
 bind Escape exec echo
@@ -51,7 +51,7 @@ bind g exec $HOME/.circus/rp_rat exchange vertical
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # ==================================================
 bind C-period restart
-bind C-space exec $HOME/.circus/rp_gaps bar
+bind C-Delete exec $HOME/.circus/rp_gaps bar
 bind C-Tab windows
 bind C-greater exec
 bind C-Escape exec echo
@@ -83,6 +83,28 @@ bind C-k exec $HOME/.circus/rp_rat move top
 bind C-j exec $HOME/.circus/rp_rat move bottom
 bind C-f exec $HOME/.circus/rp_rat exchange horizontal
 bind C-g exec $HOME/.circus/rp_rat exchange vertical
+
+# ====================================================
+
+definekey top C-A rpws1
+definekey top C-S rpws2
+definekey top C-D rpws3
+
+definekey top C-space colon
+definekey top C-Tab windows
+
+# ................................................................................
+
+definekey top XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -3000
+definekey top XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +3000
+definekey top XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+definekey top XF86AudioPlay exec playerctl play-pause
+definekey top XF86AudioNext exec playerctl next
+definekey top XF86AudioPrev exec playerctl previous
+
+definekey top XF86MonBrightnessUp exec $HOME/.circus/bright up
+definekey top XF86MonBrightnessDown exec $HOME/.circus/bright down
 
 # ====== aliases ======
 alias firefox exec firefox
@@ -116,7 +138,7 @@ set maxsizegravity center
 # frame
 set framesels abcdefghijklmnopqrstuvwxyz
 set framemsgwait 1
-set framefmt current frame
+set framefmt Current Frame
 set resizeunit 20
 
 # status bar
