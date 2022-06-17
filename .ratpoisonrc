@@ -109,6 +109,9 @@ alias firefox exec firefox
 alias skype exec skypeforlinux
 alias spotify exec spotify
 
+alias audio exec pavucontrol
+alias bluetooth exec blueman-manager
+
 alias logout quit
 alias shutdown exec poweroff
 
