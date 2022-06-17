@@ -21,7 +21,10 @@ export VISUAL=vim
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
-# padding for ocd
+# pywal
+[ -f ~/.cache/wal/sequences ] && (cat ~/.cache/wal/sequences &)
+
+# padding bc ocd
 precmd() {
     eval "precmd() { echo }"
 }

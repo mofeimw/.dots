@@ -1,17 +1,15 @@
 # ====== initialize ======
-exec killall -q evrouter; evrouter /dev/input/event7
-
-exec xbindkeys
-exec xsetroot -cursor_name left_ptr
-
 exec sloppy
 exec rpws init 3 -k
 
-exec feh --randomize --bg-fill $HOME/Pictures/wallpaper/*
+exec sleep 2 && xmodmap $HOME/.Xmodmap
+exec killall -q evrouter; evrouter /dev/input/event7
+exec xbindkeys
+exec xsetroot -cursor_name left_ptr
+
+exec wal -i $HOME/Pictures/wallpaper
 exec polybar bar
 exec picom &
-
-exec sleep 2 && xmodmap $HOME/.Xmodmap
 
 # ====== keybinds ======
 escape C-z

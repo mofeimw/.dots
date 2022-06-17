@@ -4,10 +4,9 @@
 
 " ==================================== settings =======================================
 
-colorscheme nyx
-
 set confirm
 set noshowmode
+set noruler
 set mouse=a
 set wildmenu
 set wrap
@@ -138,7 +137,9 @@ set statusline+=%=
 
 set statusline+=%#Time#\ %{strftime('%r')}\ 
 
-" ======================================== ui =========================================
+" ==================================== appearance =====================================
+
+colorscheme nyx
 
 set fillchars+=vert:\ 
 
@@ -178,9 +179,16 @@ Plug 'mofeimw/peek.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'preservim/vim-pencil'
+Plug 'dylanaraps/wal.vim'
 call plug#end()
 
 let g:limelight_conceal_guifg = '#63798F'
 let g:peekaboo_compact = 1
 let g:peekaboo_ins_prefix = "<C-z>"
 let g:pencil#wrapModeDefault = 'soft'
+
+if !empty(glob("~/.cache/wal/colors"))
+    colorscheme wal
+    set notermguicolors
+    set laststatus=0
+endif
