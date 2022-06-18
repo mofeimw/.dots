@@ -6,9 +6,10 @@ exec sleep 2 && xmodmap $HOME/.Xmodmap
 exec killall -q evrouter; evrouter /dev/input/event7
 
 exec wal -i $HOME/Pictures/wallpaper
+exec sleep 1 && $HOME/.circus/rp_wal
+
 exec polybar bar
 exec picom &
-
 exec xsetroot -cursor_name left_ptr
 
 # ====== keybinds ======
@@ -34,12 +35,12 @@ bind q only
 bind w delete
 bind x remove
 bind n next
-bind b prev
-bind u undo
-bind y redo
-bind i rpws1
-bind o rpws2
-bind p rpws3
+bind p prev
+bind y undo
+bind t redo
+bind u rpws1
+bind i rpws2
+bind o rpws3
 bind m rpwsmn
 bind h exec $HOME/.circus/rp_rat move left
 bind l exec $HOME/.circus/rp_rat move right
@@ -70,12 +71,12 @@ bind C-q only
 bind C-w delete
 bind C-x remove
 bind C-n next
-bind C-b prev
-bind C-u undo
-bind C-y redo
-bind C-i rpws1
-bind C-o rpws2
-bind C-p rpws3
+bind C-p prev
+bind C-y undo
+bind C-t redo
+bind C-u rpws1
+bind C-i rpws2
+bind C-o rpws3
 bind C-m rpwsmn
 bind C-h exec $HOME/.circus/rp_rat move left
 bind C-l exec $HOME/.circus/rp_rat move right
@@ -91,9 +92,9 @@ definekey top C-D exec $HOME/.circus/rp_rat move right
 definekey top C-W exec $HOME/.circus/rp_rat move top
 definekey top C-S exec $HOME/.circus/rp_rat move bottom
 
-definekey top C-J rpws1
-definekey top C-K rpws2
-definekey top C-L rpws3
+definekey top C-U rpws1
+definekey top C-I rpws2
+definekey top C-O rpws3
 
 definekey top C-space colon
 definekey top C-Tab windows
@@ -119,20 +120,19 @@ alias bluetooth exec blueman-manager
 
 alias logout quit
 alias shutdown exec poweroff
+alias reboot exec reboot
 
 # ====== settings ======
 set font "Fira Code:size=12:style=medium"
-startup_message off
 set msgwait 1
 set warp 0
+startup_message off
 
 # window
-set winname class
-set winliststyle column
-set winfmt [%n] %t
 set wingravity center
-set transgravity center
-set maxsizegravity center
+set winname title
+set winfmt [%n] %t
+set winliststyle column
 
 # frame
 set framesels abcdefghijklmnopqrstuvwxyz
@@ -144,12 +144,10 @@ set resizeunit 20
 set fgcolor #D65C78
 set bgcolor #232530
 
-set inputwidth 600
-set barborder 6
+set inputwidth 700
 set bargravity center
-set barpadding 20 20
+set barpadding 35 30
 
 # "gaps"
 set border 40
 set padding 40 100 40 40
-set barpadding 35 30
