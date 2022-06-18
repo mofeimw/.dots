@@ -86,9 +86,14 @@ bind C-g exec $HOME/.circus/rp_rat exchange vertical
 
 # ====================================================
 
-definekey top C-A rpws1
-definekey top C-S rpws2
-definekey top C-D rpws3
+definekey top C-A exec $HOME/.circus/rp_rat move left
+definekey top C-D exec $HOME/.circus/rp_rat move right
+definekey top C-W exec $HOME/.circus/rp_rat move top
+definekey top C-S exec $HOME/.circus/rp_rat move bottom
+
+definekey top C-J rpws1
+definekey top C-K rpws2
+definekey top C-L rpws3
 
 definekey top C-space colon
 definekey top C-Tab windows
@@ -131,7 +136,7 @@ set maxsizegravity center
 
 # frame
 set framesels abcdefghijklmnopqrstuvwxyz
-set framemsgwait 1
+set framemsgwait -1
 set framefmt Current Frame
 set resizeunit 20
 
