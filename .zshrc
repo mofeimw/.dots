@@ -21,6 +21,8 @@ export VISUAL=vim
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
+PROMPT_EOL_MARK=""
+
 # pywal
 [ -f ~/.cache/wal/sequences ] && (cat ~/.cache/wal/sequences &)
 
