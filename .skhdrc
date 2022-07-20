@@ -1,12 +1,13 @@
-# ======== keymaps ========
-::                    mofei
-# -------------------------
-ctrl - z ;            mofei
-mofei < escape -> ; default
-# =========================
+# =============== keymaps ================
+:: mofei : /Users/mofei/.circus/mousetoxin
+# ----------------------------------------
+ctrl - z ;                           mofei
+mofei < escape -> ;                default
+# ========================================
 
 # ===================================== apps ======================================
 ctrl - f :                             open /System/Library/CoreServices/Finder.app
+ctrl - x :                                             open /Applications/Kitty.app
 # ---------------------------------------------------------------------------------
 mofei < z :                            skhd -k escape; open /Applications/Kitty.app
 mofei < f :            skhd -k escape; open /System/Library/CoreServices/Finder.app
