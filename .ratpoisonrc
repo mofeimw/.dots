@@ -1,153 +1,151 @@
-# ====== initialize ======
-exec sloppy
-exec rpws init 3 -k
-
-exec sleep 2 && xmodmap $HOME/.Xmodmap
+# ================ initialization ==================
+exec                                          sloppy
+exec                                  rpws init 3 -k
+# --------------------------------------------------
+exec               sleep 2 && xmodmap $HOME/.Xmodmap
 exec killall -q evrouter; evrouter /dev/input/event7
-
-exec wal --backend wal -i $HOME/Pictures/wallpaper
-exec sleep 1 && $HOME/.circus/rp_wal
-
-exec polybar bar
-exec picom &
-exec xsetroot -cursor_name left_ptr
-
-# ====== keybinds ======
-escape C-z
-
-bind period restart
-bind BackSpace exec $HOME/.circus/rp_gaps bar
-bind Tab windows
-bind greater exec
-bind Escape exec echo
-bind Right rpwsn
-bind Left rpwsp
-bind bracketleft exec $HOME/.circus/rp_gaps inc
-bind bracketright exec $HOME/.circus/rp_gaps dec
-bind backslash exec $HOME/.circus/rp_gaps toggle
-
-bind z exec kitty
-bind c hsplit
-bind v vsplit
-bind r resize
-bind e fselect
-bind q only
-bind w delete
-bind x remove
-bind n next
-bind p prev
-bind y undo
-bind t redo
-bind u rpws1
-bind i rpws2
-bind o rpws3
-bind m rpwsmn
-bind h exec $HOME/.circus/rp_rat move left
-bind l exec $HOME/.circus/rp_rat move right
-bind k exec $HOME/.circus/rp_rat move top
-bind j exec $HOME/.circus/rp_rat move bottom
-bind f exec $HOME/.circus/rp_rat exchange horizontal
-bind g exec $HOME/.circus/rp_rat exchange vertical
-
+# --------------------------------------------------
+exec   wal --backend wal -i $HOME/Pictures/wallpaper
+exec                 sleep 1 && $HOME/.circus/rp_wal
+# --------------------------------------------------
+exec                                     polybar bar
+exec                                         picom &
+# --------------------------------------------------
+exec                  xsetroot -cursor_name left_ptr
 # ==================================================
 
-bind C-period restart
-bind C-Delete exec $HOME/.circus/rp_gaps bar
-bind C-Tab windows
-bind C-greater exec
-bind C-Escape exec echo
-bind C-Right rpwsn
-bind C-Left rpwsp
-bind C-bracketleft exec $HOME/.circus/rp_gaps inc
-bind C-bracketright exec $HOME/.circus/rp_gaps dec
-bind C-backslash exec $HOME/.circus/rp_gaps toggle
-
-bind C-z exec kitty
-bind C-c hsplit
-bind C-v vsplit
-bind C-r resize
-bind C-e fselect
-bind C-q only
-bind C-w delete
-bind C-x remove
-bind C-n next
-bind C-p prev
-bind C-y undo
-bind C-t redo
-bind C-u rpws1
-bind C-i rpws2
-bind C-o rpws3
-bind C-m rpwsmn
-bind C-h exec $HOME/.circus/rp_rat move left
-bind C-l exec $HOME/.circus/rp_rat move right
-bind C-k exec $HOME/.circus/rp_rat move top
-bind C-j exec $HOME/.circus/rp_rat move bottom
-bind C-f exec $HOME/.circus/rp_rat exchange horizontal
-bind C-g exec $HOME/.circus/rp_rat exchange vertical
-
+# ==================== keybinds ====================
+escape C-z
+# ==================================================
+bind period                                  restart
+bind BackSpace        exec $HOME/.circus/rp_gaps bar
+bind Tab                                     windows
+bind greater                                    exec
+bind Escape                                exec echo
+bind Right                                     rpwsn
+bind Left                                      rpwsp
+bind bracketleft      exec $HOME/.circus/rp_gaps inc
+bind bracketright     exec $HOME/.circus/rp_gaps dec
+bind backslash     exec $HOME/.circus/rp_gaps toggle
+# --------------------------------------------------
+bind z                                    exec kitty
+bind c                                        hsplit
+bind v                                        vsplit
+bind r                                        resize
+bind e                                       fselect
+bind q                                          only
+bind w                                        delete
+bind x                                        remove
+bind n                                          next
+bind p                                          prev
+bind y                                          undo
+bind t                                          redo
+bind u                                         rpws1
+bind i                                         rpws2
+bind o                                         rpws3
+bind m                                        rpwsmn
+bind h           exec $HOME/.circus/rp_rat move left
+bind l          exec $HOME/.circus/rp_rat move right
+bind k            exec $HOME/.circus/rp_rat move top
+bind j         exec $HOME/.circus/rp_rat move bottom
+bind f exec $HOME/.circus/rp_rat exchange horizontal
+bind g   exec $HOME/.circus/rp_rat exchange vertical
+# ==================================================
 # ====================================================
-
-definekey top C-A exec $HOME/.circus/rp_rat move left
-definekey top C-D exec $HOME/.circus/rp_rat move right
-definekey top C-W exec $HOME/.circus/rp_rat move top
-definekey top C-S exec $HOME/.circus/rp_rat move bottom
-
-definekey top C-U rpws1
-definekey top C-I rpws2
-definekey top C-O rpws3
-
-definekey top C-space colon
-definekey top C-Tab windows
-
+bind C-period                                  restart
+bind C-Delete           exec $HOME/.circus/rp_gaps bar
+bind C-Tab                                     windows
+bind C-greater                                    exec
+bind C-Escape                                exec echo
+bind C-Right                                     rpwsn
+bind C-Left                                      rpwsp
+bind C-bracketleft      exec $HOME/.circus/rp_gaps inc
+bind C-bracketright     exec $HOME/.circus/rp_gaps dec
+bind C-backslash     exec $HOME/.circus/rp_gaps toggle
+# ----------------------------------------------------
+bind C-z                                    exec kitty
+bind C-c                                        hsplit
+bind C-v                                        vsplit
+bind C-r                                        resize
+bind C-e                                       fselect
+bind C-q                                          only
+bind C-w                                        delete
+bind C-x                                        remove
+bind C-n                                          next
+bind C-p                                          prev
+bind C-y                                          undo
+bind C-t                                          redo
+bind C-u                                         rpws1
+bind C-i                                         rpws2
+bind C-o                                         rpws3
+bind C-m                                        rpwsmn
+bind C-h           exec $HOME/.circus/rp_rat move left
+bind C-l          exec $HOME/.circus/rp_rat move right
+bind C-k            exec $HOME/.circus/rp_rat move top
+bind C-j         exec $HOME/.circus/rp_rat move bottom
+bind C-f exec $HOME/.circus/rp_rat exchange horizontal
+bind C-g   exec $HOME/.circus/rp_rat exchange vertical
+# ====================================================
+# ================================================================================
+definekey top C-A                              exec $HOME/.circus/rp_rat move left
+definekey top C-D                             exec $HOME/.circus/rp_rat move right
+definekey top C-W                               exec $HOME/.circus/rp_rat move top
+definekey top C-S                            exec $HOME/.circus/rp_rat move bottom
+# --------------------------------------------------------------------------------
+definekey top C-U                                                            rpws1
+definekey top C-I                                                            rpws2
+definekey top C-O                                                            rpws3
+# --------------------------------------------------------------------------------
+definekey top C-space                                                        colon
+definekey top C-Tab                                                        windows
+# --------------------------------------------------------------------------------
 definekey top XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -3000
 definekey top XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +3000
-definekey top XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+definekey top XF86AudioMute         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+# --------------------------------------------------------------------------------
+definekey top XF86AudioPlay                              exec playerctl play-pause
+definekey top XF86AudioNext                                    exec playerctl next
+definekey top XF86AudioPrev                                exec playerctl previous
+# --------------------------------------------------------------------------------
+definekey top XF86MonBrightnessUp                     exec $HOME/.circus/bright up
+definekey top XF86MonBrightnessDown                 exec $HOME/.circus/bright down
+# ================================================================================
 
-definekey top XF86AudioPlay exec playerctl play-pause
-definekey top XF86AudioNext exec playerctl next
-definekey top XF86AudioPrev exec playerctl previous
-
-definekey top XF86MonBrightnessUp exec $HOME/.circus/bright up
-definekey top XF86MonBrightnessDown exec $HOME/.circus/bright down
-
-# ====== aliases ======
-alias firefox exec firefox
-alias skype exec skypeforlinux
-alias spotify exec spotify
-
-alias audio exec pavucontrol
+# ============== aliases ===========
+alias firefox           exec firefox
+alias skype       exec skypeforlinux
+alias spotify           exec spotify
+# ----------------------------------
+alias audio         exec pavucontrol
 alias bluetooth exec blueman-manager
+# ----------------------------------
+alias logout                    quit
+alias shutdown         exec poweroff
+alias reboot             exec reboot
+# ==================================
 
-alias logout quit
-alias shutdown exec poweroff
-alias reboot exec reboot
-
-# ====== settings ======
+# ============== settings ===============
 set font "Fira Code:size=12:style=medium"
-set msgwait 1
-set warp 0
-startup_message off
-
-# window
-set wingravity center
-set winname title
-set winfmt [%n] %t
-set winliststyle column
-
-# frame
+set msgwait                             1
+set warp                                0
+startup_message                       off
+# --------------- window ----------------
+set wingravity                     center
+set winname                         title
+set winfmt                        [%n] %t
+set winliststyle                   column
+# ---------------- frame ----------------
 set framesels abcdefghijklmnopqrstuvwxyz
-set framemsgwait -1
-set framefmt Current Frame
-set resizeunit 20
-
-# status bar
-set fgcolor #D65C78
-set bgcolor #232530
-
-set inputwidth 700
-set bargravity center
-set barpadding 35 30
-
-# "gaps"
-set border 40
-set padding 40 100 40 40
+set framemsgwait                       -1
+set framefmt                Current Frame
+set resizeunit                         20
+# ----------------- bar -----------------
+set fgcolor                       #D65C78
+set bgcolor                       #232530
+set inputwidth                        700
+set bargravity                     center
+set barpadding                      35 30
+# ---------------- gaps -----------------
+set border                             40
+set padding                  40 100 40 40
+# =======================================

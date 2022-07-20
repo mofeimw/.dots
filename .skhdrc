@@ -1,64 +1,49 @@
-# launch apps
-fn - z : open /Applications/kitty.app
-fn - x : open /Applications/Spotify.app
-fn - c : open /Applications/Firefox.app
-fn - v : $HOME/.circus/openifopen /Applications/Skype.app
-fn - n : open /System/Applications/Notes.app
-fn - b : open /System/Applications/Books.app
-fn - f : open /System/Library/CoreServices/Finder.app
+# ======== keymaps ========
+::                    mofei
+# -------------------------
+ctrl - z ;            mofei
+mofei < escape -> ; default
+# =========================
 
-# window
-fn - e : yabai -m window --toggle float
-fn - g : yabai -m space --toggle padding; yabai -m space --toggle gap
-fn - y : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
+# ===================================== apps ======================================
+ctrl - f :                             open /System/Library/CoreServices/Finder.app
+# ---------------------------------------------------------------------------------
+mofei < z :                            skhd -k escape; open /Applications/Kitty.app
+mofei < f :            skhd -k escape; open /System/Library/CoreServices/Finder.app
+mofei < n :                     skhd -k escape; open /System/Applications/Notes.app
+mofei < c :                          skhd -k escape; open /Applications/Firefox.app
+mofei < x :                          skhd -k escape; open /Applications/Spotify.app
+mofei < v :        skhd -k escape; $HOME/.circus/openifopen /Applications/Skype.app
+# ---------------------------------------------------------------------------------
+mofei < ctrl - z :                     skhd -k escape; open /Applications/Kitty.app
+mofei < ctrl - f :     skhd -k escape; open /System/Library/CoreServices/Finder.app
+mofei < ctrl - n :              skhd -k escape; open /System/Applications/Notes.app
+mofei < ctrl - c :                   skhd -k escape; open /Applications/Firefox.app
+mofei < ctrl - x :                   skhd -k escape; open /Applications/Spotify.app
+mofei < ctrl - v : skhd -k escape; $HOME/.circus/openifopen /Applications/Skype.app
+# =================================================================================
 
-# grid
-shift + cmd - u : yabai -m window --grid 2:4:0:0:2:1 
-shift + cmd - i : yabai -m window --grid 2:4:2:0:2:1
-shift + cmd - j : yabai -m window --grid 2:4:0:2:2:1
-shift + cmd - k : yabai -m window --grid 2:4:2:2:2:1
-
-shift + cmd - right : yabai -m window --grid 1:2:2:2:2:1
-shift + cmd - left : yabai -m window --grid 1:2:0:0:1:1
-
-shift + cmd - up : yabai -m window --grid 2:1:4:0:1:1
-shift + cmd - down : yabai -m window --grid 2:1:2:2:2:1
-
-shift + cmd - c : yabai -m window --grid 4:4:1:1:2:2
+# ======================= grid ==========================
+shift + cmd - u :      yabai -m window --grid 2:4:0:0:2:1
+shift + cmd - i :      yabai -m window --grid 2:4:2:0:2:1
+shift + cmd - j :      yabai -m window --grid 2:4:0:2:2:1
+shift + cmd - k :      yabai -m window --grid 2:4:2:2:2:1
+# -------------------------------------------------------
+shift + cmd - right :  yabai -m window --grid 1:2:2:2:2:1
+shift + cmd - left :   yabai -m window --grid 1:2:0:0:1:1
+# -------------------------------------------------------
+shift + cmd - up :     yabai -m window --grid 2:1:4:0:1:1
+shift + cmd - down :   yabai -m window --grid 2:1:2:2:2:1
+# -------------------------------------------------------
+shift + cmd - c :      yabai -m window --grid 4:4:1:1:2:2
 shift + cmd - return : yabai -m window --grid 1:1:0:0:1:1
+# =======================================================
 
-# resize
-cmd + fn - a : yabai -m window --resize left:-20:0 ; yabai -m window --resize right:-20:
-cmd + fn - s : yabai -m window --resize bottom:0:20 ; yabai -m window --resize top:0:20
-cmd + fn - w : yabai -m window --resize top:0:-20 ; yabai -m window --resize bottom:0:-20
-cmd + fn - d : yabai -m window --resize right:20:0 ; yabai -m window --resize left:20:0
-
-# spaces
-fn - 1 : yabai -m space --focus 1
-fn - 2 : yabai -m space --focus 2
-fn - 3 : yabai -m space --focus 3
-fn - 4 : yabai -m space --focus 4
-fn - 5 : yabai -m space --focus 5
-fn - 6 : yabai -m space --focus 6
-fn - 7 : yabai -m space --focus 7
-fn - 8 : yabai -m space --focus 8
-fn - 9 : yabai -m space --focus 9
-
+# ================ spaces ================
 shift + cmd - a : yabai -m space --focus 1
 shift + cmd - s : yabai -m space --focus 2
 shift + cmd - d : yabai -m space --focus 3
 shift + cmd - f : yabai -m space --focus 4
 shift + cmd - g : yabai -m space --focus 5
 shift + cmd - h : yabai -m space --focus 6
-
-# focus
-home : yabai -m window --focus west
-pagedown : yabai -m window --focus south
-pageup : yabai -m window --focus north
-end : yabai -m window --focus east
-
-# swap
-cmd - home : yabai -m window --warp west
-cmd - pagedown : yabai -m window --warp south
-cmd - pageup : yabai -m window --warp north
-cmd - end : yabai -m window --warp east
+# ========================================
