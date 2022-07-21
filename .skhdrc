@@ -41,6 +41,8 @@ shift + cmd - return : yabai -m window --grid 1:1:0:0:1:1
 # =======================================================
 
 # ================ spaces ================
+shift + cmd - w :      skhd -k "ctrl - up"
+# ----------------------------------------
 shift + cmd - a : yabai -m space --focus 1
 shift + cmd - s : yabai -m space --focus 2
 shift + cmd - d : yabai -m space --focus 3
