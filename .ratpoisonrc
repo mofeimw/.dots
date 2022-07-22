@@ -10,13 +10,12 @@ exec                 sleep 1 && $HOME/.circus/rp_wal
 # --------------------------------------------------
 exec                                     polybar bar
 exec                                         picom &
-# --------------------------------------------------
 exec                  xsetroot -cursor_name left_ptr
 # ==================================================
 
 # ==================== keybinds ====================
-escape C-z
-# ==================================================
+escape                                           C-z
+# --------------------------------------------------
 bind period                                  restart
 bind BackSpace        exec $HOME/.circus/rp_gaps bar
 bind Tab                                     windows
@@ -51,42 +50,8 @@ bind j         exec $HOME/.circus/rp_rat move bottom
 bind f exec $HOME/.circus/rp_rat exchange horizontal
 bind g   exec $HOME/.circus/rp_rat exchange vertical
 # ==================================================
-# ====================================================
-bind C-period                                  restart
-bind C-Delete           exec $HOME/.circus/rp_gaps bar
-bind C-Tab                                     windows
-bind C-greater                                    exec
-bind C-Escape                                exec echo
-bind C-Right                                     rpwsn
-bind C-Left                                      rpwsp
-bind C-bracketleft      exec $HOME/.circus/rp_gaps inc
-bind C-bracketright     exec $HOME/.circus/rp_gaps dec
-bind C-backslash     exec $HOME/.circus/rp_gaps toggle
-# ----------------------------------------------------
-bind C-z                                    exec kitty
-bind C-c                                        hsplit
-bind C-v                                        vsplit
-bind C-r                                        resize
-bind C-e                                       fselect
-bind C-q                                          only
-bind C-w                                        delete
-bind C-x                                        remove
-bind C-n                                          next
-bind C-p                                          prev
-bind C-y                                          undo
-bind C-t                                          redo
-bind C-u                                         rpws1
-bind C-i                                         rpws2
-bind C-o                                         rpws3
-bind C-m                                        rpwsmn
-bind C-h           exec $HOME/.circus/rp_rat move left
-bind C-l          exec $HOME/.circus/rp_rat move right
-bind C-k            exec $HOME/.circus/rp_rat move top
-bind C-j         exec $HOME/.circus/rp_rat move bottom
-bind C-f exec $HOME/.circus/rp_rat exchange horizontal
-bind C-g   exec $HOME/.circus/rp_rat exchange vertical
-# ====================================================
-# ================================================================================
+
+# ============================== top level keybinds ==============================
 definekey top C-A                              exec $HOME/.circus/rp_rat move left
 definekey top C-D                             exec $HOME/.circus/rp_rat move right
 definekey top C-W                               exec $HOME/.circus/rp_rat move top
@@ -111,7 +76,7 @@ definekey top XF86MonBrightnessUp                     exec $HOME/.circus/bright 
 definekey top XF86MonBrightnessDown                 exec $HOME/.circus/bright down
 # ================================================================================
 
-# ============== aliases ===========
+# ============ aliases =============
 alias firefox           exec firefox
 alias skype       exec skypeforlinux
 alias spotify           exec spotify
@@ -129,23 +94,23 @@ set font "Fira Code:size=12:style=medium"
 set msgwait                             1
 set warp                                0
 startup_message                       off
-# --------------- window ----------------
+# ---------------------------------------
 set wingravity                     center
 set winname                         title
 set winfmt                        [%n] %t
 set winliststyle                   column
-# ---------------- frame ----------------
+# ---------------------------------------
 set framesels abcdefghijklmnopqrstuvwxyz
 set framemsgwait                       -1
 set framefmt                Current Frame
 set resizeunit                         20
-# ----------------- bar -----------------
+# ---------------------------------------
 set fgcolor                       #D65C78
 set bgcolor                       #232530
 set inputwidth                        700
 set bargravity                     center
 set barpadding                      35 30
-# ---------------- gaps -----------------
+# ---------------------------------------
 set border                             40
 set padding                  40 100 40 40
 # =======================================
