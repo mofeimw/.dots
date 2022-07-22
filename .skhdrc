@@ -58,13 +58,12 @@ leader < w      ;                                             spaces
 spaces < a               :                    skhd -k  "ctrl - left"
 spaces < d               :                    skhd -k "ctrl - right"
 spaces < s               : skhd -k backspace; skhd -k  "ctrl - down"
+spaces < escape          : skhd -k backspace; skhd -k  "ctrl - down"
 # ------------------------------------------------------------------
 spaces < shift + cmd - a :                    skhd -k  "ctrl - left"
 spaces < shift + cmd - d :                    skhd -k "ctrl - right"
 spaces < shift + cmd - s : skhd -k backspace; skhd -k  "ctrl - down"
 spaces < shift + cmd - w : skhd -k backspace; skhd -k  "ctrl - down"
-# ------------------------------------------------------------------
-spaces < escape          : skhd -k backspace; skhd -k  "ctrl - down"
 # ==================================================================
 # ========================================
 shift + cmd - a : yabai -m space --focus 1
