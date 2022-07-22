@@ -1,28 +1,32 @@
-# =============== keymaps ================
-:: mofei : /Users/mofei/.circus/mousetoxin
-# ----------------------------------------
-ctrl - z ;                           mofei
-mofei < escape -> ;                default
-# ========================================
+# =========== modes ===========
+::                       leader
+:: spaces : skhd -k "ctrl - up"
+# -----------------------------
+ctrl - z           ;     leader
+leader < escape    ;    default
+spaces < backspace ;    default
+# =============================
 
-# ===================================== apps ======================================
-ctrl - f :                             open /System/Library/CoreServices/Finder.app
-ctrl - x :                                             open /Applications/Kitty.app
-# ---------------------------------------------------------------------------------
-mofei < z :                            skhd -k escape; open /Applications/Kitty.app
-mofei < f :            skhd -k escape; open /System/Library/CoreServices/Finder.app
-mofei < n :                     skhd -k escape; open /System/Applications/Notes.app
-mofei < c :                          skhd -k escape; open /Applications/Firefox.app
-mofei < x :                          skhd -k escape; open /Applications/Spotify.app
-mofei < v :        skhd -k escape; $HOME/.circus/openifopen /Applications/Skype.app
-# ---------------------------------------------------------------------------------
-mofei < ctrl - z :                     skhd -k escape; open /Applications/Kitty.app
-mofei < ctrl - f :     skhd -k escape; open /System/Library/CoreServices/Finder.app
-mofei < ctrl - n :              skhd -k escape; open /System/Applications/Notes.app
-mofei < ctrl - c :                   skhd -k escape; open /Applications/Firefox.app
-mofei < ctrl - x :                   skhd -k escape; open /Applications/Spotify.app
-mofei < ctrl - v : skhd -k escape; $HOME/.circus/openifopen /Applications/Skype.app
-# =================================================================================
+# ============= mousetoxin ==============
+leader < space : $HOME/.circus/mousetoxin
+# =======================================
+
+# ================================ apps =================================
+leader < z : skhd -k escape;                 open /Applications/Kitty.app
+leader < f : skhd -k escape; open /System/Library/CoreServices/Finder.app
+leader < n : skhd -k escape;          open /System/Applications/Notes.app
+leader < x : skhd -k escape;               open /Applications/Spotify.app
+leader < c : skhd -k escape;               open /Applications/Firefox.app
+leader < v : skhd -k escape;    $HOME/.circus/oio /Applications/Skype.app
+# =======================================================================
+# ==============================================================================
+leader < ctrl - z : skhd -k escape;                 open /Applications/Kitty.app
+leader < ctrl - f : skhd -k escape; open /System/Library/CoreServices/Finder.app
+leader < ctrl - n : skhd -k escape;          open /System/Applications/Notes.app
+leader < ctrl - x : skhd -k escape;               open /Applications/Spotify.app
+leader < ctrl - c : skhd -k escape;               open /Applications/Firefox.app
+leader < ctrl - v : skhd -k escape;    $HOME/.circus/oio /Applications/Skype.app
+# ==============================================================================
 
 # ======================= grid ==========================
 shift + cmd - u :      yabai -m window --grid 2:4:0:0:2:1
@@ -31,22 +35,48 @@ shift + cmd - j :      yabai -m window --grid 2:4:0:2:2:1
 shift + cmd - k :      yabai -m window --grid 2:4:2:2:2:1
 # -------------------------------------------------------
 shift + cmd - right :  yabai -m window --grid 1:2:2:2:2:1
-shift + cmd - left :   yabai -m window --grid 1:2:0:0:1:1
+shift + cmd - left  :  yabai -m window --grid 1:2:0:0:1:1
 # -------------------------------------------------------
-shift + cmd - up :     yabai -m window --grid 2:1:4:0:1:1
+shift + cmd - up   :   yabai -m window --grid 2:1:4:0:1:1
 shift + cmd - down :   yabai -m window --grid 2:1:2:2:2:1
 # -------------------------------------------------------
-shift + cmd - c :      yabai -m window --grid 4:4:1:1:2:2
+shift + cmd - c      : yabai -m window --grid 4:4:1:1:2:2
 shift + cmd - return : yabai -m window --grid 1:1:0:0:1:1
 # =======================================================
+# =====================================================================
+leader < u         : skhd -k escape; yabai -m window --grid 2:4:0:0:2:1
+leader < i         : skhd -k escape; yabai -m window --grid 2:4:2:0:2:1
+leader < j         : skhd -k escape; yabai -m window --grid 2:4:0:2:2:1
+leader < k         : skhd -k escape; yabai -m window --grid 2:4:2:2:2:1
+# --------------------------------------------------------------------
+leader < right     : skhd -k escape; yabai -m window --grid 1:2:2:2:2:1
+leader < left      : skhd -k escape; yabai -m window --grid 1:2:0:0:1:1
+# --------------------------------------------------------------------
+leader < up        : skhd -k escape; yabai -m window --grid 2:1:4:0:1:1
+leader < down      : skhd -k escape; yabai -m window --grid 2:1:2:2:2:1
+# --------------------------------------------------------------------
+leader < backspace : skhd -k escape; yabai -m window --grid 4:4:1:1:2:2
+leader < return    : skhd -k escape; yabai -m window --grid 1:1:0:0:1:1
+# =====================================================================
 
-# ================ spaces ================
-shift + cmd - w :      skhd -k "ctrl - up"
-# ----------------------------------------
+# ======================== spaces ========================
+shift + cmd - w ;                                   spaces
+leader < w      ;                                   spaces
+# --------------------------------------------------------
+spaces < a      :                    skhd -k "ctrl - left"
+spaces < d      :                   skhd -k "ctrl - right"
+spaces < s      : skhd -k backspace; skhd -k "ctrl - down"
+spaces < escape : skhd -k backspace; skhd -k "ctrl - down"
+# ========================================================
+# ========================================
 shift + cmd - a : yabai -m space --focus 1
 shift + cmd - s : yabai -m space --focus 2
 shift + cmd - d : yabai -m space --focus 3
 shift + cmd - f : yabai -m space --focus 4
-shift + cmd - g : yabai -m space --focus 5
-shift + cmd - h : yabai -m space --focus 6
 # ========================================
+# ===================================================
+leader < a : skhd -k escape; yabai -m space --focus 1
+leader < s : skhd -k escape; yabai -m space --focus 2
+leader < d : skhd -k escape; yabai -m space --focus 3
+leader < f : skhd -k escape; yabai -m space --focus 4
+# ===================================================
