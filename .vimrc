@@ -87,7 +87,7 @@ nnoremap <silent> <Leader>l :Limelight!!<CR>
 
 " ==================================== appearance =====================================
 
-colorscheme nyx
+colorscheme ditto
 
 set fillchars+=vert:\ 
 
