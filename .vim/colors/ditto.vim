@@ -16,7 +16,7 @@ let g:colors_name = "ditto"
 highlight Boolean             ctermfg=3
 highlight Comment             ctermfg=8
 highlight Conditional         ctermfg=4
-highlight Constant            ctermfg=2
+highlight Constant            ctermfg=6
 highlight Debug               ctermfg=2
 highlight Define              ctermfg=5
 highlight Delimiter           ctermfg=4
@@ -27,16 +27,16 @@ highlight Function            ctermfg=5 cterm=bold
 highlight Identifier          ctermfg=4 cterm=none
 highlight LineNr              ctermfg=8
 highlight Macro               ctermfg=2
-highlight MatchParen          ctermbg=4
+highlight MatchParen          ctermfg=0 ctermbg=3
 highlight MoreMsg             ctermfg=2
 highlight Noise               ctermfg=8
 highlight NonText             ctermfg=8
 highlight Number              ctermfg=3
 highlight Operator            ctermfg=2
 highlight PreCondit           ctermfg=2
-highlight ProProc             ctermfg=1
+highlight PreProc             ctermfg=1
 highlight Search              ctermfg=0 ctermbg=6
-highlight Special             ctermfg=3
+highlight Special             ctermfg=5
 highlight SpecialKey          ctermfg=8
 highlight SpellBad            ctermfg=0 ctermbg=1
 highlight SpellCap            ctermfg=3 ctermbg=1
@@ -46,16 +46,16 @@ highlight Type                ctermfg=2
 highlight Visual              ctermfg=0 ctermbg=6
 highlight WarningMsg          ctermfg=1
 
-highlight shConditional       ctermfg=3
-highlight shDerefSimple       ctermfg=5
+highlight shConditional       ctermfg=1
+highlight shDerefSimple       ctermfg=1
 highlight shDerefVar          ctermfg=7
 highlight shDerefVarArray     ctermfg=7
 highlight shDerefWordError    ctermfg=3
-highlight shFunctionone       ctermfg=7
-highlight shLoop              ctermfg=1
+highlight shFunctionone       ctermfg=6
+highlight shLoop              ctermfg=2
 highlight shQuote             ctermfg=6
 highlight shRange             ctermfg=2
-highlight shTestOpr           ctermfg=2
+highlight shTestOpr           ctermfg=6
 
 highlight htmlEndTag          ctermfg=4
 highlight htmlSpecialTagName  ctermfg=1
@@ -67,7 +67,10 @@ highlight cssBraces           ctermfg=8
 highlight cssClassName        ctermfg=4 cterm=none
 highlight cssIdentifier       ctermfg=1 cterm=none
 highlight cssProp             ctermfg=7
-highlight cssTagName          ctermfg=3
+highlight cssTagName          ctermfg=5
+highlight cssUnitDecorators   ctermfg=6
+highlight cssValueLength      ctermfg=6
+highlight cssValueNumber      ctermfg=3
 
 highlight jsonBraces          ctermfg=8
 highlight jsonKeyword         ctermfg=6
