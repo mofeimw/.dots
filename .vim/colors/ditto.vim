@@ -27,7 +27,7 @@ highlight Function            ctermfg=5 cterm=bold
 highlight Identifier          ctermfg=4 cterm=none
 highlight LineNr              ctermfg=8
 highlight Macro               ctermfg=2
-highlight MatchParen          ctermfg=0 ctermbg=3
+highlight MatchParen          ctermfg=0 ctermbg=6
 highlight MoreMsg             ctermfg=2
 highlight Noise               ctermfg=8
 highlight NonText             ctermfg=8
@@ -41,8 +41,11 @@ highlight SpecialKey          ctermfg=8
 highlight SpellBad            ctermfg=0 ctermbg=1
 highlight SpellCap            ctermfg=3 ctermbg=1
 highlight Statement           ctermfg=6
+highlight StatusLine          ctermfg=0 ctermbg=none
+highlight StatusLineNC        ctermfg=0
 highlight String              ctermfg=4
 highlight Type                ctermfg=2
+highlight VertSplit           ctermfg=0 ctermbg=none cterm=none
 highlight Visual              ctermfg=0 ctermbg=6
 highlight WarningMsg          ctermfg=1
 
