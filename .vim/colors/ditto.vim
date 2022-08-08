@@ -21,7 +21,7 @@ highlight Debug               ctermfg=2
 highlight Define              ctermfg=5
 highlight Delimiter           ctermfg=4
 highlight Directory           ctermfg=3
-highlight ErrorMsg            ctermfg=1
+highlight ErrorMsg            ctermfg=1 ctermbg=none
 highlight Exception           ctermfg=8
 highlight Function            ctermfg=5 cterm=bold
 highlight Identifier          ctermfg=4 cterm=none
@@ -48,8 +48,8 @@ highlight WarningMsg          ctermfg=1
 
 highlight shConditional       ctermfg=1
 highlight shDerefSimple       ctermfg=1
-highlight shDerefVar          ctermfg=7
-highlight shDerefVarArray     ctermfg=7
+highlight shDerefVar          ctermfg=1
+highlight shDerefVarArray     ctermfg=1
 highlight shDerefWordError    ctermfg=3
 highlight shFunctionone       ctermfg=6
 highlight shLoop              ctermfg=2

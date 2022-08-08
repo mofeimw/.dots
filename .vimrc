@@ -1,43 +1,47 @@
-" =====================================================================================
-"                                   mofei's vimrc
-" =====================================================================================
+" mofei's vimrc
 
-" ==================================== settings =======================================
-
-set confirm
-set noshowmode
-set noruler
-set mouse=a
-set wildmenu
-set wrap
-set spellcapcheck=
-set linebreak
+" =============
+"   settings
+" =============
 set autoindent
-set shiftround
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set autoread
+set background=dark
+set backspace=indent,eol,start
+set confirm
 set expandtab
-set smarttab
-set ignorecase
-set smartcase
-set incsearch
+set fillchars+=vert:\ 
+set history=1000
 set hlsearch
+set incsearch
+set laststatus=2
+set linebreak
 set list
 set listchars=tab:»\ ,trail:•
+set mouse=a
+set noruler
+set noshowmode
+set notermguicolors
+set shiftround
+set shiftwidth=4
 set showbreak=↪
-set backspace=indent,eol,start
+set smartcase
+set smarttab
+set softtabstop=4
+set spellcapcheck=
+set tabstop=4
 set ttimeout
 set ttimeoutlen=50
-set undofile
-set history=1000
 set undodir=~/.vim/undodir
+set undofile
 set virtualedit=onemore
+set wildmenu
+set wrap
 
 let g:is_posix = 1
 
-" ====================================== maps =========================================
-
+" =============
+"     maps
+" =============
 let mapleader = "\<Space>"
 
 " normal mode
@@ -69,7 +73,7 @@ vnoremap _d "_d
 
 " insert mode
 inoremap <C-r> <C-O>g^
-inoremap <C-e> <C-O>g$<C-O>a 
+inoremap <C-e> <C-O>g$<C-O>a
 
 inoremap <C-b> <C-O>b
 inoremap <C-f> <C-O>w
@@ -81,112 +85,108 @@ iabbrev adn and
 iabbrev teh the
 iabbrev waht what
 
-" plugins
-nnoremap <silent> <Leader>g :PencilToggle<CR><Bar>:Goyo<CR>
-nnoremap <silent> <Leader>l :Limelight!!<CR>
-
-" ==================================== appearance =====================================
-
+" =============
+"  appearance
+" =============
 colorscheme ditto
 
-set fillchars+=vert:\ 
+" =============
+"  status bar
+" =============
+let w:focus = 1
 
-hi EndOfBuffer guifg=bg
-
-hi VertSplit guibg=bg
-hi StatusLineNC guifg=bg
-
-hi CirqueHeader guifg=#D65C78 cterm=bold
-hi CirqueBracket guifg=#B08CCC
-hi CirqueNumber guifg=#B08CCC
-hi CirqueSection guifg=#D65C78 cterm=bold
-hi CirqueSpecial guifg=#50C08E
-hi CirquePath guifg=#63798F
-hi CirqueSlash guifg=#63798F
-hi CirqueFile guifg=#15A6B1
-
-" =================================== status bar ======================================
-
-let focus = 1
-
-function! FileModified(modified, focus)
-    if a:focus == 1
-        if a:modified == 1
-            hi Mod guibg=#D65C78 guifg=#232530 cterm=bold
+function! FileModified()
+    if w:focus == 1
+        if &modified == 1
+            highlight StatusFile ctermfg=0 ctermbg=1 cterm=bold
         else
-            hi Mod guibg=#50C08E guifg=#232530 cterm=bold
+            highlight StatusFile ctermfg=0 ctermbg=6 cterm=bold
         endif
     else
-        hi Mod guibg=#63798F guifg=#232530 cterm=bold
+        highlight StatusFile ctermfg=0 ctermbg=8 cterm=bold
     endif
 
     return expand('%:t')
 endfunction
 
-function! LinesMode(focus)
-    if a:focus == 1
+function! LinesMode()
+    if w:focus == 1
         if mode() == 'n'
-            hi Lines guibg=#63798F guifg=#232530 cterm=bold
+            highlight StatusLines ctermfg=0 ctermbg=8 cterm=bold
         elseif mode() == 'i'
-            hi Lines guibg=#F9CEC3 guifg=#232530 cterm=bold
+            highlight StatusLines ctermfg=0 ctermbg=7 cterm=bold
         elseif mode() =~ '\v(v|V)' || mode() == "\<C-V>"
+            highlight StatusLines ctermfg=0 ctermbg=2 cterm=bold
             return line('v') . "-" . line('.')
         endif
+    else
+        return ""
     endif
 
     return line('.') . ":" . col('.')
 endfunction
 
-set laststatus=2
-set statusline=
+function! Time()
+    if w:focus == 1
+        return strftime('%r')
+    else
+        return ""
+    endif
+endfunction
 
-set statusline+=%#Mod#\ %{FileModified(&modified,\ focus)}\ 
-set statusline+=%#Lines#\ %{LinesMode(focus)}\ 
+function! StatusLine()
+    set statusline=
 
-set statusline+=%#Background#
-set statusline+=%=
+    set statusline+=%#StatusFile#\ %{FileModified()}\ 
+    set statusline+=%#StatusLines#\ %{LinesMode()}\ 
 
-set statusline+=%#Time#\ %{strftime('%r')}\ 
+    set statusline+=%#StatusBackground#
+    set statusline+=%=
 
-hi Lines guibg=#63798F guifg=#232530 cterm=bold
-hi Background guibg=#232530 guifg=#232530
-hi Time guibg=#15A6B1 guifg=#232530 cterm=bold
+    set statusline+=%#StatusTime#\ %{Time()}\ 
+endfunction
 
-au FocusGained * hi Time guibg=#15A6B1 guifg=#232530 cterm=bold | hi Lines guibg=#63798F guifg=#232530 cterm=bold | let focus = 1
-au FocusLost * hi Time guibg=#63798F guifg=#232530 cterm=bold | hi Lines guibg=#232530 guifg=#232530 cterm=bold | let focus = 0
+highlight StatusFile       ctermfg=0    ctermbg=6    cterm=bold
+highlight StatusLines      ctermfg=0    ctermbg=6    cterm=bold
+highlight StatusBackground ctermfg=none ctermbg=none
+highlight StatusTime       ctermfg=0    ctermbg=3    cterm=bold
 
-" ================================== autocommands =====================================
+autocmd FocusGained * hi StatusTime ctermfg=0 ctermbg=3    cterm=bold | hi StatusLines ctermfg=0 ctermbg=8    cterm=bold | let w:focus = 1
+autocmd FocusLost   * hi StatusTime ctermfg=0 ctermbg=none cterm=bold | hi StatusLines ctermfg=0 ctermbg=none cterm=bold | let w:focus = 0
 
-autocmd! BufReadPre,FileReadPre * source $MYVIMRC
-autocmd! User GoyoLeave nested source $MYVIMRC
+call StatusLine()
 
-" =================================== functions =======================================
+" =============
+" autocommands
+" =============
+autocmd BufReadPre,FileReadPre * source $MYVIMRC
+autocmd User GoyoLeave nested source $MYVIMRC
 
-" show color group
-function! SynGroup()
+" =============
+"   functions
+" =============
+function! SyntaxGroup()
     let l:s = synID(line('.'), col('.'), 1)
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
-nnoremap <Leader>s :call SynGroup()<CR>
 
-" ==================================== plugins ========================================
+nnoremap <Leader>s :call SyntaxGroup()<CR>
 
+" =============
+"    plugins
+" =============
 call plug#begin('~/.vim/plugged')
 Plug 'mofeimw/cirque.vim'
 Plug 'mofeimw/peek.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'preservim/vim-pencil'
-Plug 'dylanaraps/wal.vim'
 call plug#end()
 
-let g:limelight_conceal_guifg = '#63798F'
+let g:limelight_conceal_guifg = '8'
 let g:peekaboo_compact = 1
-let g:peekaboo_ins_prefix = "<C-z>"
-let g:pencil#wrapModeDefault = 'soft'
+let g:peekaboo_ins_prefix = "<C-p>"
+let g:pencil#wrapModeDefault = "soft"
 
-if !empty(glob("~/.cache/wal/colors"))
-    colorscheme wal
-    set notermguicolors
-    set laststatus=0
-endif
+nnoremap <silent> <Leader>g :PencilToggle<CR><Bar>:Goyo<CR>
+nnoremap <silent> <Leader>l :Limelight!!<CR>
