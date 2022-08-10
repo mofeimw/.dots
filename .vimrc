@@ -30,7 +30,7 @@ set softtabstop=4
 set spellcapcheck=
 set statusline=%!StatusLine()
 set tabstop=4
-set timeoutlen=230
+set timeoutlen=400
 set ttimeout
 set ttimeoutlen=60
 set undodir=~/.vim/undodir
@@ -55,48 +55,60 @@ highlight StatusTime       ctermfg=0    ctermbg=6    cterm=bold
 " =============
 let mapleader = "\<Space>"
 
-" normal mode
+" === normal mode ===
+" buffers
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
+nnoremap <C-q> :bdelete<CR>
+
+" window prefix key
+nnoremap <C-x> <C-w>
+
+" editing
 nnoremap <Backspace> hx
 nnoremap $ $l
 nnoremap V V$
 nnoremap x "_x
-nnoremap _d "_dd
+nnoremap _d "_d
 
-nnoremap <Leader>u <C-R>
-nnoremap <Leader>y 0"+yg_
-nnoremap <Leader>p o<esc>"+p
-nnoremap <Leader>c "+y
-nnoremap <Leader>v "+p
+" clipboard (macOS)
+nnoremap <Leader>c 0"+yg_
+nnoremap <Leader>v o<esc>"+p
+nnoremap <C-c> "+y
+nnoremap <C-v> "+P
 
+" ui
 nnoremap <silent> <Leader>n :set number!<CR>
 nnoremap <silent> <Leader>h :set hlsearch!<CR>
-nnoremap <silent> <Leader>t :set spell!<CR>
+nnoremap <silent> <Leader>p :set spell!<CR>
+
+" show highlight/syntax groups
+nnoremap <Leader>? :call SyntaxGroup()<CR>
+
+" plugins
+nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <silent> <Leader>s :GFiles<CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
+
+nnoremap <silent> <Leader>t :FloatermNew<CR>
 
 nnoremap <silent> <Leader>g :PencilToggle<CR>:Goyo<CR>
 nnoremap <silent> <Leader>l :Limelight!!<CR>
 
-nnoremap <Leader>s :call SyntaxGroup()<CR>
-
-" visual mode
+" === visual mode ===
+" indention
 vnoremap < <gv$
 vnoremap > >gv$
 vnoremap = =gv$
 
-vnoremap <Leader>c "+y
-vnoremap <Leader>y "+y
+" clipboard
+vnoremap <C-c> "+y
 
+" delete
 vnoremap _d "_d
 
-" insert mode
-inoremap <C-r> <C-O>g^
-inoremap <C-e> <C-O>g$<C-O>a
-
-inoremap <C-b> <C-O>b
-inoremap <C-f> <C-O>w
-
-inoremap <C-j> <C-O>j
-inoremap <C-k> <C-O>k
-
+" === insert mode ===
+" common typos
 iabbrev adn and
 iabbrev teh the
 iabbrev waht what
@@ -161,7 +173,7 @@ endfunction
 function! Time()
     if w:focus == 1
         highlight StatusTime ctermfg=0 ctermbg=6 cterm=bold
-        return "  " . strftime('%r') . " "
+        return "  " . strftime('%I:%M %p') . " "
     else
         return ""
     endif
@@ -192,6 +204,7 @@ let g:limelight_conceal_ctermfg = '8'
 let g:peekaboo_compact = 1
 let g:peekaboo_ins_prefix = "<C-p>"
 let g:pencil#wrapModeDefault = "soft"
+let g:floaterm_title = ""
 
 " =============
 "    plugins
@@ -202,4 +215,7 @@ Plug 'mofeimw/peek.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'preservim/vim-pencil'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'voldikss/vim-floaterm'
 call plug#end()

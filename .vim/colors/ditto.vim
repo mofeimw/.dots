@@ -41,13 +41,14 @@ highlight SpecialKey          ctermfg=8
 highlight SpellBad            ctermfg=0 ctermbg=1
 highlight SpellCap            ctermfg=3 ctermbg=1
 highlight Statement           ctermfg=6
-highlight StatusLine          ctermfg=0 ctermbg=none
+highlight StatusLine          ctermfg=0 ctermbg=8
 highlight StatusLineNC        ctermfg=0
 highlight String              ctermfg=4
 highlight Type                ctermfg=2
 highlight VertSplit           ctermfg=0 ctermbg=none cterm=none
 highlight Visual              ctermfg=0 ctermbg=6
 highlight WarningMsg          ctermfg=1
+highlight WildMenu            ctermfg=0 ctermbg=6 cterm=bold
 
 highlight shConditional       ctermfg=1
 highlight shDerefSimple       ctermfg=1
