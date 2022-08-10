@@ -10,7 +10,7 @@ set backspace=indent,eol,start
 set confirm
 set expandtab
 set fillchars+=vert:\ 
-set history=1000
+set history=666
 set hlsearch
 set incsearch
 set laststatus=2
@@ -52,6 +52,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-commentary'
 call plug#end()
 
 " =============
@@ -80,7 +81,7 @@ highlight CocMenuSel ctermfg=0 ctermbg=6
 highlight CocNotificationProgress ctermfg=0
 highlight CocSearch ctermfg=6
 
-hi FloatermBorder ctermfg=6
+highlight FloatermBorder ctermfg=6
 
 " =============
 "     maps
@@ -88,13 +89,13 @@ hi FloatermBorder ctermfg=6
 let mapleader = "\<Space>"
 
 " === normal mode ===
+" window prefix key
+nnoremap <C-x> <C-w>
+
 " buffers
 nnoremap <C-n> :bnext<CR>
 nnoremap <C-p> :bprevious<CR>
-nnoremap <C-q> :bdelete<CR>
-
-" window prefix key
-nnoremap <C-x> <C-w>
+nnoremap <silent> <C-q> :bdelete<CR>
 
 " editing
 nnoremap <Backspace> hx
@@ -118,7 +119,7 @@ nnoremap <Leader>? :call SyntaxGroup()<CR>
 " --- plugins ---
 " fzf
 nnoremap <silent> <Leader>f :Files<CR>
-nnoremap <silent> <Leader>s :GFiles<CR>
+nnoremap <silent> <Leader>d :GFiles<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 
 " coc
@@ -132,7 +133,8 @@ nnoremap <silent> <Leader>g :PencilToggle<CR>:Goyo<CR>
 nnoremap <silent> <Leader>l :Limelight!!<CR>
 
 " floaterm
-nnoremap <silent> <Leader>t :FloatermNew<CR>
+nnoremap <silent> <Leader>t :FloatermToggle<CR>
+nnoremap <silent> <Leader>x :FloatermToggle<CR>
 
 " === visual mode ===
 " indention
@@ -143,7 +145,7 @@ vnoremap = =gv$
 " clipboard
 vnoremap <C-c> "+y
 
-" delete
+" deletion
 vnoremap _d "_d
 
 " === insert mode ===
