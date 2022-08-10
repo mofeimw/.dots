@@ -29,7 +29,7 @@ highlight Function            ctermfg=5 cterm=bold
 highlight Identifier          ctermfg=4 cterm=none
 highlight LineNr              ctermfg=8
 highlight Macro               ctermfg=2
-highlight MatchParen          ctermfg=0 ctermbg=6
+highlight MatchParen          ctermfg=6 ctermbg=none cterm=bold
 highlight MoreMsg             ctermfg=2
 highlight Noise               ctermfg=8
 highlight NonText             ctermfg=8

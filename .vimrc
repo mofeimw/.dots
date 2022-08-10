@@ -58,6 +58,12 @@ call plug#end()
 " =============
 "   variables
 " =============
+" cursor shape
+" blinking bar in insert mode
+let &t_SI = "\e[6 q"
+" block cursor everywhere else
+let &t_EI = "\e[2 q"
+
 let g:is_posix = 1
 let w:focus = 1
 
@@ -150,8 +156,9 @@ vnoremap _d "_d
 
 " === insert mode ===
 " coc
-inoremap <silent> <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()
+inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()
 inoremap <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 " common typos
 iabbrev adn and
