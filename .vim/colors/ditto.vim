@@ -33,7 +33,10 @@ highlight Noise               ctermfg=8
 highlight NonText             ctermfg=8
 highlight Number              ctermfg=3
 highlight Operator            ctermfg=2
-highlight Pmenu               ctermfg=0 ctermbg=6
+highlight Pmenu               ctermfg=0 ctermbg=8
+highlight PmenuSel            ctermfg=0 ctermbg=6
+highlight PmenuSBar           ctermfg=0 ctermbg=0
+highlight PmenuThumb          ctermfg=0 ctermbg=0
 highlight PreCondit           ctermfg=2
 highlight PreProc             ctermfg=1
 highlight Search              ctermfg=0 ctermbg=6

@@ -78,9 +78,9 @@ highlight StatusBackground ctermfg=none ctermbg=none cterm=bold
 highlight StatusTime       ctermfg=0    ctermbg=6    cterm=bold
 
 " coc
-highlight CocSearch ctermfg=8
-highlight CocMenuSel ctermfg=0 ctermbg=8
+highlight CocMenuSel ctermfg=0 ctermbg=6
 highlight CocNotificationProgress ctermfg=0
+highlight CocSearch ctermfg=6
 
 " =============
 "     maps
