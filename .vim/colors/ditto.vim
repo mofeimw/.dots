@@ -48,7 +48,7 @@ highlight SpecialKey          ctermfg=8
 highlight SpellBad            ctermfg=0 ctermbg=1
 highlight SpellCap            ctermfg=3 ctermbg=1
 highlight Statement           ctermfg=6
-highlight StatusLine          ctermfg=0 ctermbg=8
+highlight StatusLine          ctermfg=8 ctermbg=0 cterm=none
 highlight StatusLineNC        ctermfg=0
 highlight String              ctermfg=4
 highlight Todo                ctermfg=0 ctermbg=6

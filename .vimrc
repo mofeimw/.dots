@@ -30,12 +30,11 @@ set softtabstop=4
 set spellcapcheck=
 set statusline=%!StatusLine()
 set tabstop=4
-set timeoutlen=400
+set timeoutlen=500
 set ttimeout
 set ttimeoutlen=60
 set undodir=~/.vim/undodir
 set undofile
-set virtualedit=onemore
 set wildmenu
 set wrap
 
@@ -58,17 +57,16 @@ call plug#end()
 " =============
 "   variables
 " =============
+let g:is_posix = 1
+let w:focus = 1
+
 " cursor shape
 " blinking bar in insert mode
 let &t_SI = "\e[6 q"
 " block cursor everywhere else
 let &t_EI = "\e[2 q"
 
-let g:is_posix = 1
-let w:focus = 1
-
-let g:peekaboo_compact = 1
-let g:peekaboo_ins_prefix = "<C-p>"
+" plugins
 let g:limelight_conceal_ctermfg = '8'
 let g:pencil#wrapModeDefault = "soft"
 let g:floaterm_title = ""
@@ -104,15 +102,13 @@ nnoremap <C-p> :bprevious<CR>
 nnoremap <silent> <C-q> :bdelete<CR>
 
 " editing
-nnoremap <Backspace> hx
-nnoremap $ $l
-nnoremap V V$
+nnoremap <Backspace> x
 nnoremap _d "_d
 nnoremap x "_x
 
 " clipboard
 nnoremap <C-c> "+y
-nnoremap <C-v> "+P
+nnoremap <C-v> "+p
 
 " ui
 nnoremap <silent> <Leader>n :set number!<CR>
@@ -144,9 +140,9 @@ nnoremap <silent> <Leader>x :FloatermToggle<CR>
 
 " === visual mode ===
 " indention
-vnoremap < <gv$
-vnoremap > >gv$
-vnoremap = =gv$
+vnoremap < <gv
+vnoremap > >gv
+vnoremap = =gv
 
 " clipboard
 vnoremap <C-c> "+y
@@ -249,7 +245,7 @@ function! SyntaxGroup()
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
 
-" coc
+" coc check for backspace
 function! CheckBackspace()
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
