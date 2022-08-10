@@ -40,6 +40,33 @@ set wildmenu
 set wrap
 
 " =============
+"    plugins
+" =============
+call plug#begin('~/.vim/plugged')
+Plug 'mofeimw/cirque.vim'
+Plug 'mofeimw/peek.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'preservim/vim-pencil'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
+
+" =============
+"   variables
+" =============
+let g:is_posix = 1
+let w:focus = 1
+
+let g:limelight_conceal_ctermfg = '8'
+let g:peekaboo_compact = 1
+let g:peekaboo_ins_prefix = "<C-p>"
+let g:pencil#wrapModeDefault = "soft"
+let g:floaterm_title = ""
+
+" =============
 "  appearance
 " =============
 colorscheme ditto
@@ -49,6 +76,11 @@ highlight StatusFile       ctermfg=0    ctermbg=2    cterm=bold
 highlight StatusLines      ctermfg=0    ctermbg=7    cterm=bold
 highlight StatusBackground ctermfg=none ctermbg=none cterm=bold
 highlight StatusTime       ctermfg=0    ctermbg=6    cterm=bold
+
+" coc
+highlight CocSearch ctermfg=8
+highlight CocMenuSel ctermfg=0 ctermbg=8
+highlight CocNotificationProgress ctermfg=0
 
 " =============
 "     maps
@@ -85,15 +117,22 @@ nnoremap <silent> <Leader>p :set spell!<CR>
 " show highlight/syntax groups
 nnoremap <Leader>? :call SyntaxGroup()<CR>
 
-" plugins
+" --- plugins ---
+" fzf
 nnoremap <silent> <Leader>f :Files<CR>
 nnoremap <silent> <Leader>s :GFiles<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 
-nnoremap <silent> <Leader>t :FloatermNew<CR>
+" coc
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 nnoremap <silent> <Leader>g :PencilToggle<CR>:Goyo<CR>
 nnoremap <silent> <Leader>l :Limelight!!<CR>
+
+nnoremap <silent> <Leader>t :FloatermNew<CR>
 
 " === visual mode ===
 " indention
@@ -108,6 +147,10 @@ vnoremap <C-c> "+y
 vnoremap _d "_d
 
 " === insert mode ===
+" coc
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
 " common typos
 iabbrev adn and
 iabbrev teh the
@@ -194,28 +237,8 @@ function! SyntaxGroup()
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
 
-" =============
-"   variables
-" =============
-let g:is_posix = 1
-let w:focus = 1
-
-let g:limelight_conceal_ctermfg = '8'
-let g:peekaboo_compact = 1
-let g:peekaboo_ins_prefix = "<C-p>"
-let g:pencil#wrapModeDefault = "soft"
-let g:floaterm_title = ""
-
-" =============
-"    plugins
-" =============
-call plug#begin('~/.vim/plugged')
-Plug 'mofeimw/cirque.vim'
-Plug 'mofeimw/peek.vim'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'preservim/vim-pencil'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'voldikss/vim-floaterm'
-call plug#end()
+" coc
+function! CheckBackspace()
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction

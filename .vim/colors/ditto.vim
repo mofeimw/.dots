@@ -33,9 +33,11 @@ highlight Noise               ctermfg=8
 highlight NonText             ctermfg=8
 highlight Number              ctermfg=3
 highlight Operator            ctermfg=2
+highlight Pmenu               ctermfg=0 ctermbg=6
 highlight PreCondit           ctermfg=2
 highlight PreProc             ctermfg=1
 highlight Search              ctermfg=0 ctermbg=6
+highlight SignColumn          ctermfg=8 ctermbg=0
 highlight Special             ctermfg=5
 highlight SpecialKey          ctermfg=8
 highlight SpellBad            ctermfg=0 ctermbg=1
