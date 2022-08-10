@@ -22,6 +22,7 @@ highlight Debug               ctermfg=2
 highlight Define              ctermfg=5
 highlight Delimiter           ctermfg=4
 highlight Directory           ctermfg=3
+highlight EndOfBuffer         ctermfg=0
 highlight ErrorMsg            ctermfg=1 ctermbg=none
 highlight Exception           ctermfg=8
 highlight Function            ctermfg=5 cterm=bold
