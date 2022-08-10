@@ -17,6 +17,7 @@ highlight Boolean             ctermfg=3
 highlight Comment             ctermfg=8
 highlight Conditional         ctermfg=4
 highlight Constant            ctermfg=6
+highlight CursorLine          ctermfg=0 ctermbg=6 cterm=none
 highlight Debug               ctermfg=2
 highlight Define              ctermfg=5
 highlight Delimiter           ctermfg=4
@@ -49,6 +50,7 @@ highlight Statement           ctermfg=6
 highlight StatusLine          ctermfg=0 ctermbg=8
 highlight StatusLineNC        ctermfg=0
 highlight String              ctermfg=4
+highlight Todo                ctermfg=0 ctermbg=6
 highlight Type                ctermfg=2
 highlight VertSplit           ctermfg=0 ctermbg=none cterm=none
 highlight Visual              ctermfg=0 ctermbg=6

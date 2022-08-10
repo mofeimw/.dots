@@ -60,9 +60,9 @@ call plug#end()
 let g:is_posix = 1
 let w:focus = 1
 
-let g:limelight_conceal_ctermfg = '8'
 let g:peekaboo_compact = 1
 let g:peekaboo_ins_prefix = "<C-p>"
+let g:limelight_conceal_ctermfg = '8'
 let g:pencil#wrapModeDefault = "soft"
 let g:floaterm_title = ""
 
@@ -71,16 +71,16 @@ let g:floaterm_title = ""
 " =============
 colorscheme ditto
 
-" status line colors
 highlight StatusFile       ctermfg=0    ctermbg=2    cterm=bold
 highlight StatusLines      ctermfg=0    ctermbg=7    cterm=bold
 highlight StatusBackground ctermfg=none ctermbg=none cterm=bold
 highlight StatusTime       ctermfg=0    ctermbg=6    cterm=bold
 
-" coc
 highlight CocMenuSel ctermfg=0 ctermbg=6
 highlight CocNotificationProgress ctermfg=0
 highlight CocSearch ctermfg=6
+
+hi FloatermBorder ctermfg=6
 
 " =============
 "     maps
@@ -100,12 +100,10 @@ nnoremap <C-x> <C-w>
 nnoremap <Backspace> hx
 nnoremap $ $l
 nnoremap V V$
-nnoremap x "_x
 nnoremap _d "_d
+nnoremap x "_x
 
-" clipboard (macOS)
-nnoremap <Leader>c 0"+yg_
-nnoremap <Leader>v o<esc>"+p
+" clipboard
 nnoremap <C-c> "+y
 nnoremap <C-v> "+P
 
@@ -129,9 +127,11 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" writing
 nnoremap <silent> <Leader>g :PencilToggle<CR>:Goyo<CR>
 nnoremap <silent> <Leader>l :Limelight!!<CR>
 
+" floaterm
 nnoremap <silent> <Leader>t :FloatermNew<CR>
 
 " === visual mode ===
@@ -148,8 +148,8 @@ vnoremap _d "_d
 
 " === insert mode ===
 " coc
-inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent> <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()
+inoremap <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " common typos
 iabbrev adn and
@@ -162,6 +162,9 @@ iabbrev waht what
 " status line
 autocmd FocusGained,WinEnter * highlight StatusTime ctermfg=0 ctermbg=6    cterm=bold | highlight StatusLines ctermfg=0 ctermbg=7    cterm=bold | let w:focus = 1
 autocmd FocusLost,WinLeave   * highlight StatusTime ctermfg=0 ctermbg=none cterm=bold | highlight StatusLines ctermfg=0 ctermbg=none cterm=bold | let w:focus = 0
+
+" :help
+autocmd FileType help wincmd L
 
 " =============
 "   functions
