@@ -10,6 +10,7 @@ set backspace=indent,eol,start
 set confirm
 set expandtab
 set fillchars+=vert:\ 
+set hidden
 set history=666
 set hlsearch
 set incsearch
@@ -47,11 +48,13 @@ Plug 'mofeimw/peek.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'preservim/vim-pencil'
+Plug 'tpope/vim-commentary'
+Plug 'ap/vim-buftabline'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-commentary'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " =============
@@ -70,6 +73,7 @@ let &t_EI = "\e[2 q"
 let g:limelight_conceal_ctermfg = '8'
 let g:pencil#wrapModeDefault = "soft"
 let g:floaterm_title = ""
+let g:buftabline_show = 1
 
 " =============
 "  appearance
@@ -87,56 +91,73 @@ highlight CocSearch ctermfg=6
 
 highlight FloatermBorder ctermfg=6
 
+highlight BufTabLineCurrent ctermfg=0 ctermbg=6 cterm=bold
+highlight BufTabLineActive  ctermfg=0 ctermbg=7 cterm=bold
+highlight BufTabLineHidden  ctermfg=0 ctermbg=8 cterm=bold
+highlight BufTabLineFill    ctermbg=0
+
 " =============
 "     maps
 " =============
-let mapleader = "\<Space>"
+let mapleader = "\<space>"
 
 " === normal mode ===
 " window prefix key
-nnoremap <C-x> <C-w>
+nnoremap <c-x> <c-w>
 
 " buffers
-nnoremap <C-n> :bnext<CR>
-nnoremap <C-p> :bprevious<CR>
-nnoremap <silent> <C-q> :bdelete<CR>
+nnoremap <leader>n :bnext<cr>
+nnoremap <leader>p :bprevious<cr>
+nnoremap <silent> <leader>w :bdelete<cr>
+" toggle last two buffers
+nnoremap <leader>. <c-^>
+
+nmap <leader>1 <plug>BufTabLine.Go(1)
+nmap <leader>2 <plug>BufTabLine.Go(2)
+nmap <leader>3 <plug>BufTabLine.Go(3)
+nmap <leader>4 <plug>BufTabLine.Go(4)
+nmap <leader>5 <plug>BufTabLine.Go(5)
+nmap <leader>6 <plug>BufTabLine.Go(6)
+nmap <leader>7 <plug>BufTabLine.Go(7)
+nmap <leader>8 <plug>BufTabLine.Go(8)
+nmap <leader>9 <plug>BufTabLine.Go(9)
 
 " editing
-nnoremap <Backspace> x
+nnoremap <backspace> x
 nnoremap _d "_d
 nnoremap x "_x
 
 " clipboard
-nnoremap <C-c> "+y
-nnoremap <C-v> "+p
+nnoremap <c-c> "+y
+nnoremap <c-y> "+y
+nnoremap <c-p> "+p
 
 " ui
-nnoremap <silent> <Leader>n :set number!<CR>
-nnoremap <silent> <Leader>h :set hlsearch!<CR>
-nnoremap <silent> <Leader>p :set spell!<CR>
+nnoremap <silent> <leader>s :set number!<cr>
+nnoremap <silent> <leader>h :set hlsearch!<cr>
+nnoremap <silent> <leader>k :set spell!<cr>
 
 " show highlight/syntax groups
-nnoremap <Leader>? :call SyntaxGroup()<CR>
+nnoremap <leader>? :call SyntaxGroup()<cr>
 
 " --- plugins ---
 " fzf
-nnoremap <silent> <Leader>f :Files<CR>
-nnoremap <silent> <Leader>d :GFiles<CR>
-nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <leader>f :Files<cr>
+nnoremap <silent> <leader>d :GFiles<cr>
+nnoremap <silent> <leader>b :Buffers<cr>
 
 " coc
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd <plug>(coc-definition)
+nmap <silent> gy <plug>(coc-type-definition)
+nmap <silent> gi <plug>(coc-implementation)
+nmap <silent> gr <plug>(coc-references)
 
 " writing
-nnoremap <silent> <Leader>g :PencilToggle<CR>:Goyo<CR>
-nnoremap <silent> <Leader>l :Limelight!!<CR>
+nnoremap <silent> <leader>g :PencilToggle<cr>:Goyo<cr>
+nnoremap <silent> <leader>l :Limelight!!<cr>
 
 " floaterm
-nnoremap <silent> <Leader>t :FloatermToggle<CR>
-nnoremap <silent> <Leader>x :FloatermToggle<CR>
+nnoremap <silent> <leader>x :FloatermToggle<cr>
 
 " === visual mode ===
 " indention
@@ -145,16 +166,17 @@ vnoremap > >gv
 vnoremap = =gv
 
 " clipboard
-vnoremap <C-c> "+y
+vnoremap <c-c> "+y
+vnoremap <c-y> "+y
 
 " deletion
 vnoremap _d "_d
 
 " === insert mode ===
 " coc
-inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()
-inoremap <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+inoremap <expr> <tab> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<tab>" : coc#refresh()
+inoremap <expr> <s-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<c-h>"
+inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<cr>"
 
 " common typos
 iabbrev adn and
@@ -165,8 +187,8 @@ iabbrev waht what
 " autocommands
 " =============
 " status line
-autocmd FocusGained,WinEnter * highlight StatusTime ctermfg=0 ctermbg=6    cterm=bold | highlight StatusLines ctermfg=0 ctermbg=7    cterm=bold | let w:focus = 1
-autocmd FocusLost,WinLeave   * highlight StatusTime ctermfg=0 ctermbg=none cterm=bold | highlight StatusLines ctermfg=0 ctermbg=none cterm=bold | let w:focus = 0
+autocmd FocusGained,WinEnter * call FocusGained()
+autocmd FocusLost,WinLeave   * call FocusLost()
 
 " :help
 autocmd FileType help wincmd L
@@ -174,6 +196,33 @@ autocmd FileType help wincmd L
 " =============
 "   functions
 " =============
+" focus
+function! FocusGained()
+    if &laststatus != 2
+        set laststatus=2
+    endif
+
+    let w:focus = 1
+    let g:buftabline_show = 1
+    call buftabline#update(0)
+
+    highlight StatusTime ctermfg=0 ctermbg=6    cterm=bold
+    highlight StatusLines ctermfg=0 ctermbg=7    cterm=bold
+endfunction
+
+function! FocusLost()
+    if winwidth(0) > 88
+        set laststatus=0
+    endif
+
+    let w:focus = 0
+    let g:buftabline_show = 0
+    call buftabline#update(0)
+
+    highlight StatusTime ctermfg=0 ctermbg=none cterm=bold
+    highlight StatusLines ctermfg=0 ctermbg=none cterm=bold
+endfunction
+
 " status line
 function! StatusLine()
     let l:statusline = ""
@@ -210,7 +259,7 @@ function! LinesMode()
             highlight StatusMode ctermfg=0 ctermbg=7 cterm=bold
         elseif mode() == 'i'
             highlight StatusMode ctermfg=0 ctermbg=4 cterm=bold
-        elseif mode() =~ '\v(v|V)' || mode() == "\<C-V>"
+        elseif mode() =~ '\v(v|V)' || mode() == "\<c-v>"
             highlight StatusMode ctermfg=0 ctermbg=5 cterm=bold
             return "  " . line('v') . "-" . line('.') . " "
         endif
