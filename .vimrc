@@ -176,6 +176,9 @@ autocmd User GoyoLeave call GoyoLeave()
 " :help
 autocmd FileType help wincmd L
 
+" markdown
+autocmd BufwritePost *.md silent !mdpdf %:p
+
 " =============
 "   functions
 " =============
