@@ -3,6 +3,9 @@
 " =============
 "   settings
 " =============
+colorscheme ditto
+
+" === general ===
 set autoindent
 set autoread
 set background=dark
@@ -39,6 +42,21 @@ set undofile
 set wildmenu
 set wrap
 
+" === variables ===
+let g:is_posix = 1
+let w:focus = 1
+
+" blinking bar in insert mode
+let &t_SI = "\e[6 q"
+" block cursor everywhere else
+let &t_EI = "\e[2 q"
+
+" plugins
+let g:limelight_conceal_ctermfg = '8'
+let g:pencil#wrapModeDefault = "soft"
+let g:floaterm_title = ""
+let g:buftabline_show = 1
+
 " =============
 "    plugins
 " =============
@@ -56,45 +74,6 @@ Plug 'voldikss/vim-floaterm'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 call plug#end()
-
-" =============
-"   variables
-" =============
-let g:is_posix = 1
-let w:focus = 1
-
-" cursor shape
-" blinking bar in insert mode
-let &t_SI = "\e[6 q"
-" block cursor everywhere else
-let &t_EI = "\e[2 q"
-
-" plugins
-let g:limelight_conceal_ctermfg = '8'
-let g:pencil#wrapModeDefault = "soft"
-let g:floaterm_title = ""
-let g:buftabline_show = 1
-
-" =============
-"  appearance
-" =============
-colorscheme ditto
-
-highlight StatusFile       ctermfg=0    ctermbg=2    cterm=bold
-highlight StatusLines      ctermfg=0    ctermbg=7    cterm=bold
-highlight StatusBackground ctermfg=none ctermbg=none cterm=bold
-highlight StatusTime       ctermfg=0    ctermbg=6    cterm=bold
-
-highlight CocMenuSel ctermfg=0 ctermbg=6
-highlight CocNotificationProgress ctermfg=0
-highlight CocSearch ctermfg=6
-
-highlight FloatermBorder ctermfg=6
-
-highlight BufTabLineCurrent ctermfg=0 ctermbg=6 cterm=bold
-highlight BufTabLineActive  ctermfg=0 ctermbg=7 cterm=bold
-highlight BufTabLineHidden  ctermfg=0 ctermbg=8 cterm=bold
-highlight BufTabLineFill    ctermbg=0
 
 " =============
 "     maps
@@ -153,7 +132,7 @@ nmap <silent> gi <plug>(coc-implementation)
 nmap <silent> gr <plug>(coc-references)
 
 " writing
-nnoremap <silent> <leader>g :PencilToggle<cr>:Goyo<cr>
+nnoremap <silent> <leader>g :Goyo<cr>
 nnoremap <silent> <leader>l :Limelight!!<cr>
 
 " floaterm
@@ -190,6 +169,10 @@ iabbrev waht what
 autocmd FocusGained,WinEnter * call FocusGained()
 autocmd FocusLost,WinLeave   * call FocusLost()
 
+" goyo
+autocmd User GoyoEnter call GoyoEnter()
+autocmd User GoyoLeave call GoyoLeave()
+
 " :help
 autocmd FileType help wincmd L
 
@@ -202,12 +185,14 @@ function! FocusGained()
         set laststatus=2
     endif
 
-    let w:focus = 1
-    let g:buftabline_show = 1
-    call buftabline#update(0)
+    if !exists('#goyo')
+        let w:focus = 1
+        let g:buftabline_show = 1
+        call buftabline#update(0)
+    endif
 
-    highlight StatusTime ctermfg=0 ctermbg=6    cterm=bold
-    highlight StatusLines ctermfg=0 ctermbg=7    cterm=bold
+    hi StatusTime  ctermfg=0 ctermbg=6 guifg=#232530 guibg=#bfc4f2 cterm=bold
+    hi StatusLines ctermfg=0 ctermbg=7 guifg=#232530 guibg=#F9CEC3 cterm=bold
 endfunction
 
 function! FocusLost()
@@ -215,12 +200,14 @@ function! FocusLost()
         set laststatus=0
     endif
 
-    let w:focus = 0
-    let g:buftabline_show = 0
-    call buftabline#update(0)
+    if !exists('#goyo')
+        let w:focus = 0
+        let g:buftabline_show = 0
+        call buftabline#update(0)
+    endif
 
-    highlight StatusTime ctermfg=0 ctermbg=none cterm=bold
-    highlight StatusLines ctermfg=0 ctermbg=none cterm=bold
+    hi StatusTime  ctermfg=0 ctermbg=NONE guifg=#232530 guibg=NONE cterm=bold
+    hi StatusLines ctermfg=0 ctermbg=NONE guifg=#232530 guibg=NONE cterm=bold
 endfunction
 
 " status line
@@ -241,14 +228,14 @@ endfunction
 function! FileModified()
     if w:focus == 1
         if &modified == 1
-            highlight StatusFile ctermfg=0 ctermbg=1 cterm=bold
+            hi StatusFile ctermfg=0 ctermbg=1 guifg=#232530 guibg=#D65C78 cterm=bold
         else
-            highlight StatusFile ctermfg=0 ctermbg=2 cterm=bold
+            hi StatusFile ctermfg=0 ctermbg=2 guifg=#232530 guibg=#70B574 cterm=bold
         endif
 
         return "  " . expand('%:t') . " "
     else
-        highlight StatusFile ctermfg=0 ctermbg=8 cterm=bold
+        hi StatusFile ctermfg=0 ctermbg=8 guifg=#232530 guibg=#63798F cterm=bold
         return WindowCenter(expand('%:p'))
     endif
 endfunction
@@ -256,11 +243,11 @@ endfunction
 function! LinesMode()
     if w:focus == 1
         if mode() == 'n'
-            highlight StatusMode ctermfg=0 ctermbg=7 cterm=bold
+            hi StatusMode ctermfg=0 ctermbg=7 guifg=#232530 guibg=#F9CEC3 cterm=bold
         elseif mode() == 'i'
-            highlight StatusMode ctermfg=0 ctermbg=4 cterm=bold
+            hi StatusMode ctermfg=0 ctermbg=4 guifg=#232530 guibg=#15A6B1 cterm=bold
         elseif mode() =~ '\v(v|V)' || mode() == "\<c-v>"
-            highlight StatusMode ctermfg=0 ctermbg=5 cterm=bold
+            hi StatusMode ctermfg=0 ctermbg=5 guifg=#232530 guibg=#B08CCC cterm=bold
             return "  " . line('v') . "-" . line('.') . " "
         endif
     else
@@ -272,7 +259,7 @@ endfunction
 
 function! Time()
     if w:focus == 1
-        highlight StatusTime ctermfg=0 ctermbg=6 cterm=bold
+        hi StatusTime ctermfg=0 ctermbg=6 guifg=#232530 guibg=#bfc4f2 cterm=bold
         return "  " . strftime('%I:%M %p') . " "
     else
         return ""
@@ -292,7 +279,32 @@ endfunction
 function! SyntaxGroup()
     let l:s = synID(line('.'), col('.'), 1)
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
-endfun
+endfunction
+
+" goyo
+function! GoyoEnter()
+    set showtabline=0
+    Pencil
+
+    let b:quitting = 0
+    let b:quitting_bang = 0
+    autocmd QuitPre <buffer> let b:quitting = 1
+    cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
+
+function! GoyoLeave()
+    set showtabline=1
+    call buftabline#update(0)
+    PencilOff
+
+    if b:quitting " && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+        if b:quitting_bang
+            qa!
+        else
+            qa
+        endif
+    endif
+endfunction
 
 " coc check for backspace
 function! CheckBackspace()
