@@ -176,8 +176,12 @@ autocmd User GoyoLeave call GoyoLeave()
 " :help
 autocmd FileType help wincmd L
 
-" markdown
-autocmd BufwritePost *.md silent !mdpdf %:p
+" markdown -> pdf
+autocmd BufwritePost *.md silent !file="%:p" && pandoc "$file"
+    \ --pdf-engine="xelatex"
+    \ -V "geometry:margin=1in"
+    \ -o $(sed 's/...$//' <<< "$file").pdf &
+
 
 " =============
 "   functions
