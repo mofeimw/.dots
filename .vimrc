@@ -178,6 +178,7 @@ autocmd FileType help wincmd L
 
 " markdown -> pdf
 autocmd BufwritePost *.md silent !file="%:p" && pandoc "$file"
+    \ -f "commonmark"
     \ --pdf-engine="xelatex"
     \ -V "geometry:margin=1in"
     \ -o $(sed 's/...$//' <<< "$file").pdf &
