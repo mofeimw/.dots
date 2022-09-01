@@ -293,6 +293,7 @@ endfunction
 function! GoyoEnter()
     set showtabline=0
     Pencil
+    CocDisable
     set list
 
     let b:quitting = 0
@@ -305,6 +306,7 @@ function! GoyoLeave()
     set showtabline=1
     call buftabline#update(0)
     PencilOff
+    CocEnable
 
     if b:quitting " && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
         if b:quitting_bang
