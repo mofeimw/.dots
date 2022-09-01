@@ -157,11 +157,6 @@ inoremap <expr> <tab> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "
 inoremap <expr> <s-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<c-h>"
 inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<cr>"
 
-" common typos
-iabbrev adn and
-iabbrev teh the
-iabbrev waht what
-
 " =============
 " autocommands
 " =============
@@ -292,8 +287,8 @@ endfunction
 " goyo
 function! GoyoEnter()
     set showtabline=0
-    Pencil
-    CocDisable
+    silent Pencil
+    silent CocDisable
     set list
 
     let b:quitting = 0
@@ -305,8 +300,8 @@ endfunction
 function! GoyoLeave()
     set showtabline=1
     call buftabline#update(0)
-    PencilOff
-    CocEnable
+    silent PencilOff
+    silent CocEnable
 
     if b:quitting " && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
         if b:quitting_bang
