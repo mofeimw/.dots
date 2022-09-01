@@ -292,6 +292,7 @@ endfunction
 function! GoyoEnter()
     set showtabline=0
     Pencil
+    set list
 
     let b:quitting = 0
     let b:quitting_bang = 0
