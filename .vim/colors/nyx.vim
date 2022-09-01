@@ -69,6 +69,7 @@ exe "hi Statement           guifg=" t5
 exe "hi StatusLine          guifg=" t8 "guibg=" t0 "cterm=NONE"
 exe "hi StatusLineNC        guifg=" t0
 exe "hi String              guifg=" t6
+exe "hi Title               guifg=" t2
 exe "hi Todo                guifg=" t0 "guibg=" t6
 exe "hi Type                guifg=" t2
 exe "hi VertSplit           guifg=" t0 "guibg=NONE cterm=NONE"
@@ -92,6 +93,10 @@ exe "hi htmlSpecialTagName  guifg=" t1
 exe "hi htmlTag             guifg=" t4
 exe "hi htmlTagName         guifg=" t1
 exe "hi htmlTitle           guifg=" t7
+exe "hi htmlItalic          guifg=" t6
+exe "hi htmlH1              guifg=" t1
+exe "hi htmlH2              guifg=" t2
+exe "hi htmlH3              guifg=" t3
 
 exe "hi cssBraces           guifg=" t8
 exe "hi cssClassName        guifg=" t4 "cterm=NONE"

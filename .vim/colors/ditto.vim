@@ -17,19 +17,19 @@ hi Boolean             ctermfg=3
 hi Comment             ctermfg=8
 hi Conditional         ctermfg=4
 hi Constant            ctermfg=6
-hi CursorLine          ctermfg=0 ctermbg=6 cterm=none
+hi CursorLine          ctermfg=0 ctermbg=6 cterm=NONE
 hi Debug               ctermfg=2
 hi Define              ctermfg=5
 hi Delimiter           ctermfg=4
 hi Directory           ctermfg=3
 hi EndOfBuffer         ctermfg=0
-hi ErrorMsg            ctermfg=1 ctermbg=none
+hi ErrorMsg            ctermfg=1 ctermbg=NONE
 hi Exception           ctermfg=8
 hi Function            ctermfg=5 cterm=bold
-hi Identifier          ctermfg=4 cterm=none
+hi Identifier          ctermfg=4 cterm=NONE
 hi LineNr              ctermfg=8
 hi Macro               ctermfg=2
-hi MatchParen          ctermfg=6 ctermbg=none cterm=bold
+hi MatchParen          ctermfg=6 ctermbg=NONE cterm=bold
 hi MoreMsg             ctermfg=2
 hi Noise               ctermfg=8
 hi NonText             ctermfg=8
@@ -48,12 +48,13 @@ hi SpecialKey          ctermfg=8
 hi SpellBad            ctermfg=0 ctermbg=1
 hi SpellCap            ctermfg=3 ctermbg=1
 hi Statement           ctermfg=5
-hi StatusLine          ctermfg=8 ctermbg=0 cterm=none
+hi StatusLine          ctermfg=8 ctermbg=0 cterm=NONE
 hi StatusLineNC        ctermfg=0
 hi String              ctermfg=6
+hi Title               ctermfg=2
 hi Todo                ctermfg=0 ctermbg=6
 hi Type                ctermfg=2
-hi VertSplit           ctermfg=0 ctermbg=none cterm=none
+hi VertSplit           ctermfg=0 ctermbg=NONE cterm=NONE
 hi Visual              ctermfg=0 ctermbg=6
 hi WarningMsg          ctermfg=1
 hi WildMenu            ctermfg=0 ctermbg=6 cterm=bold
@@ -63,7 +64,7 @@ hi shDerefSimple       ctermfg=1
 hi shDerefVar          ctermfg=1
 hi shDerefVarArray     ctermfg=1
 hi shDerefWordError    ctermfg=3
-hi shFunctionone       ctermfg=6
+hi shFunctioNONE       ctermfg=6
 hi shLoop              ctermfg=2
 hi shQuote             ctermfg=6
 hi shRange             ctermfg=2
@@ -74,10 +75,14 @@ hi htmlSpecialTagName  ctermfg=1
 hi htmlTag             ctermfg=4
 hi htmlTagName         ctermfg=1
 hi htmlTitle           ctermfg=7
+hi htmlItalic          ctermfg=6
+hi htmlH1              ctermfg=1
+hi htmlH2              ctermfg=2
+hi htmlH3              ctermfg=3
 
 hi cssBraces           ctermfg=8
-hi cssClassName        ctermfg=4 cterm=none
-hi cssIdentifier       ctermfg=1 cterm=none
+hi cssClassName        ctermfg=4 cterm=NONE
+hi cssIdentifier       ctermfg=1 cterm=NONE
 hi cssProp             ctermfg=7
 hi cssTagName          ctermfg=5
 hi cssUnitDecorators   ctermfg=6
@@ -99,7 +104,7 @@ hi markdownHeadingRule ctermfg=8
 
 hi StatusFile       ctermfg=0    ctermbg=2    cterm=bold
 hi StatusLines      ctermfg=0    ctermbg=7    cterm=bold
-hi StatusBackground ctermfg=none ctermbg=none cterm=bold
+hi StatusBackground ctermfg=NONE ctermbg=NONE cterm=bold
 hi StatusTime       ctermfg=0    ctermbg=6    cterm=bold
 
 hi BufTabLineCurrent ctermfg=0 ctermbg=6 cterm=bold
