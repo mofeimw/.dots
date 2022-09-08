@@ -66,7 +66,7 @@ Plug 'mofeimw/peek.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'preservim/vim-pencil'
-Plug 'reedes/vim-litecorrect'
+Plug 'preservim/vim-litecorrect'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-buftabline'
 Plug 'junegunn/fzf'
@@ -115,7 +115,6 @@ nnoremap <c-p> "+p
 " ui
 nnoremap <silent> <leader>s :set number!<cr>
 nnoremap <silent> <leader>h :set hlsearch!<cr>
-nnoremap <silent> <leader>k :set spell!<cr>
 
 " show highlight/syntax groups
 nnoremap <leader>? :call SyntaxGroup()<cr>
@@ -133,6 +132,7 @@ nmap <silent> gi <plug>(coc-implementation)
 nmap <silent> gr <plug>(coc-references)
 
 " writing
+nnoremap <silent> <leader>k :set spell!<cr>
 nnoremap <silent> <leader>g :Goyo<cr>
 nnoremap <silent> <leader>l :Limelight!!<cr>
 
@@ -181,7 +181,6 @@ autocmd BufwritePost *.md silent !file="%:p" && pandoc "$file"
 
 " disable autocomplete
 autocmd FileType text,markdown execute "silent CocDisable"
-autocmd BufEnter * if empty(&filetype) | execute "silent CocDisable" | endif
 
 " =============
 "   functions
