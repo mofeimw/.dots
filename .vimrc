@@ -113,7 +113,7 @@ nnoremap <c-y> "+y
 nnoremap <c-p> "+p
 
 " ui
-nnoremap <silent> <leader>s :set number!<cr>
+nnoremap <silent> <leader>k :set number!<cr>
 nnoremap <silent> <leader>h :set hlsearch!<cr>
 
 " show highlight/syntax groups
@@ -132,7 +132,7 @@ nmap <silent> gi <plug>(coc-implementation)
 nmap <silent> gr <plug>(coc-references)
 
 " writing
-nnoremap <silent> <leader>k :set spell!<cr>
+nnoremap <silent> <leader>s :set spell!<cr>
 nnoremap <silent> <leader>g :Goyo<cr>
 nnoremap <silent> <leader>l :Limelight!!<cr>
 
