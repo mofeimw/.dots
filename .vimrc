@@ -66,6 +66,7 @@ Plug 'mofeimw/peek.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'preservim/vim-pencil'
+Plug 'reedes/vim-litecorrect'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-buftabline'
 Plug 'junegunn/fzf'
@@ -178,6 +179,9 @@ autocmd BufwritePost *.md silent !file="%:p" && pandoc "$file"
     \ -V "geometry:margin=1in"
     \ -o $(sed 's/...$//' <<< "$file").pdf &
 
+" disable autocomplete
+autocmd FileType text,markdown execute "silent CocDisable"
+autocmd BufEnter * if empty(&filetype) | execute "silent CocDisable" | endif
 
 " =============
 "   functions
