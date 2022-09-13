@@ -117,6 +117,9 @@ exe "hi markdownH1          guifg=" t4
 exe "hi markdownH2          guifg=" t3
 exe "hi markdownH3          guifg=" t6
 exe "hi markdownHeadingRule guifg=" t8
+exe "hi mkdLineBreak        guifg=" t0
+
+exe "hi CSVDelimiter        guifg=" t8
 
 " ....................................
 

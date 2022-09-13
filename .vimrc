@@ -27,6 +27,7 @@ set noshowmode
 set notermguicolors
 set shiftround
 set shiftwidth=4
+set shortmess-=S
 set showbreak=↪
 set smartcase
 set smarttab

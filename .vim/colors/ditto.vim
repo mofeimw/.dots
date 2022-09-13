@@ -99,7 +99,9 @@ hi markdownH1          ctermfg=4
 hi markdownH2          ctermfg=3
 hi markdownH3          ctermfg=6
 hi markdownHeadingRule ctermfg=8
-hi link mkdLineBreak   NONE
+hi mkdLineBreak        ctermbg=0
+
+hi CSVDelimiter        ctermfg=8
 
 " ..............................
 
