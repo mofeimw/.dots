@@ -180,6 +180,9 @@ autocmd BufwritePost *.md silent !file="%:p" && pandoc "$file"
     \ -V "geometry:margin=1in"
     \ -o $(sed 's/...$//' <<< "$file").pdf &
 
+" LaTeX -> pdf
+autocmd BufwritePost *.tex silent !file="%:p" && pdflatex "$file" > /dev/null 2>&1
+
 " disable autocomplete
 autocmd FileType text,markdown execute "silent CocDisable"
 
