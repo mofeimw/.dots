@@ -181,7 +181,7 @@ autocmd BufwritePost *.md silent !file="%:p" && pandoc "$file"
     \ -o $(sed 's/...$//' <<< "$file").pdf &
 
 " LaTeX -> pdf
-autocmd BufwritePost *.tex silent !file="%:p" && pdflatex "$file" > /dev/null 2>&1
+autocmd BufwritePost *.tex silent !file="%:p" && pdflatex -halt-on-error "$file" > /dev/null 2>&1
 
 " disable autocomplete
 autocmd FileType text,markdown execute "silent CocDisable"
