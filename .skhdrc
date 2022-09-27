@@ -14,6 +14,7 @@ leader < space : $HOME/.circus/mousetoxin
 # ================================ apps =================================
 leader < z : skhd -k escape;                 open /Applications/Kitty.app
 leader < f : skhd -k escape; open /System/Library/CoreServices/Finder.app
+leader < m : skhd -k escape;       open /System/Applications/Messages.app
 leader < n : skhd -k escape;          open /System/Applications/Notes.app
 leader < x : skhd -k escape;               open /Applications/Spotify.app
 leader < c : skhd -k escape;               open /Applications/Firefox.app
