@@ -1,14 +1,13 @@
 # ================ initialization ==================
-exec                                          sloppy
+exec                            $HOME/.circus/sloppy
 exec                                  rpws init 3 -k
 # --------------------------------------------------
 exec               sleep 2 && xmodmap $HOME/.Xmodmap
-exec killall -q evrouter; evrouter /dev/input/event7
+exec killall -q evrouter; evrouter /dev/input/event8
 # --------------------------------------------------
 exec   wal --backend wal -i $HOME/Pictures/wallpaper
 exec                 sleep 1 && $HOME/.circus/rp_wal
 # --------------------------------------------------
-exec                                     polybar bar
 exec                                         picom &
 exec                  xsetroot -cursor_name left_ptr
 # ==================================================

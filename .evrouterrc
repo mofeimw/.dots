@@ -1,6 +1,6 @@
 # https://ubuntuforums.org/showthread.php?t=2182054
 # -----------------------------------------------------------------------------------------------------
-# echo 'KERNEL=="event*", NAME="input/%k", GROUP="input" | sudo tee /etc/udev/rules.d/80-evrouter.rules
+# echo 'KERNEL=="event*", NAME="input/%k", GROUP="input"' | sudo tee /etc/udev/rules.d/80-evrouter.rules
 # sudo addgroup input
 # sudo usermod -aG input ${USER}
 # evtest
@@ -8,4 +8,4 @@
 # ! ! ! /dev/input/event path MAY VARY ! ! !
 
 # fn -> control
-"Apple Inc. Apple Internal Keyboard / Trackpad" "/dev/input/event7" none key/464 "XKey/Control_L"
+"Apple Inc. Apple Internal Keyboard / Trackpad" "/dev/input/event8" none key/464 "XKey/Control_L"

@@ -57,6 +57,7 @@ alias circus="cd $CIRCUS"
 
 # echo ".dots" >> .gitignore
 # git clone --bare https://github.com/mofeimw/.dots $HOME/.dots
+# dots config --local status.showUntrackedFiles no
 # dots checkout
 alias dots="/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME"
 
