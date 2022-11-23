@@ -1,11 +1,10 @@
-" mofei's vimrc
+" ---------------
+"  _ _  _  |` _ ·
+" | | |(_)~|~(/_|
+" _______________
 
-" =============
-"   settings
-" =============
 colorscheme ditto
 
-" === general ===
 set autoindent
 set autoread
 set background=dark
@@ -43,7 +42,9 @@ set undofile
 set wildmenu
 set wrap
 
-" === variables ===
+" ===============
+"    variables
+" ===============
 let g:is_posix = 1
 let w:focus = 1
 
@@ -52,7 +53,6 @@ let &t_SI = "\e[6 q"
 " block cursor everywhere else
 let &t_EI = "\e[2 q"
 
-" plugins
 let g:limelight_conceal_ctermfg = '8'
 let g:pencil#wrapModeDefault = "soft"
 let g:floaterm_title = ""
@@ -61,13 +61,18 @@ let g:buftabline_show = 1
 " =============
 "    plugins
 " =============
+" install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/plugged')
 Plug 'mofeimw/cirque.vim'
 Plug 'mofeimw/peek.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'preservim/vim-pencil'
-Plug 'preservim/vim-litecorrect'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-buftabline'
 Plug 'junegunn/fzf'
@@ -78,31 +83,13 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " =============
-"     maps
+"    keymaps
 " =============
+" prefix keys
 let mapleader = "\<space>"
-
-" === normal mode ===
-" window prefix key
 nnoremap <c-x> <c-w>
 
-" buffers
-nnoremap <leader>n :bnext<cr>
-nnoremap <leader>p :bprevious<cr>
-nnoremap <silent> <leader>w :bdelete<cr>
-" toggle last two buffers
-nnoremap <leader>. <c-^>
-
-nmap <leader>1 <plug>BufTabLine.Go(1)
-nmap <leader>2 <plug>BufTabLine.Go(2)
-nmap <leader>3 <plug>BufTabLine.Go(3)
-nmap <leader>4 <plug>BufTabLine.Go(4)
-nmap <leader>5 <plug>BufTabLine.Go(5)
-nmap <leader>6 <plug>BufTabLine.Go(6)
-nmap <leader>7 <plug>BufTabLine.Go(7)
-nmap <leader>8 <plug>BufTabLine.Go(8)
-nmap <leader>9 <plug>BufTabLine.Go(9)
-
+" === normal mode ===
 " editing
 nnoremap <backspace> x
 nnoremap _d "_d
@@ -113,32 +100,47 @@ nnoremap <c-c> "+y
 nnoremap <c-y> "+y
 nnoremap <c-p> "+p
 
-" ui
+" interface
 nnoremap <silent> <leader>k :set number!<cr>
 nnoremap <silent> <leader>h :set hlsearch!<cr>
-
-" show highlight/syntax groups
-nnoremap <leader>? :call SyntaxGroup()<cr>
-
-" --- plugins ---
-" fzf
-nnoremap <silent> <leader>f :Files<cr>
-nnoremap <silent> <leader>d :GFiles<cr>
-nnoremap <silent> <leader>b :Buffers<cr>
-
-" coc
-nmap <silent> gd <plug>(coc-definition)
-nmap <silent> gy <plug>(coc-type-definition)
-nmap <silent> gi <plug>(coc-implementation)
-nmap <silent> gr <plug>(coc-references)
 
 " writing
 nnoremap <silent> <leader>s :set spell!<cr>
 nnoremap <silent> <leader>g :Goyo<cr>
 nnoremap <silent> <leader>l :Limelight!!<cr>
 
+" buffers
+" toggle last two buffers
+nnoremap <leader>. <c-^>
+nnoremap <leader>n :bnext<cr>
+nnoremap <leader>p :bprevious<cr>
+nnoremap <silent> <leader>w :bdelete<cr>
+nmap <leader>1 <plug>BufTabLine.Go(1)
+nmap <leader>2 <plug>BufTabLine.Go(2)
+nmap <leader>3 <plug>BufTabLine.Go(3)
+nmap <leader>4 <plug>BufTabLine.Go(4)
+nmap <leader>5 <plug>BufTabLine.Go(5)
+nmap <leader>6 <plug>BufTabLine.Go(6)
+nmap <leader>7 <plug>BufTabLine.Go(7)
+nmap <leader>8 <plug>BufTabLine.Go(8)
+nmap <leader>9 <plug>BufTabLine.Go(9)
+
+" fzf
+nnoremap <silent> <leader>f :Files<cr>
+nnoremap <silent> <leader>d :GFiles<cr>
+nnoremap <silent> <leader>b :Buffers<cr>
+
+" CoC
+nmap <silent> gd <plug>(coc-definition)
+nmap <silent> gy <plug>(coc-type-definition)
+nmap <silent> gi <plug>(coc-implementation)
+nmap <silent> gr <plug>(coc-references)
+
 " floaterm
 nnoremap <silent> <leader>x :FloatermToggle<cr>
+
+" highlight/syntax group
+nnoremap <leader>? :call SyntaxGroup()<cr>
 
 " === visual mode ===
 " indention
@@ -154,14 +156,14 @@ vnoremap <c-y> "+y
 vnoremap _d "_d
 
 " === insert mode ===
-" coc
+" CoC
 inoremap <expr> <tab> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<tab>" : coc#refresh()
 inoremap <expr> <s-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<c-h>"
 inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<cr>"
 
-" =============
-" autocommands
-" =============
+" ==================
+"    autocommands
+" ==================
 " status line
 autocmd FocusGained,WinEnter * call FocusGained()
 autocmd FocusLost,WinLeave   * call FocusLost()
@@ -173,22 +175,22 @@ autocmd User GoyoLeave call GoyoLeave()
 " :help
 autocmd FileType help wincmd L
 
-" markdown -> pdf
+" markdown -> PDF
 autocmd BufwritePost *.md silent !file="%:p" && pandoc "$file"
     \ -f "commonmark"
     \ --pdf-engine="xelatex"
     \ -V "geometry:margin=1in"
     \ -o $(sed 's/...$//' <<< "$file").pdf &
 
-" LaTeX -> pdf
+" LaTeX -> PDF
 autocmd BufwritePost *.tex silent !file="%:p" && pdflatex -interaction=nonstopmode -halt-on-error "$file" > /dev/null 2>&1
 
 " disable autocomplete
 autocmd BufReadPre *.txt,*.md,*.tex let b:coc_suggest_disable = 1
 
-" =============
-"   functions
-" =============
+" ===============
+"    functions
+" ===============
 " focus
 function! FocusGained()
     if &laststatus != 2
@@ -285,7 +287,7 @@ function! WindowCenter(line)
     return l:centered
 endfunction
 
-" syntax/highlight group
+" highlight/syntax group
 function! SyntaxGroup()
     let l:s = synID(line('.'), col('.'), 1)
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
@@ -319,7 +321,7 @@ function! GoyoLeave()
     endif
 endfunction
 
-" coc check for backspace
+" CoC check for backspace
 function! CheckBackspace()
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
