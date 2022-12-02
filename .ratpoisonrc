@@ -1,15 +1,11 @@
 # ================ initialization ==================
-exec                            $HOME/.circus/sloppy
-exec                                  rpws init 3 -k
-# --------------------------------------------------
-exec               sleep 2 && xmodmap $HOME/.Xmodmap
-exec killall -q evrouter; evrouter /dev/input/event8
-# --------------------------------------------------
 exec   wal --backend wal -i $HOME/Pictures/wallpaper
 exec                 sleep 1 && $HOME/.circus/rp_wal
-# --------------------------------------------------
 exec                                         picom &
+exec                            $HOME/.circus/sloppy
+exec                                  rpws init 3 -k
 exec                  xsetroot -cursor_name left_ptr
+exec                                           kitty
 # ==================================================
 
 # ==================== keybinds ====================
@@ -89,7 +85,7 @@ alias reboot             exec reboot
 # ==================================
 
 # ============== settings ===============
-set font "Fira Code:size=12:style=medium"
+set font "Fira Code:size=14:style=medium"
 set msgwait                             1
 set warp                                0
 startup_message                       off

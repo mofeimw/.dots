@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=ratpoison
+Exec=/usr/bin/ratpoison
+Type=Application
