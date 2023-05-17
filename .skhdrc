@@ -16,7 +16,8 @@ leader < z : skhd -k escape;                 open /Applications/Kitty.app
 leader < f : skhd -k escape; open /System/Library/CoreServices/Finder.app
 leader < m : skhd -k escape;       open /System/Applications/Messages.app
 leader < n : skhd -k escape;          open /System/Applications/Notes.app
-leader < x : skhd -k escape;               open /Applications/Spotify.app
+leader < s : skhd -k escape;               open /Applications/Spotify.app
+leader < x : skhd -k escape;                 open /Applications/Emacs.app
 leader < c : skhd -k escape;               open /Applications/Firefox.app
 leader < v : skhd -k escape;    $HOME/.circus/oio /Applications/Skype.app
 # =======================================================================
@@ -78,3 +79,5 @@ leader < s : skhd -k escape; yabai -m space --focus 2
 leader < d : skhd -k escape; yabai -m space --focus 3
 leader < f : skhd -k escape; yabai -m space --focus 4
 # ===================================================
+shift + cmd - e : [ $(yabai -m query --spaces --space | jq .index) -eq 1 ] && yabai -m window --space 2 || yabai -m window --space 1
+leader < e      : skhd -k escape; [ $(yabai -m query --spaces --space | jq .index) -eq 1 ] && yabai -m window --space 2 || yabai -m window --space 1

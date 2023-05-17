@@ -11,6 +11,7 @@ set background=dark
 set backspace=indent,eol,start
 set confirm
 set expandtab
+set exrc
 set fillchars+=vert:\ 
 set hidden
 set history=666
@@ -78,7 +79,6 @@ Plug 'ap/vim-buftabline'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'voldikss/vim-floaterm'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
@@ -155,12 +155,6 @@ vnoremap <c-y> "+y
 " deletion
 vnoremap _d "_d
 
-" === insert mode ===
-" CoC
-inoremap <expr> <tab> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<tab>" : coc#refresh()
-inoremap <expr> <s-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<c-h>"
-inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<cr>"
-
 " ==================
 "    autocommands
 " ==================
@@ -180,13 +174,13 @@ autocmd BufwritePost *.md silent !file="%:p" && pandoc "$file"
     \ -f "commonmark"
     \ --pdf-engine="xelatex"
     \ -V "geometry:margin=1in"
-    \ -o $(sed 's/...$//' <<< "$file").pdf &
+    \ -o $(basename "$file" .md).pdf &
 
 " LaTeX -> PDF
 autocmd BufwritePost *.tex silent !file="%:p" && pdflatex -interaction=nonstopmode -halt-on-error "$file" > /dev/null 2>&1
 
 " disable autocomplete
-autocmd BufReadPre *.txt,*.md,*.tex let b:coc_suggest_disable = 1
+"!!!!!!!!!!autocmd BufReadPre *.txt,*.md,*.tex let b:coc_suggest_disable = 1
 
 " ===============
 "    functions
