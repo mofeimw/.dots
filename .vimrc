@@ -142,6 +142,9 @@ nnoremap <silent> <leader>x :FloatermToggle<cr>
 " highlight/syntax group
 nnoremap <leader>? :call SyntaxGroup()<cr>
 
+" === insert mode ===
+inoremap qq <esc>
+
 " === visual mode ===
 " indention
 vnoremap < <gv
