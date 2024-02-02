@@ -6,7 +6,7 @@ export PATH="/usr/local/bin:$HOME/.circus:$PATH"
 
 # prompt
 TYPEWRITTEN_DISABLE_RETURN_CODE="true"
-TYPEWRITTEN_SYMBOL="$"
+TYPEWRITTEN_SYMBOL=">"
 
 fpath+=$HOME/.zsh/typewritten
 autoload -U promptinit; promptinit

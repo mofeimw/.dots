@@ -38,7 +38,7 @@ set tabstop=4
 set timeoutlen=500
 set ttimeout
 set ttimeoutlen=60
-set undodir=~/.vim/undodir
+set undodir=~/.vim/undo
 set undofile
 set wildmenu
 set wrap
@@ -94,6 +94,8 @@ nnoremap <c-x> <c-w>
 nnoremap <backspace> x
 nnoremap _d "_d
 nnoremap x "_x
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
 
 " clipboard
 nnoremap <c-c> "+y
@@ -144,6 +146,7 @@ nnoremap <leader>? :call SyntaxGroup()<cr>
 
 " === insert mode ===
 inoremap qq <esc>
+inoremap jk <esc>
 
 " === visual mode ===
 " indention

@@ -1,0 +1,397 @@
+#+title: selene: greek goddess of the moon
+#+author: mofei
+** shell script
+#+begin_src shell :tangle ~/selene.sh :tangle-mode (identity #o755)
+#!/bin/sh
+#
+if [ "$1" = "launcher" ]; then
+    if [ $(ps aux | grep -v grep | grep -ci "emacsclient") -eq 0 ]; then
+        emacsclient -c
+    fi
+    emacsclient -e  "(select-frame-set-input-focus (selected-frame))"
+    exit
+elif [ "$1" = "diff" ]; then
+    diff ~/selene.org ~/selene/selene.org
+    exit
+elif [ "$1" = "tangle" ]; then
+    emacsclient -e '(org-babel-tangle-file "~/selene.org")'
+    exit
+elif [ "$1" = "kill" ]; then
+    emacsclient -e "(kill-emacs)"
+    exit
+elif [ "$1" = "restart" ]; then
+    emacsclient -e "(kill-emacs)"
+elif [ "$1" = "retangle" ]; then
+    emacsclient -e '(org-babel-tangle-file "~/selene.org")'
+    emacsclient -e "(kill-emacs)"
+fi
+
+emacs --daemon
+#+end_src
+
+** init.el
+#+begin_src emacs-lisp :tangle ~/.config/doom/init.el :mkdirp yes
+(doom! :input
+
+       :completion company ivy vertico
+
+       :ui doom doom-dashboard (emoji +unicode) hl-todo modeline ophints
+           (popup +defaults) (vc-gutter +pretty) vi-tilde-fringe workspaces zen
+
+       :editor (evil +everywhere) file-templates fold snippets word-wrap
+
+       :emacs dired electric undo vc
+
+       :term eshell shell term vterm
+
+       :checkers syntax
+
+       :tools biblio debugger docker ein (eval +overlay) lookup lsp
+              magit make pdf rgb tmux tree-sitter upload
+
+       :os (:if IS-MAC macos) tty
+
+       :lang (cc +lsp) common-lisp data emacs-lisp json javascript julia latex
+             markdown ocaml org python (ruby +rails) (rust +lsp) sh web yaml
+
+       :email
+
+       :app calendar
+
+       :config (default +bindings +smartparens))
+#+end_src
+
+** packages.el
+#+begin_src emacs-lisp :tangle ~/.config/doom/packages.el
+;; -*- no-byte-compile: t; -*-
+(package! rainbow-mode)
+(package! mixed-pitch)
+(package! devdocs)
+#+end_src
+
+** config.el
+*** general settings
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(setq doom-theme 'nyx
+      doom-font (font-spec :family "Fira Code" :size 13 :height 1.0)
+      doom-variable-pitch-font (font-spec :family "Palatino" :height 1.4)
+
+      fancy-splash-image "~/selene.png"
+      confirm-kill-emacs nil
+      display-line-numbers-type 'relative
+
+      comfy-modes '(org-mode devdocs-mode))
+
+(setq-default indent-tabs-mode nil
+              tab-width 4
+              tab-stop-list ()
+              indent-line-function 'insert-tab
+
+              python-indent-guess-indent-offset nil
+              python-indent-offset 4)
+
+(push '(fullscreen . maximized) default-frame-alist)
+#+end_src
+
+mac specific settings
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(when (equal system-type 'darwin)
+  ; make command [⌘] => meta & option [⌥] => super
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'super))
+#+end_src
+
+fix focus when starting emacsclient
+https://korewanetadesu.com/emacs-on-os-x.html
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(when (featurep 'ns)
+  (defun ns-raise-emacs ()
+    "Raise Emacs."
+    (ns-do-applescript "tell application \"Emacs\" to activate"))
+
+  (defun ns-raise-emacs-with-frame (frame)
+    "Raise Emacs and select the provided frame."
+    (with-selected-frame frame
+      (when (display-graphic-p)
+        (ns-raise-emacs))))
+
+  (add-hook 'after-make-frame-functions 'ns-raise-emacs-with-frame)
+
+  (when (display-graphic-p)
+    (ns-raise-emacs)))
+#+end_src
+
+popup rules
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(set-popup-rules!
+  '(("^\\*doom:vterm" :side bottom :size 0.32)))
+#+end_src
+
+*** keymaps
+misc.
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(map! :leader
+      "j" #'(lambda () (interactive) (find-file "~/selene.org"))
+      "v" #'+vterm/toggle
+      "d" #'devdocs-lookup
+
+      "r c" #'(lambda () (interactive) (selene/run-clang (buffer-file-name)))
+      "r p" #'(lambda () (interactive) (selene/run-python (buffer-file-name)))
+
+      "! l" #'flycheck-list-errors
+      "! n" #'flycheck-next-error
+      "! p" #'flycheck-previous-error)
+#+end_src
+
+evil
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(define-key evil-motion-state-map (kbd "C-`") 'evil-emacs-state)
+(define-key evil-emacs-state-map (kbd "C-`") 'evil-exit-emacs-state)
+#+end_src
+
+*** functions
+comfy line height for comfy serif font
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(defun selene/comfy-line-height ()
+  (when (member major-mode comfy-modes)
+    (setq-local line-spacing 6))
+  (when (not (member major-mode comfy-modes))
+    (setq-local line-spacing 6)))
+#+end_src
+
+run programs in vterm
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(defun selene/run-clang (file-name)
+  (interactive)
+  (vterm)
+  (set-buffer "*vterm*")
+  (term-send-raw-string (concat "clang++ -std=c++11 \"" file-name "\" && ./a.out\n")))
+
+(defun selene/run-python (file-name)
+  (interactive)
+  (vterm)
+  (set-buffer "*vterm*")
+  (term-send-raw-string (concat "python3 \"" file-name "\"\n")))
+#+end_src
+
+*** hooks
+comfy line height hook
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(add-hook 'buffer-list-update-hook 'selene/comfy-line-height)
+#+end_src
+
+2 space tab in lisp modes
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(add-hook 'lisp-mode-hook (lambda () (setq-local tab-width 2)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (setq-local tab-width 2)))
+#+end_src
+
+fix issue of small variable-pitch text after new client frame
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(add-hook 'server-after-make-frame-hook
+  (lambda ()
+    (setq-local mixed-pitch-set-height t)
+    (set-face-attribute 'variable-pitch nil :height 1.4)))
+#+end_src
+
+doom dashboard
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-loaded)
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-footer)
+
+(add-hook! '+doom-dashboard-functions :append
+  (insert "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" (+doom-dashboard--center +doom-dashboard--width "")))
+#+end_src
+
+misc.
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode) ; evil s functionality
+#+end_src
+
+*** org
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(setq org-directory "~/org/")
+(setq org-log-done 'time)
+#+end_src
+
+make org pretty
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(setq org-hide-emphasis-markers t)
+
+(font-lock-add-keywords 'org-mode
+  '(("^ *\\([-]\\) "
+    (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+#+end_src
+
+mixed-pitch for org
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(use-package! mixed-pitch
+  :hook (org-mode . mixed-pitch-mode)
+  :config
+    (setq mixed-pitch-set-height t)
+    (set-face-attribute 'variable-pitch nil :height 1.4))
+#+end_src
+
+org-capture
+#+begin_src emacs-lisp :tangle ~/.config/doom/config.el
+(setq org-default-notes-file (concat org-directory "/capture.org"))
+(map! :leader "x" #'org-capture)
+#+end_src
+
+** nyx colorscheme
+#+begin_src emacs-lisp :tangle ~/.config/doom/themes/nyx-theme.el :mkdirp yes
+(require 'doom-themes)
+
+(defgroup nyx-theme nil
+  "Options for doom-themes"
+  :group 'doom-themes)
+
+(def-doom-theme nyx
+  "A dark theme inspired by the moon"
+
+  ;; name        default   256       16
+  ((bg         '("#18131A" nil       nil            ))
+   (bg-alt     '("#18131A" nil       nil            ))
+   (base0      '("#261e29" "#261e29" "black"        ))
+   (base1      '("#2f2633" "#2f2633" "brightblack"  ))
+   (base2      '("#5e4b66" "#5e4b66" "brightblack"  ))
+   (base3      '("#745f7d" "#745f7d" "brightblack"  ))
+   (base4      '("#8b7694" "#8b7694" "brightblack"  ))
+   (base5      '("#9483a8" "#9483a8" "brightblack"  ))
+   (base6      '("#ae9fc9" "#ae9fc9" "brightblack"  ))
+   (base7      '("#b0bae3" "#b0bae3" "brightblack"  ))
+   (base8      '("#c0caf5" "#c0caf5" "white"        ))
+   (fg         '("#a9b1d6" "#a9b1d6" "white"        ))
+   (fg-alt     '("#c0caf5" "#c0caf5" "brightwhite"  ))
+
+   (grey       '("#8189af" "#8189af" "brightblack"  ))
+   (red        '("#f7768e" "#f7768e" "red"          ))
+   (orange     '("#ff9e64" "#ff9e64" "brightred"    ))
+   (green      '("#73daca" "#73daca" "green"        ))
+   (teal       '("#2ac3de" "#2ac3de" "brightgreen"  ))
+   (yellow     '("#e0af68" "#e0af68" "yellow"       ))
+   (blue       '("#7aa2f7" "#7aa2f7" "brightblue"   ))
+   (dark-blue  '("#565f89" "#565f89" "blue"         ))
+   (magenta    '("#bb9af7" "#bb9af7" "magenta"      ))
+   (violet     '("#9aa5ce" "#9aa5ce" "brightmagenta"))
+   (cyan       '("#b4f9f8" "#b4f9f8" "brightcyan"   ))
+   (dark-cyan  '("#7dcfff" "#7dcfff" "cyan"         ))
+
+   (highlight      cyan)
+   (vertical-bar   base2)
+   (selection      dark-blue)
+   (builtin        magenta)
+   (comments       base4)
+   (doc-comments   (doom-lighten comments 0.2))
+   (constants      violet)
+   (functions      green)
+   (keywords       blue)
+   (methods        cyan)
+   (operators      blue)
+   (type           red)
+   (strings        yellow)
+   (variables      magenta)
+   (numbers        magenta)
+   (region         (doom-darken magenta 0.8))
+   (error          red)
+   (warning        yellow)
+   (success        green)
+   (vc-modified    orange)
+   (vc-added       green)
+   (vc-deleted     red)
+
+   (modeline-fg     nil)
+   (modeline-fg-alt (doom-blend violet base4 0.2))
+
+   (modeline-bg (doom-darken bg-alt 0.2))
+   (modeline-bg-l base2)
+   (modeline-bg-inactive (doom-darken bg 0.1))
+   (modeline-bg-inactive-l `(,(doom-darken (car bg-alt) 0.05) ,@(cdr base1))))
+
+  ((font-lock-comment-face
+    :foreground comments
+    :weight 'regular)
+   (font-lock-doc-face
+    :inherit 'font-lock-comment-face
+    :foreground doc-comments
+    :weight 'regular)
+
+   ((line-number &override) :foreground base4)
+   ((line-number-current-line &override) :foreground cyan)
+
+   (doom-modeline-bar :background highlight)
+   (doom-modeline-project-dir :foreground violet :weight 'bold)
+   (doom-modeline-buffer-file :weight 'regular)
+
+   (mode-line :background modeline-bg :foreground modeline-fg)
+   (mode-line-inactive :background modeline-bg-inactive :foreground modeline-fg-alt)
+   (mode-line-emphasis :foreground highlight)
+
+   (magit-blame-heading :foreground orange :background bg-alt)
+   (magit-diff-removed :foreground (doom-darken red 0.2) :background (doom-blend red bg 0.1))
+   (magit-diff-removed-highlight :foreground red :background (doom-blend red bg 0.2) :bold bold)
+
+   (evil-ex-lazy-highlight :background base2)
+
+   (css-proprietary-property :foreground orange)
+   (css-property             :foreground green)
+   (css-selector             :foreground blue)
+
+   (markdown-markup-face     :foreground base5)
+   (markdown-header-face     :inherit 'bold :foreground red)
+   (markdown-code-face       :background base1)
+   (mmm-default-submode-face :background base1)
+
+   (org-block            :background (doom-darken bg-alt 0.2))
+   (org-level-1          :foreground base8 :weight 'bold :height 1.25)
+   (org-level-2          :foreground base7 :weight 'bold :height 1.1)
+   (org-level-3          :foreground base6 :bold bold :height 1.0)
+   (org-level-4          :foreground base5 :bold bold :height 1.0)
+   (org-ellipsis         :underline nil :background bg-alt     :foreground grey)
+   (org-quote            :background base1)
+   (org-checkbox-statistics-done :foreground base2 :weight 'normal)
+   (org-done nil)
+   (org-done :foreground green :weight 'normal)
+   (org-headline-done :foreground base3 :weight 'normal :strike-through t)
+   (org-date :foreground orange)
+   (org-code :foreground dark-blue)
+   (org-special-keyword :foreground base8 :underline t)
+   (org-document-title :foreground base8 :weight 'bold :height 1.5)
+   (org-document-info-keyword :foreground base4 :height 0.75)
+   (org-block-begin-line :foreground base4 :height 0.8)
+   (org-meta-line :foreground base4 :height 0.65)
+   (org-list-dt :foreground magenta)
+
+   (org-todo-keyword-faces
+    '(("TODO" :foreground base6 :weight normal :underline t)
+      ("WAITING" :foreground magenta :weight normal :underline t)
+      ("INPROGRESS" :foreground blue :weight normal :underline t)
+      ("DONE" :foreground green :weight normal :underline t)
+      ("CANCELLED" :foreground red :weight normal :underline t)))
+
+   (org-priority-faces '((65 :foreground orange)
+                         (66 :foreground yellow)
+                         (67 :foreground cyan)))
+
+   (helm-candidate-number :background blue :foreground bg)
+
+   (web-mode-current-element-highlight-face :background dark-blue :foreground bg)
+
+   (wgrep-face :background base1)
+
+   (ediff-current-diff-A        :foreground red   :background (doom-lighten red 0.8))
+   (ediff-current-diff-B        :foreground green :background (doom-lighten green 0.8))
+   (ediff-current-diff-C        :foreground blue  :background (doom-lighten blue 0.8))
+   (ediff-current-diff-Ancestor :foreground teal  :background (doom-lighten teal 0.8))
+
+   (tooltip :background base1 :foreground fg)
+
+   (ivy-posframe :background base0)
+
+   (lsp-ui-doc-background      :background base0)
+   (lsp-face-highlight-read    :background (doom-blend red bg 0.3))
+   (lsp-face-highlight-textual :inherit 'lsp-face-highlight-read)
+   (lsp-face-highlight-write   :inherit 'lsp-face-highlight-read)
+ ))
+#+end_src

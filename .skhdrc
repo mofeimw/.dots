@@ -17,7 +17,7 @@ leader < f : skhd -k escape; open /System/Library/CoreServices/Finder.app
 leader < m : skhd -k escape;       open /System/Applications/Messages.app
 leader < n : skhd -k escape;          open /System/Applications/Notes.app
 leader < s : skhd -k escape;               open /Applications/Spotify.app
-leader < x : skhd -k escape;                 open /Applications/Emacs.app
+leader < x : skhd -k escape;                     $HOME/selene.sh launcher
 leader < c : skhd -k escape;               open /Applications/Firefox.app
 leader < v : skhd -k escape;    $HOME/.circus/oio /Applications/Skype.app
 # =======================================================================
